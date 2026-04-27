@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { Box, Button, Circle, Collapsible, HStack, Stack, Text } from '@chakra-ui/react';
 import { ChevronDown } from 'lucide-react';
-import { navItems, settingsItem } from './navConfig';
+import { advisorNavItems, ownerNavItems, settingsItem } from './navConfig';
 import type { NavItem } from './navConfig';
+import type { ViewMode } from '../../App';
 
 interface AppSidebarProps {
+  viewMode: ViewMode;
   activeNav: string;
   onNavChange?: (nav: string) => void;
 }
@@ -100,7 +102,9 @@ function NavItemButton({
   );
 }
 
-export function AppSidebar({ activeNav, onNavChange }: AppSidebarProps) {
+export function AppSidebar({ viewMode, activeNav, onNavChange }: AppSidebarProps) {
+  const navItems = viewMode === 'advisor' ? advisorNavItems : ownerNavItems;
+  const brandSublabel = viewMode === 'advisor' ? 'Advisor' : null;
   const [expandedId, setExpandedId] = useState<string | null>('dashboard');
   const handleToggle = (id: string) =>
     setExpandedId(prev => (prev === id ? null : id));
@@ -130,9 +134,16 @@ export function AppSidebar({ activeNav, onNavChange }: AppSidebarProps) {
         <Circle size="32px" bg="brand.solid" color="white" rounded="md" fontWeight={700} fontSize="15px">
           B
         </Circle>
-        <Text fontSize="md" fontWeight={600} color="fg">
-          Brillian
-        </Text>
+        <Box>
+          <Text fontSize="md" fontWeight={600} color="fg" lineHeight="1.1">
+            Brillian
+          </Text>
+          {brandSublabel && (
+            <Text fontSize="11px" color="fg.subtle" lineHeight="1.1">
+              {brandSublabel}
+            </Text>
+          )}
+        </Box>
       </HStack>
 
       {/* Primary nav */}

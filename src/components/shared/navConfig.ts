@@ -1,5 +1,6 @@
 import {
   BarChart3,
+  Briefcase,
   CircleCheck,
   Compass,
   DollarSign,
@@ -7,6 +8,8 @@ import {
   FileText,
   LayoutGrid,
   Settings,
+  Users,
+  Workflow,
   Zap,
 } from 'lucide-react';
 import type { ComponentType, SVGProps } from 'react';
@@ -18,7 +21,7 @@ export interface NavItem {
   children?: { id: string; label: string }[];
 }
 
-export const navItems: NavItem[] = [
+export const ownerNavItems: NavItem[] = [
   { id: 'onboarding', label: 'Onboarding', Icon: Compass },
   {
     id: 'dashboard',
@@ -44,6 +47,13 @@ export const navItems: NavItem[] = [
   { id: 'actions', label: 'Action Items', Icon: CircleCheck },
   { id: 'documents', label: 'Documents', Icon: FileText },
   { id: 'reports', label: 'Reports', Icon: FileDown },
+];
+
+export const advisorNavItems: NavItem[] = [
+  { id: 'clients', label: 'Clients', Icon: Briefcase },
+  { id: 'pipeline', label: 'Pipeline', Icon: Workflow },
+  { id: 'reports', label: 'Reports', Icon: FileDown },
+  { id: 'team', label: 'Team', Icon: Users },
 ];
 
 export const settingsItem: NavItem = { id: 'settings', label: 'Settings', Icon: Settings };
