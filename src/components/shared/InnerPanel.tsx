@@ -14,7 +14,9 @@ import {
 import { Check, ChevronDown, Search } from 'lucide-react';
 import { clients, getClient } from '../Advisor/clientsData';
 import {
+  advisorActivitySubNav,
   advisorClientsSubNav,
+  advisorHomeSubNav,
   companyLenses,
   documentsSubNav,
   reportsSubNav,
@@ -245,6 +247,9 @@ function getPanelConfig({
   }
 
   // Advisor view
+  if (outerSection === 'home') {
+    return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600}>Home</Text>, items: advisorHomeSubNav };
+  }
   if (outerSection === 'clients') {
     if (selectedClientId) {
       return {
@@ -256,6 +261,9 @@ function getPanelConfig({
       header: <ClientSwitcher selectedClientId={null} onSelectClient={onSelectClient} />,
       items: advisorClientsSubNav,
     };
+  }
+  if (outerSection === 'activity') {
+    return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600}>Activity</Text>, items: advisorActivitySubNav };
   }
   if (outerSection === 'documents') {
     return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600}>Documents</Text>, items: documentsSubNav };

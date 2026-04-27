@@ -6,19 +6,26 @@ import OnboardingPage from './components/OnboardingPage/OnboardingPage';
 import Onboarding from './components/Onboarding/Onboarding';
 import { AdvisorClientsList } from './components/Advisor/AdvisorClientsList';
 import { AdvisorClientDetail } from './components/Advisor/AdvisorClientDetail';
-import { AdvisorDocuments } from './components/Advisor/AdvisorDocuments';
 import { Card } from './components/ui/Card';
 import type { ViewMode } from './components/shared/navConfig';
 
 export type { ViewMode } from './components/shared/navConfig';
 
-// Default selected inner-panel item per outer section
-const DEFAULT_INNER: Record<string, string> = {
-  home: 'dashboard',
-  clients: 'all',
-  documents: 'all',
-  reports: 'all',
-  settings: 'profile',
+// Default selected inner-panel item per outer section, per view mode.
+const DEFAULT_INNER: Record<ViewMode, Record<string, string>> = {
+  owner: {
+    home: 'dashboard',
+    documents: 'all',
+    reports: 'all',
+    settings: 'profile',
+  },
+  advisor: {
+    home: 'overview',
+    clients: 'all',
+    activity: 'all',
+    reports: 'all',
+    settings: 'profile',
+  },
 };
 
 function PlaceholderPage({ title, body }: { title: string; body: string }) {
@@ -46,19 +53,14 @@ function App() {
   const handleViewModeChange = (mode: ViewMode) => {
     setViewMode(mode);
     setSelectedClientId(null);
-    if (mode === 'advisor') {
-      setOuterSection('clients');
-      setInnerActiveId('all');
-    } else {
-      setOuterSection('home');
-      setInnerActiveId('dashboard');
-    }
+    setOuterSection('home');
+    setInnerActiveId(DEFAULT_INNER[mode].home);
   };
 
   const handleOuterSectionChange = (id: string) => {
     setOuterSection(id);
     setSelectedClientId(null);
-    setInnerActiveId(DEFAULT_INNER[id] ?? 'dashboard');
+    setInnerActiveId(DEFAULT_INNER[viewMode][id] ?? 'overview');
   };
 
   const handleSelectClient = (id: string | null) => {
@@ -91,6 +93,17 @@ function App() {
   };
 
   const renderAdvisorContent = () => {
+    if (outerSection === 'home') {
+      if (innerActiveId === 'tasks') {
+        return <PlaceholderPage title="My tasks" body="Action items assigned to you across the portfolio." />;
+      }
+      return (
+        <PlaceholderPage
+          title="Welcome back, Sarah"
+          body="Your personal advisor home — recent activity, upcoming deadlines, and quick access to clients needing attention will live here."
+        />
+      );
+    }
     if (outerSection === 'clients') {
       if (selectedClientId) {
         return (
@@ -110,8 +123,18 @@ function App() {
       }
       return <AdvisorClientsList onSelectClient={(id) => handleSelectClient(id)} />;
     }
-    if (outerSection === 'documents') {
-      return <AdvisorDocuments typeFilter={innerActiveId} />;
+    if (outerSection === 'activity') {
+      const subTitle =
+        innerActiveId === 'documents' ? 'Document uploads'
+        : innerActiveId === 'clients' ? 'Client changes'
+        : innerActiveId === 'reports' ? 'Reports & exports'
+        : 'All activity';
+      return (
+        <PlaceholderPage
+          title={subTitle}
+          body="A timeline of every change, login, document upload, and conversation across your portfolio."
+        />
+      );
     }
     return <PlaceholderPage title={titleFor(outerSection)} body="Section placeholder. Build this out next." />;
   };

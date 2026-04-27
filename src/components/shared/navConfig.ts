@@ -1,4 +1,5 @@
 import {
+  Activity,
   BarChart3,
   Briefcase,
   CircleCheck,
@@ -34,8 +35,9 @@ export const ownerOuterItems: NavItem[] = [
 ];
 
 export const advisorOuterItems: NavItem[] = [
+  { id: 'home', label: 'Home', Icon: Home },
   { id: 'clients', label: 'Clients', Icon: Briefcase },
-  { id: 'documents', label: 'Documents', Icon: FileText },
+  { id: 'activity', label: 'Activity', Icon: Activity },
   { id: 'reports', label: 'Reports', Icon: FileDown },
 ];
 
@@ -63,6 +65,22 @@ export const advisorClientsSubNav: NavItem[] = [
   { id: 'all', label: 'All clients', Icon: Briefcase },
   { id: 'pipeline', label: 'Pipeline', Icon: Workflow },
   { id: 'team', label: 'Team', Icon: Users },
+];
+
+// ===== Inner panel: advisor "Home" section sub-nav =====
+
+export const advisorHomeSubNav: NavItem[] = [
+  { id: 'overview', label: 'Overview', Icon: LayoutGrid },
+  { id: 'tasks', label: 'My tasks', Icon: CircleCheck },
+];
+
+// ===== Inner panel: advisor "Activity" section sub-nav =====
+
+export const advisorActivitySubNav: NavItem[] = [
+  { id: 'all', label: 'All activity', Icon: Activity },
+  { id: 'documents', label: 'Document uploads', Icon: FileText },
+  { id: 'clients', label: 'Client changes', Icon: Briefcase },
+  { id: 'reports', label: 'Reports & exports', Icon: FileDown },
 ];
 
 // ===== Inner panel: section sub-nav for placeholder pages =====
