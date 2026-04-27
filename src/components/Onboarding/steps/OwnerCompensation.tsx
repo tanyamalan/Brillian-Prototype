@@ -1,6 +1,6 @@
-import { SimpleGrid } from '@chakra-ui/react';
+import { SimpleGrid, Text } from '@chakra-ui/react';
 import { Coins } from 'lucide-react';
-import DidYouKnow from '../DidYouKnow';
+import DidYouKnow, { Source } from '../DidYouKnow';
 import { FormCard, FormField, StepHeader, StepLayout } from '../../ui/StepLayout';
 import { CheckboxGrid } from '../../ui/CheckboxGrid';
 import { CurrencyInput } from '../../ui/CurrencyInput';
@@ -47,9 +47,9 @@ export default function OwnerCompensation() {
             summary="Most owners systematically understate what their business actually earns."
             expandedContent={
               <>
-                <p>Tax returns are designed to minimize taxable income — not to showcase value. Buyers and lenders look at SDE, which adds back owner-specific expenses a new owner wouldn't incur.</p>
-                <p>Common add-backs: above-market owner salary, personal vehicle, family wages, one-time legal fees, and discretionary travel.</p>
-                <p style={{ fontSize: '10px', color: 'var(--chakra-colors-fg-subtle)', marginTop: '10px', fontStyle: 'italic' }}>Source: Cornerstone Business Advisors</p>
+                <Text>Tax returns are designed to minimize taxable income — not to showcase value. Buyers and lenders look at SDE, which adds back owner-specific expenses a new owner wouldn't incur.</Text>
+                <Text>Common add-backs: above-market owner salary, personal vehicle, family wages, one-time legal fees, and discretionary travel.</Text>
+                <Source>Cornerstone Business Advisors</Source>
               </>
             }
           />

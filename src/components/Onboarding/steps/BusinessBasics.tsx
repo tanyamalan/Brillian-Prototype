@@ -1,6 +1,6 @@
-import { Input, NativeSelect, SimpleGrid } from '@chakra-ui/react';
+import { Input, NativeSelect, SimpleGrid, Text } from '@chakra-ui/react';
 import { Lightbulb } from 'lucide-react';
-import DidYouKnow from '../DidYouKnow';
+import DidYouKnow, { Source } from '../DidYouKnow';
 import { FormCard, FormField, StepHeader, StepLayout } from '../../ui/StepLayout';
 import { RadioCardGrid } from '../../ui/RadioCardGrid';
 
@@ -83,9 +83,9 @@ export default function BusinessBasics() {
             summary="Two businesses with identical profits can be worth wildly different amounts depending on the multiple their industry commands."
             expandedContent={
               <>
-                <p>SaaS companies routinely sell for 5–10× revenue, while traditional service businesses typically trade at 2–4× SDE (Seller's Discretionary Earnings).</p>
-                <p>That's why benchmarking against your specific industry — not just "all small businesses" — is the foundation of an accurate valuation.</p>
-                <p style={{ fontSize: '10px', color: 'var(--chakra-colors-fg-subtle)', marginTop: '10px', fontStyle: 'italic' }}>Source: BizBuySell Insight Report</p>
+                <Text>SaaS companies routinely sell for 5–10× revenue, while traditional service businesses typically trade at 2–4× SDE (Seller's Discretionary Earnings).</Text>
+                <Text>That's why benchmarking against your specific industry — not just "all small businesses" — is the foundation of an accurate valuation.</Text>
+                <Source>BizBuySell Insight Report</Source>
               </>
             }
           />

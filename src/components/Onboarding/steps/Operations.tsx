@@ -1,6 +1,6 @@
-import { Input, SimpleGrid } from '@chakra-ui/react';
+import { Input, SimpleGrid, Text } from '@chakra-ui/react';
 import { Settings as SettingsIcon } from 'lucide-react';
-import DidYouKnow from '../DidYouKnow';
+import DidYouKnow, { Source } from '../DidYouKnow';
 import { FormCard, FormField, StepHeader, StepLayout } from '../../ui/StepLayout';
 import { RadioCardGrid } from '../../ui/RadioCardGrid';
 import { CheckboxGrid } from '../../ui/CheckboxGrid';
@@ -54,9 +54,9 @@ export default function Operations() {
             summary="If the business can't run without you, you don't own a business — you own a job."
             expandedContent={
               <>
-                <p>Buyers pay a premium for businesses with documented systems, second-tier leadership, and recurring processes that don't require the owner.</p>
-                <p>Even taking a two-week vacation without checking in is a useful test. If things fall apart, that's information you can act on now.</p>
-                <p style={{ fontSize: '10px', color: 'var(--chakra-colors-fg-subtle)', marginTop: '10px', fontStyle: 'italic' }}>Source: UBS Investor Watch</p>
+                <Text>Buyers pay a premium for businesses with documented systems, second-tier leadership, and recurring processes that don't require the owner.</Text>
+                <Text>Even taking a two-week vacation without checking in is a useful test. If things fall apart, that's information you can act on now.</Text>
+                <Source>UBS Investor Watch</Source>
               </>
             }
           />

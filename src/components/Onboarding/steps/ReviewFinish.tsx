@@ -1,4 +1,4 @@
-import { Input, Textarea } from '@chakra-ui/react';
+import { Input, Text, Textarea } from '@chakra-ui/react';
 import { CheckCircle2 } from 'lucide-react';
 import DidYouKnow from '../DidYouKnow';
 import { FormCard, FormField, StepHeader, StepLayout } from '../../ui/StepLayout';
@@ -38,8 +38,8 @@ export default function ReviewFinish() {
             summary="Once you connect your books, valuation, health score, and benchmarks refresh automatically every month."
             expandedContent={
               <>
-                <p>That means you'll see the impact of every decision — a price increase, a new hire, a paid-down loan — reflected in your enterprise value within weeks.</p>
-                <p>Your advisor sees the same numbers in real time, so conversations move from "what happened last quarter?" to "what should we do next?"</p>
+                <Text>That means you'll see the impact of every decision — a price increase, a new hire, a paid-down loan — reflected in your enterprise value within weeks.</Text>
+                <Text>Your advisor sees the same numbers in real time, so conversations move from "what happened last quarter?" to "what should we do next?"</Text>
               </>
             }
           />

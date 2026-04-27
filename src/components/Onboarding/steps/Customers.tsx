@@ -1,6 +1,6 @@
-import { Input, SimpleGrid } from '@chakra-ui/react';
+import { Input, SimpleGrid, Text } from '@chakra-ui/react';
 import { Users } from 'lucide-react';
-import DidYouKnow from '../DidYouKnow';
+import DidYouKnow, { Source } from '../DidYouKnow';
 import { FormCard, FormField, StepHeader, StepLayout } from '../../ui/StepLayout';
 import { RadioCardGrid } from '../../ui/RadioCardGrid';
 import { CheckboxGrid } from '../../ui/CheckboxGrid';
@@ -52,9 +52,9 @@ export default function Customers() {
             summary="Buyers price in the risk that the customer leaves the day after closing."
             expandedContent={
               <>
-                <p>Customer concentration is one of the first things buyers and lenders examine. A business doing $5M with one client at 40% will often be valued more like a $3M business.</p>
-                <p>The fix isn't just adding customers; it's diversifying revenue mix and building recurring contracts.</p>
-                <p style={{ fontSize: '10px', color: 'var(--chakra-colors-fg-subtle)', marginTop: '10px', fontStyle: 'italic' }}>Source: Capitaliz / Forbes</p>
+                <Text>Customer concentration is one of the first things buyers and lenders examine. A business doing $5M with one client at 40% will often be valued more like a $3M business.</Text>
+                <Text>The fix isn't just adding customers; it's diversifying revenue mix and building recurring contracts.</Text>
+                <Source>Capitaliz / Forbes</Source>
               </>
             }
           />

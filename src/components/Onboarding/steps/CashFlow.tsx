@@ -1,6 +1,6 @@
-import { SimpleGrid } from '@chakra-ui/react';
+import { SimpleGrid, Text } from '@chakra-ui/react';
 import { Wallet } from 'lucide-react';
-import DidYouKnow from '../DidYouKnow';
+import DidYouKnow, { Source } from '../DidYouKnow';
 import { FormCard, FormField, StepHeader, StepLayout } from '../../ui/StepLayout';
 import { RadioCardGrid } from '../../ui/RadioCardGrid';
 import { CurrencyInput } from '../../ui/CurrencyInput';
@@ -50,9 +50,9 @@ export default function CashFlow() {
             summary="Profitable businesses go under every day because cash arrives too slowly."
             expandedContent={
               <>
-                <p>Cash and profit are not the same thing. You can show $200K in annual profit while running out of money to make payroll, because that profit is locked up in unpaid invoices and inventory.</p>
-                <p>Shortening collections from 45 to 30 days on $1M in revenue frees up roughly $40K in working capital.</p>
-                <p style={{ fontSize: '10px', color: 'var(--chakra-colors-fg-subtle)', marginTop: '10px', fontStyle: 'italic' }}>Source: Relay Cash Flow Compass, 2024</p>
+                <Text>Cash and profit are not the same thing. You can show $200K in annual profit while running out of money to make payroll, because that profit is locked up in unpaid invoices and inventory.</Text>
+                <Text>Shortening collections from 45 to 30 days on $1M in revenue frees up roughly $40K in working capital.</Text>
+                <Source>Relay Cash Flow Compass, 2024</Source>
               </>
             }
           />

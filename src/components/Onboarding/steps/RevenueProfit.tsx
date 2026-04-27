@@ -1,6 +1,6 @@
-import { SimpleGrid } from '@chakra-ui/react';
+import { SimpleGrid, Text } from '@chakra-ui/react';
 import { TrendingUp } from 'lucide-react';
-import DidYouKnow from '../DidYouKnow';
+import DidYouKnow, { Source } from '../DidYouKnow';
 import { FormCard, FormField, StepHeader, StepLayout } from '../../ui/StepLayout';
 import { RadioCardGrid } from '../../ui/RadioCardGrid';
 import { CurrencyInput } from '../../ui/CurrencyInput';
@@ -45,9 +45,9 @@ export default function RevenueProfit() {
             summary="Because valuation is a multiple of profit, every dollar of margin compounds when you sell."
             expandedContent={
               <>
-                <p>If your business does $2M in revenue at a 10% net margin, you have $200K in profit. At a 4× multiple, that's an $800K business.</p>
-                <p>Lift margin to 15% — same revenue, $300K profit — and the business is now worth $1.2M. A 50% margin improvement created a 50% higher sale price, no growth required.</p>
-                <p style={{ fontSize: '10px', color: 'var(--chakra-colors-fg-subtle)', marginTop: '10px', fontStyle: 'italic' }}>Source: Exit Planning Institute</p>
+                <Text>If your business does $2M in revenue at a 10% net margin, you have $200K in profit. At a 4× multiple, that's an $800K business.</Text>
+                <Text>Lift margin to 15% — same revenue, $300K profit — and the business is now worth $1.2M. A 50% margin improvement created a 50% higher sale price, no growth required.</Text>
+                <Source>Exit Planning Institute</Source>
               </>
             }
           />

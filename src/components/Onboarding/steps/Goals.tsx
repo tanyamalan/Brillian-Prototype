@@ -1,5 +1,6 @@
+import { Text } from '@chakra-ui/react';
 import { Clock } from 'lucide-react';
-import DidYouKnow from '../DidYouKnow';
+import DidYouKnow, { Source } from '../DidYouKnow';
 import { FormCard, FormField, StepHeader, StepLayout } from '../../ui/StepLayout';
 import { RadioCardGrid } from '../../ui/RadioCardGrid';
 import { CurrencyInput } from '../../ui/CurrencyInput';
@@ -46,9 +47,9 @@ export default function Goals() {
             summary="Most regret comes from selling without a clear plan — financial, operational, or personal."
             expandedContent={
               <>
-                <p>Owners who start exit planning 3+ years in advance net 25–50% more on their sale than those who scramble in the final months.</p>
-                <p>Even if you never plan to sell, building the business as if you will makes it stronger, more resilient, and more enjoyable to own.</p>
-                <p style={{ fontSize: '10px', color: 'var(--chakra-colors-fg-subtle)', marginTop: '10px', fontStyle: 'italic' }}>Source: Exit Planning Institute</p>
+                <Text>Owners who start exit planning 3+ years in advance net 25–50% more on their sale than those who scramble in the final months.</Text>
+                <Text>Even if you never plan to sell, building the business as if you will makes it stronger, more resilient, and more enjoyable to own.</Text>
+                <Source>Exit Planning Institute</Source>
               </>
             }
           />

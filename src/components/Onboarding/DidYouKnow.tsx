@@ -10,6 +10,15 @@ interface DidYouKnowProps {
   expandedContent: React.ReactNode;
 }
 
+/** Italic source citation line for use inside DidYouKnow's expandedContent. */
+export function Source({ children }: { children: React.ReactNode }) {
+  return (
+    <Text fontSize="10px" color="fg.subtle" fontStyle="italic" mt="1">
+      Source: {children}
+    </Text>
+  );
+}
+
 export default function DidYouKnow({ Icon, headline, summary, expandedContent }: DidYouKnowProps) {
   const [open, setOpen] = useState(false);
 
