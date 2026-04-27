@@ -41,8 +41,7 @@ function RailItem({
     >
       <Box
         className="rail-icon"
-        w="44px"
-        h="32px"
+        boxSize="40px"
         rounded="md"
         bg={active ? 'border' : 'transparent'}
         display="flex"
