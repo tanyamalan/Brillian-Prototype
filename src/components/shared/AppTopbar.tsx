@@ -21,16 +21,21 @@ interface AppTopbarProps {
 }
 
 function UserMenu({ viewMode, onViewModeChange }: AppTopbarProps) {
-  const userName = viewMode === 'advisor' ? 'Sarah K.' : 'John R.';
-  const userRole = viewMode === 'advisor' ? 'Brillian Advisor' : 'Acme Owner';
-  const userInitials = viewMode === 'advisor' ? 'SK' : 'JR';
+  // In advisor mode the chip represents the advisory firm (logo + "Advisor" role).
+  // In owner mode it represents the individual user.
+  const isAdvisor = viewMode === 'advisor';
+  const userName = isAdvisor ? 'Edward Jones' : 'John R.';
+  const userRole = isAdvisor ? 'Advisor' : 'Acme Owner';
+  const userInitials = isAdvisor ? 'EJ' : 'JR';
+  const avatarBg = isAdvisor ? 'brl.warning' : 'bg.subtle';
+  const avatarFg = isAdvisor ? 'white' : 'fg.muted';
 
   return (
     <Menu.Root>
       <Menu.Trigger asChild>
         <Button variant="ghost" h="11" px="2" gap="2" rounded="sm" _hover={{ bg: 'bg.dim' }}>
-          <Avatar.Root size="sm" bg="bg.subtle">
-            <Avatar.Fallback color="fg.muted" fontWeight={600} fontSize="14px">
+          <Avatar.Root size="sm" bg={avatarBg}>
+            <Avatar.Fallback color={avatarFg} fontWeight={700} fontSize="14px">
               {userInitials}
             </Avatar.Fallback>
           </Avatar.Root>
