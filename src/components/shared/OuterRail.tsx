@@ -23,20 +23,36 @@ function RailItem({
       variant="ghost"
       h="auto"
       px="0"
-      py="2"
+      py="1"
       w={{ base: 'auto', md: 'full' }}
       minW={{ base: '14', md: 'auto' }}
       flexDir="column"
       gap="1"
-      rounded="sm"
+      rounded="md"
       bg="transparent"
-      color={active ? 'brand.solid' : 'fg.muted'}
-      _hover={{ bg: 'bg.dim', color: 'fg' }}
+      color={active ? 'fg' : 'fg.muted'}
       fontWeight={active ? 600 : 500}
+      // Pill-style hover/active highlight wraps just the icon, not the label.
+      _hover={{
+        '& .rail-icon': { bg: 'bg.subtle' },
+        color: 'fg',
+      }}
       onClick={onClick}
     >
-      <Icon size={22} />
-      <Text fontSize="10px" lineHeight="1.1">
+      <Box
+        className="rail-icon"
+        w="44px"
+        h="32px"
+        rounded="md"
+        bg={active ? 'border' : 'transparent'}
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        transition="background-color 0.15s ease"
+      >
+        <Icon size={20} strokeWidth={active ? 2.25 : 2} />
+      </Box>
+      <Text fontSize="11px" lineHeight="1.1">
         {item.label}
       </Text>
     </Button>
