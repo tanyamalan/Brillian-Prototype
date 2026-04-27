@@ -62,14 +62,18 @@ function App() {
   };
 
   const handleSelectClient = (id: string | null) => {
-    setSelectedClientId(id);
-    // When a client is picked from anywhere, reset their lens to "dashboard".
     if (id) {
-      setInnerActiveId('dashboard');
       setOuterSection('clients');
+      // First-time selection (coming from the clients list) lands on Dashboard.
+      // Switching from one client to another preserves whatever lens the
+      // advisor was already on (e.g. Documents → Documents).
+      if (!selectedClientId) {
+        setInnerActiveId('dashboard');
+      }
     } else {
       setInnerActiveId('all');
     }
+    setSelectedClientId(id);
   };
 
   const renderOwnerContent = () => {
