@@ -21,29 +21,35 @@ interface AppTopbarProps {
 }
 
 function UserMenu({ viewMode, onViewModeChange }: AppTopbarProps) {
-  // In advisor mode the chip represents the advisory firm (logo + "Advisor" role).
-  // In owner mode it represents the individual user.
+  // Advisor mode: avatar is the firm logo (EJ, yellow); text is name / company / role.
+  // Owner mode: avatar is the user; text is name / role.
   const isAdvisor = viewMode === 'advisor';
-  const userName = isAdvisor ? 'Edward Jones' : 'John R.';
+  const userName = isAdvisor ? 'Sarah K.' : 'John R.';
+  const userCompany = isAdvisor ? 'Edward Jones' : null;
   const userRole = isAdvisor ? 'Advisor' : 'Acme Owner';
-  const userInitials = isAdvisor ? 'EJ' : 'JR';
+  const avatarInitials = isAdvisor ? 'EJ' : 'JR';
   const avatarBg = isAdvisor ? 'brl.warning' : 'bg.subtle';
   const avatarFg = isAdvisor ? 'white' : 'fg.muted';
 
   return (
     <Menu.Root>
       <Menu.Trigger asChild>
-        <Button variant="ghost" h="11" px="2" gap="2" rounded="sm" _hover={{ bg: 'bg.dim' }}>
+        <Button variant="ghost" h="auto" minH="11" py="1" px="2" gap="2" rounded="sm" _hover={{ bg: 'bg.dim' }}>
           <Avatar.Root size="sm" bg={avatarBg}>
             <Avatar.Fallback color={avatarFg} fontWeight={700} fontSize="14px">
-              {userInitials}
+              {avatarInitials}
             </Avatar.Fallback>
           </Avatar.Root>
           <Box display={{ base: 'none', md: 'block' }} textAlign="left">
-            <Text fontSize="13px" fontWeight={600} color="fg" lineHeight="1.2">
+            <Text fontSize="13px" fontWeight={600} color="fg" lineHeight="1.15">
               {userName}
             </Text>
-            <Text fontSize="11px" color="fg.subtle" lineHeight="1.2">
+            {userCompany && (
+              <Text fontSize="11px" fontWeight={500} color="fg.muted" lineHeight="1.15">
+                {userCompany}
+              </Text>
+            )}
+            <Text fontSize="11px" color="fg.subtle" lineHeight="1.15">
               {userRole}
             </Text>
           </Box>
