@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, HStack, Text } from '@chakra-ui/react';
 import { ChevronRight } from 'lucide-react';
 import { Card } from '../ui/Card';
 
@@ -17,37 +17,63 @@ function OpportunityRow({
   showDivider: boolean;
 }) {
   return (
-    <Flex
-      align="center"
-      gap="4"
-      py="4"
-      borderBottomWidth={showDivider ? '1px' : 0}
-      borderColor="border"
-    >
-      <Box flex="1" minW="0">
-        <Text fontSize="14px" fontWeight={600} color="fg" mb="0.5">
-          {opportunity.name}
-        </Text>
-        <Text fontSize="12px" color="fg.muted" lineHeight="1.4">
+    <Box py="4" borderBottomWidth={showDivider ? '1px' : 0} borderColor="border">
+      {/* Desktop / tablet — single horizontal row */}
+      <Flex display={{ base: 'none', md: 'flex' }} align="center" gap="4">
+        <Box flex="1" minW="0">
+          <Text fontSize="14px" fontWeight={600} color="fg" mb="0.5">
+            {opportunity.name}
+          </Text>
+          <Text fontSize="12px" color="fg.muted" lineHeight="1.4">
+            {opportunity.desc}
+          </Text>
+        </Box>
+        <Box textAlign="right" flexShrink={0}>
+          <Text fontSize="14px" fontWeight={700} color="fg">
+            {opportunity.annual}
+          </Text>
+          <Text fontSize="10px" color="fg.subtle">Annual Value</Text>
+        </Box>
+        <Box textAlign="right" flexShrink={0}>
+          <Text fontSize="14px" fontWeight={700} color="brl.success">
+            {opportunity.ev}
+          </Text>
+          <Text fontSize="10px" color="fg.subtle">Enterprise Value</Text>
+        </Box>
+        <Box color="fg.subtle" flexShrink={0}>
+          <ChevronRight size={18} />
+        </Box>
+      </Flex>
+
+      {/* Mobile — stacked */}
+      <Box display={{ base: 'block', md: 'none' }}>
+        <Flex align="flex-start" gap="2" mb="1">
+          <Text fontSize="14px" fontWeight={600} color="fg" flex="1">
+            {opportunity.name}
+          </Text>
+          <Box color="fg.subtle" flexShrink={0} mt="0.5">
+            <ChevronRight size={16} />
+          </Box>
+        </Flex>
+        <Text fontSize="12px" color="fg.muted" lineHeight="1.4" mb="2">
           {opportunity.desc}
         </Text>
+        <HStack gap="4">
+          <Box>
+            <Text fontSize="14px" fontWeight={700} color="fg">
+              {opportunity.annual}
+            </Text>
+            <Text fontSize="10px" color="fg.subtle">Annual</Text>
+          </Box>
+          <Box>
+            <Text fontSize="14px" fontWeight={700} color="brl.success">
+              {opportunity.ev}
+            </Text>
+            <Text fontSize="10px" color="fg.subtle">Enterprise Value</Text>
+          </Box>
+        </HStack>
       </Box>
-      <Box textAlign="right" flexShrink={0}>
-        <Text fontSize="14px" fontWeight={700} color="fg">
-          {opportunity.annual}
-        </Text>
-        <Text fontSize="10px" color="fg.subtle">Annual Value</Text>
-      </Box>
-      <Box textAlign="right" flexShrink={0}>
-        <Text fontSize="14px" fontWeight={700} color="brl.success">
-          {opportunity.ev}
-        </Text>
-        <Text fontSize="10px" color="fg.subtle">Enterprise Value</Text>
-      </Box>
-      <Box color="fg.subtle" flexShrink={0}>
-        <ChevronRight size={18} />
-      </Box>
-    </Flex>
+    </Box>
   );
 }
 

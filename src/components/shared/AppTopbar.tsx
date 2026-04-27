@@ -12,15 +12,17 @@ import {
   Portal,
   Text,
 } from '@chakra-ui/react';
-import { ArrowLeftRight, Bell, ChevronDown, LogOut, Search, Settings, User } from 'lucide-react';
+import { ArrowLeftRight, Bell, ChevronDown, LogOut, Menu as MenuIcon, Search, Settings, User } from 'lucide-react';
 import type { ViewMode } from './navConfig';
 
 interface AppTopbarProps {
   viewMode: ViewMode;
   onViewModeChange: (mode: ViewMode) => void;
+  /** Mobile-only callback to open the inner panel as a drawer. */
+  onOpenMenu?: () => void;
 }
 
-function UserMenu({ viewMode, onViewModeChange }: AppTopbarProps) {
+function UserMenu({ viewMode, onViewModeChange }: Pick<AppTopbarProps, 'viewMode' | 'onViewModeChange'>) {
   // Advisor mode: avatar is the firm logo (EJ, yellow); text is name / company / role.
   // Owner mode: avatar is the user; text is name / role.
   const isAdvisor = viewMode === 'advisor';
@@ -53,7 +55,7 @@ function UserMenu({ viewMode, onViewModeChange }: AppTopbarProps) {
               {userRole}
             </Text>
           </Box>
-          <Box as={ChevronDown} color="fg.subtle" w="14px" h="14px" />
+          <Box as={ChevronDown} color="fg.subtle" w="14px" h="14px" display={{ base: 'none', md: 'block' }} />
         </Button>
       </Menu.Trigger>
       <Portal>
@@ -93,7 +95,7 @@ function UserMenu({ viewMode, onViewModeChange }: AppTopbarProps) {
   );
 }
 
-export function AppTopbar({ viewMode, onViewModeChange }: AppTopbarProps) {
+export function AppTopbar({ viewMode, onViewModeChange, onOpenMenu }: AppTopbarProps) {
   return (
     <Flex
       align="center"
@@ -103,13 +105,23 @@ export function AppTopbar({ viewMode, onViewModeChange }: AppTopbarProps) {
       borderBottomWidth="1px"
       borderColor="border"
       bg="bg"
-      gap="4"
+      gap="2"
       flexShrink={0}
     >
-      <HStack gap="4" flex="1">
+      <HStack gap={{ base: '2', md: '4' }} flex="1">
+        {/* Mobile-only hamburger to open the inner panel drawer */}
+        <IconButton
+          variant="ghost"
+          color="fg.muted"
+          aria-label="Open navigation"
+          display={{ base: 'inline-flex', md: 'none' }}
+          onClick={onOpenMenu}
+        >
+          <MenuIcon size={22} />
+        </IconButton>
         <InputGroup
           flex="1"
-          maxW="320px"
+          maxW={{ base: 'full', md: '320px' }}
           startElement={<Search size={16} color="var(--chakra-colors-fg-subtle)" />}
         >
           <Input placeholder="Search" bg="bg.dim" borderColor="border" />

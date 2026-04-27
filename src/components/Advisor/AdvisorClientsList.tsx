@@ -33,11 +33,12 @@ function ClientRow({ client, onClick }: { client: Client; onClick: () => void })
       _active={{ transform: 'translateY(1px)' }}
       onClick={onClick}
     >
+      {/* Desktop / tablet layout — single row with all columns */}
       <Flex
+        display={{ base: 'none', md: 'flex' }}
         align="center"
         gap="4"
-        p={{ base: '4', md: '5' }}
-        flexWrap={{ base: 'wrap', md: 'nowrap' }}
+        p="5"
       >
         <Circle size="44px" bg={client.logoColor} color="white" fontWeight={700} fontSize="16px" rounded="md" flexShrink={0}>
           {client.initials}
@@ -58,7 +59,7 @@ function ClientRow({ client, onClick }: { client: Client; onClick: () => void })
         </Box>
 
         {/* Valuation + goal progress */}
-        <Box minW="200px" flex={{ md: '0 0 200px' }}>
+        <Box minW="200px" flex="0 0 200px">
           <HStack gap="2" align="baseline" mb="1">
             <Text fontSize="16px" fontWeight={700} color="fg">
               {client.valuation}
@@ -91,10 +92,61 @@ function ClientRow({ client, onClick }: { client: Client; onClick: () => void })
           </Text>
         </Box>
 
-        <Box color="fg.subtle" flexShrink={0} display={{ base: 'none', md: 'block' }}>
+        <Box color="fg.subtle" flexShrink={0}>
           <ChevronRight size={20} />
         </Box>
       </Flex>
+
+      {/* Mobile layout — stacked */}
+      <Box display={{ base: 'block', md: 'none' }} p="4">
+        <Flex align="center" gap="3" mb="3">
+          <Circle size="40px" bg={client.logoColor} color="white" fontWeight={700} fontSize="15px" rounded="md" flexShrink={0}>
+            {client.initials}
+          </Circle>
+          <Box flex="1" minW="0">
+            <HStack gap="2" mb="0.5" flexWrap="wrap">
+              <Text fontSize="14px" fontWeight={600} color="fg" truncate>
+                {client.name}
+              </Text>
+              <Badge colorPalette={status.palette} rounded="sm" px="2" py="0.5" fontSize="10px" fontWeight={600}>
+                {status.label}
+              </Badge>
+            </HStack>
+            <Text fontSize="11px" color="fg.muted" truncate>
+              {client.industry} · {client.owner}
+            </Text>
+          </Box>
+          <Box color="fg.subtle" flexShrink={0}>
+            <ChevronRight size={18} />
+          </Box>
+        </Flex>
+
+        {/* Valuation row */}
+        <HStack gap="2" align="baseline" mb="1">
+          <Text fontSize="15px" fontWeight={700} color="fg">
+            {client.valuation}
+          </Text>
+          <Text fontSize="11px" color="fg.subtle">
+            of {client.valuationGoal}
+          </Text>
+        </HStack>
+        <Progress.Root value={client.goalProgress} size="xs" colorPalette="brand" mb="3">
+          <Progress.Track h="1" bg="bg.subtle" rounded="full">
+            <Progress.Range bg="brand.solid" rounded="full" />
+          </Progress.Track>
+        </Progress.Root>
+
+        {/* Mini meta row */}
+        <Flex justify="space-between" fontSize="11px" color="fg.subtle">
+          <Text>
+            <Text as="span" fontWeight={700} color={client.actionItems > 5 ? 'brl.danger' : 'fg'}>
+              {client.actionItems}
+            </Text>
+            {' '}action {client.actionItems === 1 ? 'item' : 'items'}
+          </Text>
+          <Text>Active {client.lastActivity}</Text>
+        </Flex>
+      </Box>
     </Card>
   );
 }

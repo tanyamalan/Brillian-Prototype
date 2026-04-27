@@ -10,8 +10,14 @@ interface Metric {
 
 function MetricCard({ value, label, change }: Metric) {
   return (
-    <Box bg="bg.dim" rounded="sm" p="4">
-      <Text fontSize="22px" fontWeight={700} color="fg" lineHeight="1.2">
+    <Box bg="bg.dim" rounded="sm" p={{ base: '3', md: '4' }} minW="0">
+      <Text
+        fontSize={{ base: '18px', md: '22px' }}
+        fontWeight={700}
+        color="fg"
+        lineHeight="1.2"
+        whiteSpace="nowrap"
+      >
         {value}
       </Text>
       <Text fontSize="12px" color="fg.muted" mt="0.5">
@@ -19,7 +25,7 @@ function MetricCard({ value, label, change }: Metric) {
       </Text>
       <HStack mt="1" gap="0.5" color="brl.success" fontSize="11px" fontWeight={600}>
         <ArrowUp size={11} />
-        <Text as="span">{change}</Text>
+        <Text as="span" whiteSpace="nowrap">{change}</Text>
       </HStack>
     </Box>
   );

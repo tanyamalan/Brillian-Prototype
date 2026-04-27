@@ -266,7 +266,11 @@ function getPanelConfig({
   return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600}>Settings</Text>, items: settingsSubNav };
 }
 
-export function InnerPanel({
+/**
+ * Renders just the panel header + items list. Used standalone on desktop and
+ * inside a mobile Drawer (see AppShell).
+ */
+export function InnerPanelBody({
   viewMode,
   outerSection,
   activeItemId,
@@ -277,18 +281,7 @@ export function InnerPanel({
   const { header, items } = getPanelConfig({ viewMode, outerSection, selectedClientId, onSelectClient });
 
   return (
-    <Box
-      as="aside"
-      w={{ base: 'full', md: '220px' }}
-      bg="bg"
-      borderRightWidth={{ base: 0, md: '1px' }}
-      borderColor="border"
-      p="2"
-      flexShrink={0}
-      display={{ base: 'none', md: 'flex' }}
-      flexDir="column"
-      overflowY="auto"
-    >
+    <Box w="full" p="2" display="flex" flexDir="column" overflowY="auto" flex="1">
       <PanelHeader>{header}</PanelHeader>
       <Stack gap="0.5">
         {items.map(item => (
@@ -303,3 +296,21 @@ export function InnerPanel({
     </Box>
   );
 }
+
+export function InnerPanel(props: InnerPanelProps) {
+  return (
+    <Box
+      as="aside"
+      w={{ base: 'full', md: '220px' }}
+      bg="bg"
+      borderRightWidth={{ base: 0, md: '1px' }}
+      borderColor="border"
+      flexShrink={0}
+      display={{ base: 'none', md: 'flex' }}
+      flexDir="column"
+    >
+      <InnerPanelBody {...props} />
+    </Box>
+  );
+}
+

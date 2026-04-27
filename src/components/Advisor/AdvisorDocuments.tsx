@@ -77,76 +77,134 @@ function DocumentRow({
   const client = findClient(doc.clientId);
 
   return (
-    <Flex
-      align="center"
-      gap="3"
-      px="4"
-      py="3"
-      borderBottomWidth="1px"
-      borderColor="border"
-      _hover={{ bg: 'bg.dim' }}
-      _last={{ borderBottomWidth: 0 }}
-    >
-      <Box flexShrink={0} color="fg.muted">
-        <Icon size={18} />
-      </Box>
+    <>
+      {/* Desktop / tablet — single horizontal row with all columns */}
+      <Flex
+        display={{ base: 'none', md: 'flex' }}
+        align="center"
+        gap="3"
+        px="4"
+        py="3"
+        borderBottomWidth="1px"
+        borderColor="border"
+        _hover={{ bg: 'bg.dim' }}
+        _last={{ borderBottomWidth: 0 }}
+      >
+        <Box flexShrink={0} color="fg.muted">
+          <Icon size={18} />
+        </Box>
 
-      <Box flex="2" minW="200px">
-        <Text fontSize="13px" fontWeight={600} color="fg" truncate>
-          {doc.name}
-        </Text>
-        <Text fontSize="11px" color="fg.subtle">
-          Uploaded by {doc.uploadedBy} · {doc.size}
-        </Text>
-      </Box>
+        <Box flex="2" minW="200px">
+          <Text fontSize="13px" fontWeight={600} color="fg" truncate>
+            {doc.name}
+          </Text>
+          <Text fontSize="11px" color="fg.subtle">
+            Uploaded by {doc.uploadedBy} · {doc.size}
+          </Text>
+        </Box>
 
-      {showClient && (
-        <HStack flex="1" minW="140px" gap="2">
-          {doc.clientId ? (
-            <>
-              <Circle size="22px" bg={client.color} color="white" fontSize="10px" fontWeight={700} rounded="sm">
-                {client.name.charAt(0)}
-              </Circle>
-              <Text fontSize="12px" color="fg" truncate>
-                {client.name}
+        {showClient && (
+          <HStack flex="1" minW="140px" gap="2">
+            {doc.clientId ? (
+              <>
+                <Circle size="22px" bg={client.color} color="white" fontSize="10px" fontWeight={700} rounded="sm">
+                  {client.name.charAt(0)}
+                </Circle>
+                <Text fontSize="12px" color="fg" truncate>
+                  {client.name}
+                </Text>
+              </>
+            ) : (
+              <Text fontSize="12px" color="fg.subtle">
+                Internal
               </Text>
-            </>
-          ) : (
-            <Text fontSize="12px" color="fg.subtle">
-              Internal
+            )}
+          </HStack>
+        )}
+
+        <Box flexShrink={0} minW="90px">
+          <Badge colorPalette={typeBadge.color as 'purple' | 'blue' | 'orange' | 'gray'} rounded="sm" px="2" py="0.5" fontSize="10px" fontWeight={600}>
+            {typeBadge.label}
+          </Badge>
+        </Box>
+
+        <Box flexShrink={0} minW="120px">
+          <Badge colorPalette={statusBadge.palette} rounded="sm" px="2" py="0.5" fontSize="10px" fontWeight={600}>
+            {statusBadge.label}
+          </Badge>
+        </Box>
+
+        <Box flexShrink={0} w="100px" textAlign="right">
+          <Text fontSize="12px" color="fg.muted">
+            {doc.uploadedAt}
+          </Text>
+        </Box>
+
+        {actionLabel ? (
+          <Button intent="primary" size="sm" h="9" flexShrink={0}>
+            {actionLabel}
+          </Button>
+        ) : (
+          <Button intent="ghost" size="sm" h="9" px="2" flexShrink={0} aria-label="Download">
+            <Download size={14} />
+          </Button>
+        )}
+      </Flex>
+
+      {/* Mobile — stacked card */}
+      <Box
+        display={{ base: 'block', md: 'none' }}
+        px="4"
+        py="3"
+        borderBottomWidth="1px"
+        borderColor="border"
+        _last={{ borderBottomWidth: 0 }}
+      >
+        <Flex align="flex-start" gap="3">
+          <Box flexShrink={0} color="fg.muted" mt="0.5">
+            <Icon size={18} />
+          </Box>
+          <Box flex="1" minW="0">
+            <Text fontSize="13px" fontWeight={600} color="fg" mb="0.5">
+              {doc.name}
             </Text>
+            <Text fontSize="11px" color="fg.subtle" mb="2">
+              {doc.uploadedBy} · {doc.size} · {doc.uploadedAt}
+            </Text>
+            <HStack gap="1.5" flexWrap="wrap">
+              {showClient && doc.clientId && (
+                <Badge variant="subtle" rounded="sm" px="2" py="0.5" fontSize="10px" fontWeight={600} gap="1">
+                  <Circle size="14px" bg={client.color} color="white" fontSize="8px" fontWeight={700} rounded="sm">
+                    {client.name.charAt(0)}
+                  </Circle>
+                  <Text as="span" truncate maxW="120px">{client.name}</Text>
+                </Badge>
+              )}
+              {showClient && !doc.clientId && (
+                <Badge variant="subtle" rounded="sm" px="2" py="0.5" fontSize="10px" fontWeight={600}>
+                  Internal
+                </Badge>
+              )}
+              <Badge colorPalette={typeBadge.color as 'purple' | 'blue' | 'orange' | 'gray'} rounded="sm" px="2" py="0.5" fontSize="10px" fontWeight={600}>
+                {typeBadge.label}
+              </Badge>
+              <Badge colorPalette={statusBadge.palette} rounded="sm" px="2" py="0.5" fontSize="10px" fontWeight={600}>
+                {statusBadge.label}
+              </Badge>
+            </HStack>
+          </Box>
+          {actionLabel ? (
+            <Button intent="primary" size="sm" h="9" flexShrink={0}>
+              {actionLabel}
+            </Button>
+          ) : (
+            <Button intent="ghost" size="sm" h="9" px="2" flexShrink={0} aria-label="Download">
+              <Download size={14} />
+            </Button>
           )}
-        </HStack>
-      )}
-
-      <Box flexShrink={0} minW="90px">
-        <Badge colorPalette={typeBadge.color as 'purple' | 'blue' | 'orange' | 'gray'} rounded="sm" px="2" py="0.5" fontSize="10px" fontWeight={600}>
-          {typeBadge.label}
-        </Badge>
+        </Flex>
       </Box>
-
-      <Box flexShrink={0} minW="120px">
-        <Badge colorPalette={statusBadge.palette} rounded="sm" px="2" py="0.5" fontSize="10px" fontWeight={600}>
-          {statusBadge.label}
-        </Badge>
-      </Box>
-
-      <Box flexShrink={0} w="100px" textAlign="right">
-        <Text fontSize="12px" color="fg.muted">
-          {doc.uploadedAt}
-        </Text>
-      </Box>
-
-      {actionLabel ? (
-        <Button intent="primary" size="sm" h="9" flexShrink={0}>
-          {actionLabel}
-        </Button>
-      ) : (
-        <Button intent="ghost" size="sm" h="9" px="2" flexShrink={0} aria-label="Download">
-          <Download size={14} />
-        </Button>
-      )}
-    </Flex>
+    </>
   );
 }
 
@@ -301,24 +359,31 @@ export function AdvisorDocuments({ typeFilter = 'all', clientId }: AdvisorDocume
           )}
 
           {/* Tabs — flush with the bottom border of the white band so the active
-              indicator visually connects to the content below. */}
-          <Tabs.List borderBottomWidth="0" mb="0" mt="2">
-            <Tabs.Trigger value="all" px="3" py="3" fontSize="14px" fontWeight={500} gap="2">
+              indicator visually connects to the content below. Horizontal-scroll
+              on mobile so labels never wrap. */}
+          <Tabs.List
+            borderBottomWidth="0"
+            mb="0"
+            mt="2"
+            overflowX="auto"
+            css={{ scrollbarWidth: 'none', '&::-webkit-scrollbar': { display: 'none' } }}
+          >
+            <Tabs.Trigger value="all" px="3" py="3" fontSize="14px" fontWeight={500} gap="2" flexShrink={0} whiteSpace="nowrap">
               <FileText size={14} />
               All documents
               <Badge variant="subtle" rounded="sm" fontSize="10px">{totalCount}</Badge>
             </Tabs.Trigger>
-            <Tabs.Trigger value="recent" px="3" py="3" fontSize="14px" fontWeight={500} gap="2">
+            <Tabs.Trigger value="recent" px="3" py="3" fontSize="14px" fontWeight={500} gap="2" flexShrink={0} whiteSpace="nowrap">
               Recently shared
               <Badge variant="subtle" rounded="sm" fontSize="10px">{recentlyShared.length}</Badge>
             </Tabs.Trigger>
-            <Tabs.Trigger value="pending" px="3" py="3" fontSize="14px" fontWeight={500} gap="2">
+            <Tabs.Trigger value="pending" px="3" py="3" fontSize="14px" fontWeight={500} gap="2" flexShrink={0} whiteSpace="nowrap">
               <CheckCircle2 size={14} />
               Awaiting review
               <Badge colorPalette="yellow" rounded="sm" fontSize="10px">{awaitingReview.length}</Badge>
             </Tabs.Trigger>
             {!isClientScoped && (
-              <Tabs.Trigger value="templates" px="3" py="3" fontSize="14px" fontWeight={500} gap="2">
+              <Tabs.Trigger value="templates" px="3" py="3" fontSize="14px" fontWeight={500} gap="2" flexShrink={0} whiteSpace="nowrap">
                 Templates
                 <Badge variant="subtle" rounded="sm" fontSize="10px">{templates.length}</Badge>
               </Tabs.Trigger>
