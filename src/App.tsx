@@ -6,6 +6,7 @@ import OnboardingPage from './components/OnboardingPage/OnboardingPage';
 import Onboarding from './components/Onboarding/Onboarding';
 import { AdvisorClientsList } from './components/Advisor/AdvisorClientsList';
 import { AdvisorClientDetail } from './components/Advisor/AdvisorClientDetail';
+import { AdvisorDocuments } from './components/Advisor/AdvisorDocuments';
 import { Card } from './components/ui/Card';
 import type { ViewMode } from './components/shared/navConfig';
 
@@ -104,6 +105,9 @@ function App() {
         return <PlaceholderPage title="Team" body="Manage advisors and assignments to clients." />;
       }
       return <AdvisorClientsList onSelectClient={(id) => handleSelectClient(id)} />;
+    }
+    if (outerSection === 'documents') {
+      return <AdvisorDocuments typeFilter={innerActiveId} />;
     }
     return <PlaceholderPage title={titleFor(outerSection)} body="Section placeholder. Build this out next." />;
   };
