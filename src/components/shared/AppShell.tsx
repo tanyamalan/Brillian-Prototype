@@ -1,37 +1,45 @@
 import { Flex } from '@chakra-ui/react';
-import { AppSidebar } from './AppSidebar';
+import { OuterRail } from './OuterRail';
+import { InnerPanel } from './InnerPanel';
 import { AppTopbar } from './AppTopbar';
-import type { ViewMode } from '../../App';
+import type { ViewMode } from './navConfig';
 
 interface AppShellProps {
   children: React.ReactNode;
   viewMode: ViewMode;
   onViewModeChange: (mode: ViewMode) => void;
-  activeNav?: string;
-  onNavChange?: (nav: string) => void;
+  outerSection: string;
+  onOuterSectionChange: (id: string) => void;
+  innerActiveId: string;
+  onInnerSelect: (id: string) => void;
   selectedClientId: string | null;
-  onSelectClient: (clientId: string) => void;
+  onSelectClient: (id: string | null) => void;
 }
 
 export default function AppShell({
   children,
   viewMode,
   onViewModeChange,
-  activeNav = 'dashboard',
-  onNavChange,
+  outerSection,
+  onOuterSectionChange,
+  innerActiveId,
+  onInnerSelect,
   selectedClientId,
   onSelectClient,
 }: AppShellProps) {
   return (
     <Flex minH="100vh" w="full" flexDir={{ base: 'column', md: 'row' }}>
-      <AppSidebar viewMode={viewMode} activeNav={activeNav} onNavChange={onNavChange} />
-      <Flex flex="1" minW="0" flexDir="column" pb={{ base: '16', md: '0' }}>
-        <AppTopbar
-          viewMode={viewMode}
-          onViewModeChange={onViewModeChange}
-          selectedClientId={selectedClientId}
-          onSelectClient={onSelectClient}
-        />
+      <OuterRail viewMode={viewMode} activeId={outerSection} onSelect={onOuterSectionChange} />
+      <InnerPanel
+        viewMode={viewMode}
+        outerSection={outerSection}
+        activeItemId={innerActiveId}
+        onSelectItem={onInnerSelect}
+        selectedClientId={selectedClientId}
+        onSelectClient={onSelectClient}
+      />
+      <Flex flex="1" minW="0" flexDir="column" pb={{ base: '20', md: '0' }}>
+        <AppTopbar viewMode={viewMode} onViewModeChange={onViewModeChange} />
         {children}
       </Flex>
     </Flex>

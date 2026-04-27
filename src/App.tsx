@@ -1,19 +1,44 @@
 import { useState } from 'react';
-import { Drawer, Portal } from '@chakra-ui/react';
+import { Box, Drawer, Heading, Portal, Text } from '@chakra-ui/react';
 import AppShell from './components/shared/AppShell';
 import Dashboard from './components/Dashboard/Dashboard';
 import OnboardingPage from './components/OnboardingPage/OnboardingPage';
 import Onboarding from './components/Onboarding/Onboarding';
 import { AdvisorClientsList } from './components/Advisor/AdvisorClientsList';
 import { AdvisorClientDetail } from './components/Advisor/AdvisorClientDetail';
-import { getClient } from './components/Advisor/clientsData';
+import { Card } from './components/ui/Card';
+import type { ViewMode } from './components/shared/navConfig';
 
-export type ViewMode = 'owner' | 'advisor';
+export type { ViewMode } from './components/shared/navConfig';
+
+// Default selected inner-panel item per outer section
+const DEFAULT_INNER: Record<string, string> = {
+  home: 'dashboard',
+  clients: 'all',
+  documents: 'all',
+  reports: 'all',
+  settings: 'profile',
+};
+
+function PlaceholderPage({ title, body }: { title: string; body: string }) {
+  return (
+    <Box flex="1" px={{ base: '4', md: '8' }} py="6">
+      <Card p={{ base: '6', md: '10' }} textAlign="center">
+        <Heading as="h2" fontSize="20px" fontWeight={600} color="fg" mb="2">
+          {title}
+        </Heading>
+        <Text fontSize="14px" color="fg.muted" maxW="480px" mx="auto">
+          {body}
+        </Text>
+      </Card>
+    </Box>
+  );
+}
 
 function App() {
   const [viewMode, setViewMode] = useState<ViewMode>('owner');
-  const [activeNav, setActiveNav] = useState('dashboard');
-  const [advisorActiveNav, setAdvisorActiveNav] = useState('clients');
+  const [outerSection, setOuterSection] = useState<string>('home');
+  const [innerActiveId, setInnerActiveId] = useState<string>('dashboard');
   const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
   const [showOnboardingForm, setShowOnboardingForm] = useState(false);
 
@@ -21,39 +46,66 @@ function App() {
     setViewMode(mode);
     setSelectedClientId(null);
     if (mode === 'advisor') {
-      setAdvisorActiveNav('clients');
+      setOuterSection('clients');
+      setInnerActiveId('all');
     } else {
-      setActiveNav('dashboard');
+      setOuterSection('home');
+      setInnerActiveId('dashboard');
     }
   };
 
-  const handleSelectClient = (id: string) => {
+  const handleOuterSectionChange = (id: string) => {
+    setOuterSection(id);
+    setSelectedClientId(null);
+    setInnerActiveId(DEFAULT_INNER[id] ?? 'dashboard');
+  };
+
+  const handleSelectClient = (id: string | null) => {
     setSelectedClientId(id);
+    // When a client is picked from anywhere, reset their lens to "dashboard".
+    if (id) {
+      setInnerActiveId('dashboard');
+      setOuterSection('clients');
+    } else {
+      setInnerActiveId('all');
+    }
   };
 
   const renderOwnerContent = () => {
-    switch (activeNav) {
-      case 'onboarding':
-        return <OnboardingPage onStartForm={() => setShowOnboardingForm(true)} />;
-      default:
-        return <Dashboard onStartOnboarding={() => setShowOnboardingForm(true)} />;
+    if (outerSection === 'home') {
+      switch (innerActiveId) {
+        case 'dashboard':
+          return <Dashboard onStartOnboarding={() => setShowOnboardingForm(true)} />;
+        case 'onboarding':
+          return <OnboardingPage onStartForm={() => setShowOnboardingForm(true)} />;
+        default:
+          return <PlaceholderPage title={titleFor(innerActiveId)} body="Coming soon — this lens isn't built out yet." />;
+      }
     }
+    return <PlaceholderPage title={titleFor(outerSection)} body="Section placeholder. Build this out next." />;
   };
 
   const renderAdvisorContent = () => {
-    if (selectedClientId) {
-      const client = getClient(selectedClientId);
-      if (client) {
+    if (outerSection === 'clients') {
+      if (selectedClientId) {
         return (
           <AdvisorClientDetail
-            client={client}
-            onBack={() => setSelectedClientId(null)}
+            clientId={selectedClientId}
+            lens={innerActiveId}
             onStartOnboarding={() => setShowOnboardingForm(true)}
           />
         );
       }
+      // No client selected — show the appropriate sub-section
+      if (innerActiveId === 'pipeline') {
+        return <PlaceholderPage title="Pipeline" body="Clients grouped by stage: onboarding, active, at risk, exiting." />;
+      }
+      if (innerActiveId === 'team') {
+        return <PlaceholderPage title="Team" body="Manage advisors and assignments to clients." />;
+      }
+      return <AdvisorClientsList onSelectClient={(id) => handleSelectClient(id)} />;
     }
-    return <AdvisorClientsList onSelectClient={handleSelectClient} />;
+    return <PlaceholderPage title={titleFor(outerSection)} body="Section placeholder. Build this out next." />;
   };
 
   return (
@@ -61,8 +113,10 @@ function App() {
       <AppShell
         viewMode={viewMode}
         onViewModeChange={handleViewModeChange}
-        activeNav={viewMode === 'owner' ? activeNav : advisorActiveNav}
-        onNavChange={viewMode === 'owner' ? setActiveNav : setAdvisorActiveNav}
+        outerSection={outerSection}
+        onOuterSectionChange={handleOuterSectionChange}
+        innerActiveId={innerActiveId}
+        onInnerSelect={setInnerActiveId}
         selectedClientId={selectedClientId}
         onSelectClient={handleSelectClient}
       >
@@ -86,6 +140,10 @@ function App() {
       </Drawer.Root>
     </>
   );
+}
+
+function titleFor(id: string): string {
+  return id.charAt(0).toUpperCase() + id.slice(1).replace(/-/g, ' ');
 }
 
 export default App;
