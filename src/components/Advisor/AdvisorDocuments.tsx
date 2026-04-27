@@ -252,112 +252,118 @@ export function AdvisorDocuments({ typeFilter = 'all', clientId }: AdvisorDocume
   const templateCount = baseDocs.filter(d => d.type === 'template').length;
 
   return (
-    <Box flex="1" px={{ base: '4', md: '8' }} py="6">
-      {/* Page header — hidden in client scope; the client header from
-          AdvisorClientDetail provides the title above */}
-      {!isClientScoped && (
-        <Flex align="center" justify="space-between" mb="6" flexWrap="wrap" gap="3">
-          <Box>
-            <Heading as="h1" fontSize={{ base: '20px', md: '24px' }} fontWeight={600} color="fg" mb="1">
-              Documents
-            </Heading>
-            <Text fontSize="14px" color="fg.muted">
-              All client and internal files. Tabs cut across status; the left panel filters by type.
-            </Text>
-          </Box>
-          <HStack gap="2">
-            <Button intent="secondary">
-              <Filter size={14} />
-              Filter
-            </Button>
-            <Button intent="primary">
-              <Upload size={14} />
-              Upload
-            </Button>
-          </HStack>
-        </Flex>
-      )}
-
-      {/* Compact action row in client scope */}
-      {isClientScoped && (
-        <Flex align="center" justify="space-between" mb="4" gap="3">
-          <Text fontSize="14px" color="fg.muted">
-            {totalCount} {totalCount === 1 ? 'document' : 'documents'} for {scopedClient!.name}
-          </Text>
-          <HStack gap="2">
-            <Button intent="secondary">
-              <Filter size={14} />
-              Filter
-            </Button>
-            <Button intent="primary">
-              <Upload size={14} />
-              Upload
-            </Button>
-          </HStack>
-        </Flex>
-      )}
-
-      {/* Stats — 4 columns globally, 3 columns in client scope (no Templates tile) */}
-      <Box
-        display="grid"
-        gridTemplateColumns={{
-          base: 'repeat(2, 1fr)',
-          md: isClientScoped ? 'repeat(3, 1fr)' : 'repeat(4, 1fr)',
-        }}
-        gap="3"
-        mb="5"
-      >
-        <StatTile
-          label="Total"
-          value={String(totalCount)}
-          sublabel={isClientScoped ? 'for this client' : 'across all clients'}
-        />
-        <StatTile label="Awaiting review" value={String(pendingCount)} sublabel="needs your action" />
-        <StatTile label="Recently shared" value={String(sharedCount)} sublabel="in last 7 days" />
-        {!isClientScoped && (
-          <StatTile label="Templates" value={String(templateCount)} sublabel="internal" />
-        )}
-      </Box>
-
-      {/* Search */}
-      <Flex mb="4">
-        <InputGroup
-          maxW={{ base: 'full', md: '360px' }}
-          flex="1"
-          startElement={<Search size={16} color="var(--chakra-colors-fg-subtle)" />}
-        >
-          <Input
-            placeholder={isClientScoped ? 'Search documents' : 'Search documents by name, client, or owner'}
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-          />
-        </InputGroup>
-      </Flex>
-
-      {/* Tabs */}
-      <Tabs.Root defaultValue="all" variant="line">
-        <Tabs.List borderBottomWidth="1px" borderColor="border" mb="4">
-          <Tabs.Trigger value="all" px="3" py="3" fontSize="14px" fontWeight={500} gap="2">
-            <FileText size={14} />
-            All documents
-            <Badge variant="subtle" rounded="sm" fontSize="10px">{totalCount}</Badge>
-          </Tabs.Trigger>
-          <Tabs.Trigger value="recent" px="3" py="3" fontSize="14px" fontWeight={500} gap="2">
-            Recently shared
-            <Badge variant="subtle" rounded="sm" fontSize="10px">{recentlyShared.length}</Badge>
-          </Tabs.Trigger>
-          <Tabs.Trigger value="pending" px="3" py="3" fontSize="14px" fontWeight={500} gap="2">
-            <CheckCircle2 size={14} />
-            Awaiting review
-            <Badge colorPalette="yellow" rounded="sm" fontSize="10px">{awaitingReview.length}</Badge>
-          </Tabs.Trigger>
+    <Tabs.Root defaultValue="all" variant="line">
+      <Box flex="1">
+        {/* ===== White header band: title row + tabs ===== */}
+        <Box bg="bg" borderBottomWidth="1px" borderColor="border" px={{ base: '4', md: '8' }} pt="6">
+          {/* Page header — hidden in client scope; the client header from
+              AdvisorClientDetail provides the title above */}
           {!isClientScoped && (
-            <Tabs.Trigger value="templates" px="3" py="3" fontSize="14px" fontWeight={500} gap="2">
-              Templates
-              <Badge variant="subtle" rounded="sm" fontSize="10px">{templates.length}</Badge>
-            </Tabs.Trigger>
+            <Flex align="center" justify="space-between" mb="4" flexWrap="wrap" gap="3">
+              <Box>
+                <Heading as="h1" fontSize={{ base: '20px', md: '24px' }} fontWeight={600} color="fg" mb="1">
+                  Documents
+                </Heading>
+                <Text fontSize="14px" color="fg.muted">
+                  All client and internal files. Tabs cut across status; the left panel filters by type.
+                </Text>
+              </Box>
+              <HStack gap="2">
+                <Button intent="secondary">
+                  <Filter size={14} />
+                  Filter
+                </Button>
+                <Button intent="primary">
+                  <Upload size={14} />
+                  Upload
+                </Button>
+              </HStack>
+            </Flex>
           )}
-        </Tabs.List>
+
+          {/* Compact action row in client scope */}
+          {isClientScoped && (
+            <Flex align="center" justify="space-between" mb="4" gap="3">
+              <Text fontSize="14px" color="fg.muted">
+                {totalCount} {totalCount === 1 ? 'document' : 'documents'} for {scopedClient!.name}
+              </Text>
+              <HStack gap="2">
+                <Button intent="secondary">
+                  <Filter size={14} />
+                  Filter
+                </Button>
+                <Button intent="primary">
+                  <Upload size={14} />
+                  Upload
+                </Button>
+              </HStack>
+            </Flex>
+          )}
+
+          {/* Tabs — flush with the bottom border of the white band so the active
+              indicator visually connects to the content below. */}
+          <Tabs.List borderBottomWidth="0" mb="0" mt="2">
+            <Tabs.Trigger value="all" px="3" py="3" fontSize="14px" fontWeight={500} gap="2">
+              <FileText size={14} />
+              All documents
+              <Badge variant="subtle" rounded="sm" fontSize="10px">{totalCount}</Badge>
+            </Tabs.Trigger>
+            <Tabs.Trigger value="recent" px="3" py="3" fontSize="14px" fontWeight={500} gap="2">
+              Recently shared
+              <Badge variant="subtle" rounded="sm" fontSize="10px">{recentlyShared.length}</Badge>
+            </Tabs.Trigger>
+            <Tabs.Trigger value="pending" px="3" py="3" fontSize="14px" fontWeight={500} gap="2">
+              <CheckCircle2 size={14} />
+              Awaiting review
+              <Badge colorPalette="yellow" rounded="sm" fontSize="10px">{awaitingReview.length}</Badge>
+            </Tabs.Trigger>
+            {!isClientScoped && (
+              <Tabs.Trigger value="templates" px="3" py="3" fontSize="14px" fontWeight={500} gap="2">
+                Templates
+                <Badge variant="subtle" rounded="sm" fontSize="10px">{templates.length}</Badge>
+              </Tabs.Trigger>
+            )}
+          </Tabs.List>
+        </Box>
+
+        {/* ===== Gray content area below the header ===== */}
+        <Box px={{ base: '4', md: '8' }} py="6">
+          {/* Stats — 4 columns globally, 3 columns in client scope (no Templates tile) */}
+          <Box
+            display="grid"
+            gridTemplateColumns={{
+              base: 'repeat(2, 1fr)',
+              md: isClientScoped ? 'repeat(3, 1fr)' : 'repeat(4, 1fr)',
+            }}
+            gap="3"
+            mb="5"
+          >
+            <StatTile
+              label="Total"
+              value={String(totalCount)}
+              sublabel={isClientScoped ? 'for this client' : 'across all clients'}
+            />
+            <StatTile label="Awaiting review" value={String(pendingCount)} sublabel="needs your action" />
+            <StatTile label="Recently shared" value={String(sharedCount)} sublabel="in last 7 days" />
+            {!isClientScoped && (
+              <StatTile label="Templates" value={String(templateCount)} sublabel="internal" />
+            )}
+          </Box>
+
+          {/* Search */}
+          <Flex mb="4">
+            <InputGroup
+              maxW={{ base: 'full', md: '360px' }}
+              flex="1"
+              startElement={<Search size={16} color="var(--chakra-colors-fg-subtle)" />}
+            >
+              <Input
+                placeholder={isClientScoped ? 'Search documents' : 'Search documents by name, client, or owner'}
+                value={query}
+                onChange={e => setQuery(e.target.value)}
+              />
+            </InputGroup>
+          </Flex>
 
         <Tabs.Content value="all" p="0">
           {/* Column headers */}
@@ -408,12 +414,13 @@ export function AdvisorDocuments({ typeFilter = 'all', clientId }: AdvisorDocume
           </Stack>
         </Tabs.Content>
 
-        {!isClientScoped && (
-          <Tabs.Content value="templates" p="0">
-            <TemplatesGrid rows={templates} />
-          </Tabs.Content>
-        )}
-      </Tabs.Root>
-    </Box>
+          {!isClientScoped && (
+            <Tabs.Content value="templates" p="0">
+              <TemplatesGrid rows={templates} />
+            </Tabs.Content>
+          )}
+        </Box>
+      </Box>
+    </Tabs.Root>
   );
 }
