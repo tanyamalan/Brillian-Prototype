@@ -1,6 +1,7 @@
 import { Badge, Box, Circle, Flex, Heading, HStack, Text } from '@chakra-ui/react';
 import Dashboard from '../Dashboard/Dashboard';
 import { Card } from '../ui/Card';
+import { AdvisorDocuments } from './AdvisorDocuments';
 import { getClient, statusMeta } from './clientsData';
 
 interface AdvisorClientDetailProps {
@@ -87,6 +88,8 @@ export function AdvisorClientDetail({ clientId, lens, onStartOnboarding }: Advis
       <ClientHeader clientId={clientId} />
       {lens === 'dashboard' ? (
         <Dashboard onStartOnboarding={onStartOnboarding} />
+      ) : lens === 'documents' ? (
+        <AdvisorDocuments clientId={clientId} />
       ) : lensConfig ? (
         <PlaceholderLens title={lensConfig.title} body={lensConfig.body} />
       ) : (

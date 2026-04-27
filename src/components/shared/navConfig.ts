@@ -53,6 +53,7 @@ export const companyLenses: NavItem[] = [
   { id: 'benchmarks', label: 'Benchmarks', Icon: BarChart3 },
   { id: 'opportunities', label: 'Opportunities', Icon: Zap },
   { id: 'actions', label: 'Action Items', Icon: CircleCheck },
+  { id: 'documents', label: 'Documents', Icon: FileText },
   { id: 'onboarding', label: 'Onboarding', Icon: Compass },
 ];
 

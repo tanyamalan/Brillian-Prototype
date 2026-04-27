@@ -30,10 +30,13 @@ import {
   findClient,
 } from './documentsData';
 import type { DocumentRecord, DocType } from './documentsData';
+import { getClient } from './clientsData';
 
 interface AdvisorDocumentsProps {
   /** Inner-panel filter: 'all' | 'tax' | 'financials' | 'legal' */
   typeFilter?: string;
+  /** When provided, scope the page to this client's documents only */
+  clientId?: string;
 }
 
 function getFileIcon(name: string) {
@@ -212,12 +215,17 @@ function TemplatesGrid({ rows }: { rows: DocumentRecord[] }) {
   );
 }
 
-export function AdvisorDocuments({ typeFilter = 'all' }: AdvisorDocumentsProps) {
+export function AdvisorDocuments({ typeFilter = 'all', clientId }: AdvisorDocumentsProps) {
   const [query, setQuery] = useState('');
+  const scopedClient = clientId ? getClient(clientId) : null;
+  const isClientScoped = !!scopedClient;
 
-  // Apply inner-panel type filter first, then search query.
+  // Scope first to the selected client (if any), then apply type + search filters.
   const baseDocs = useMemo(() => {
     let list = documents;
+    if (clientId) {
+      list = list.filter(d => d.clientId === clientId);
+    }
     if (typeFilter !== 'all') {
       list = list.filter(d => d.type === (typeFilter as DocType));
     }
@@ -231,7 +239,7 @@ export function AdvisorDocuments({ typeFilter = 'all' }: AdvisorDocumentsProps) 
       );
     }
     return list;
-  }, [typeFilter, query]);
+  }, [typeFilter, query, clientId]);
 
   const sortedAll = [...baseDocs].sort((a, b) => a.uploadedDays - b.uploadedDays);
   const recentlyShared = sortedAll.filter(d => d.status === 'shared' || d.uploadedDays <= 7);
@@ -245,34 +253,70 @@ export function AdvisorDocuments({ typeFilter = 'all' }: AdvisorDocumentsProps) 
 
   return (
     <Box flex="1" px={{ base: '4', md: '8' }} py="6">
-      {/* Page header */}
-      <Flex align="center" justify="space-between" mb="6" flexWrap="wrap" gap="3">
-        <Box>
-          <Heading as="h1" fontSize={{ base: '20px', md: '24px' }} fontWeight={600} color="fg" mb="1">
-            Documents
-          </Heading>
-          <Text fontSize="14px" color="fg.muted">
-            All client and internal files. Tabs cut across status; the left panel filters by type.
-          </Text>
-        </Box>
-        <HStack gap="2">
-          <Button intent="secondary">
-            <Filter size={14} />
-            Filter
-          </Button>
-          <Button intent="primary">
-            <Upload size={14} />
-            Upload
-          </Button>
-        </HStack>
-      </Flex>
+      {/* Page header — hidden in client scope; the client header from
+          AdvisorClientDetail provides the title above */}
+      {!isClientScoped && (
+        <Flex align="center" justify="space-between" mb="6" flexWrap="wrap" gap="3">
+          <Box>
+            <Heading as="h1" fontSize={{ base: '20px', md: '24px' }} fontWeight={600} color="fg" mb="1">
+              Documents
+            </Heading>
+            <Text fontSize="14px" color="fg.muted">
+              All client and internal files. Tabs cut across status; the left panel filters by type.
+            </Text>
+          </Box>
+          <HStack gap="2">
+            <Button intent="secondary">
+              <Filter size={14} />
+              Filter
+            </Button>
+            <Button intent="primary">
+              <Upload size={14} />
+              Upload
+            </Button>
+          </HStack>
+        </Flex>
+      )}
 
-      {/* Stats */}
-      <Box display="grid" gridTemplateColumns={{ base: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }} gap="3" mb="5">
-        <StatTile label="Total" value={String(totalCount)} sublabel="across all clients" />
+      {/* Compact action row in client scope */}
+      {isClientScoped && (
+        <Flex align="center" justify="space-between" mb="4" gap="3">
+          <Text fontSize="14px" color="fg.muted">
+            {totalCount} {totalCount === 1 ? 'document' : 'documents'} for {scopedClient!.name}
+          </Text>
+          <HStack gap="2">
+            <Button intent="secondary">
+              <Filter size={14} />
+              Filter
+            </Button>
+            <Button intent="primary">
+              <Upload size={14} />
+              Upload
+            </Button>
+          </HStack>
+        </Flex>
+      )}
+
+      {/* Stats — 4 columns globally, 3 columns in client scope (no Templates tile) */}
+      <Box
+        display="grid"
+        gridTemplateColumns={{
+          base: 'repeat(2, 1fr)',
+          md: isClientScoped ? 'repeat(3, 1fr)' : 'repeat(4, 1fr)',
+        }}
+        gap="3"
+        mb="5"
+      >
+        <StatTile
+          label="Total"
+          value={String(totalCount)}
+          sublabel={isClientScoped ? 'for this client' : 'across all clients'}
+        />
         <StatTile label="Awaiting review" value={String(pendingCount)} sublabel="needs your action" />
         <StatTile label="Recently shared" value={String(sharedCount)} sublabel="in last 7 days" />
-        <StatTile label="Templates" value={String(templateCount)} sublabel="internal" />
+        {!isClientScoped && (
+          <StatTile label="Templates" value={String(templateCount)} sublabel="internal" />
+        )}
       </Box>
 
       {/* Search */}
@@ -283,7 +327,7 @@ export function AdvisorDocuments({ typeFilter = 'all' }: AdvisorDocumentsProps) 
           startElement={<Search size={16} color="var(--chakra-colors-fg-subtle)" />}
         >
           <Input
-            placeholder="Search documents by name, client, or owner"
+            placeholder={isClientScoped ? 'Search documents' : 'Search documents by name, client, or owner'}
             value={query}
             onChange={e => setQuery(e.target.value)}
           />
@@ -307,10 +351,12 @@ export function AdvisorDocuments({ typeFilter = 'all' }: AdvisorDocumentsProps) 
             Awaiting review
             <Badge colorPalette="yellow" rounded="sm" fontSize="10px">{awaitingReview.length}</Badge>
           </Tabs.Trigger>
-          <Tabs.Trigger value="templates" px="3" py="3" fontSize="14px" fontWeight={500} gap="2">
-            Templates
-            <Badge variant="subtle" rounded="sm" fontSize="10px">{templates.length}</Badge>
-          </Tabs.Trigger>
+          {!isClientScoped && (
+            <Tabs.Trigger value="templates" px="3" py="3" fontSize="14px" fontWeight={500} gap="2">
+              Templates
+              <Badge variant="subtle" rounded="sm" fontSize="10px">{templates.length}</Badge>
+            </Tabs.Trigger>
+          )}
         </Tabs.List>
 
         <Tabs.Content value="all" p="0">
@@ -328,17 +374,17 @@ export function AdvisorDocuments({ typeFilter = 'all' }: AdvisorDocumentsProps) 
           >
             <Box w="18px" />
             <Box flex="2">Name</Box>
-            <Box flex="1">Client</Box>
+            {!isClientScoped && <Box flex="1">Client</Box>}
             <Box minW="90px">Type</Box>
             <Box minW="120px">Status</Box>
             <Box w="100px" textAlign="right">Uploaded</Box>
             <Box w="36px" />
           </Flex>
-          <DocumentsTable rows={sortedAll} showClient emptyText="No documents match your filters." />
+          <DocumentsTable rows={sortedAll} showClient={!isClientScoped} emptyText="No documents match your filters." />
         </Tabs.Content>
 
         <Tabs.Content value="recent" p="0">
-          <DocumentsTable rows={recentlyShared} showClient emptyText="Nothing shared recently." />
+          <DocumentsTable rows={recentlyShared} showClient={!isClientScoped} emptyText="Nothing shared recently." />
         </Tabs.Content>
 
         <Tabs.Content value="pending" p="0">
@@ -358,13 +404,15 @@ export function AdvisorDocuments({ typeFilter = 'all' }: AdvisorDocumentsProps) 
                 </Box>
               </HStack>
             </Card>
-            <DocumentsTable rows={awaitingReview} showClient actionLabel="Review" emptyText="Nothing pending — you're all caught up." />
+            <DocumentsTable rows={awaitingReview} showClient={!isClientScoped} actionLabel="Review" emptyText="Nothing pending — you're all caught up." />
           </Stack>
         </Tabs.Content>
 
-        <Tabs.Content value="templates" p="0">
-          <TemplatesGrid rows={templates} />
-        </Tabs.Content>
+        {!isClientScoped && (
+          <Tabs.Content value="templates" p="0">
+            <TemplatesGrid rows={templates} />
+          </Tabs.Content>
+        )}
       </Tabs.Root>
     </Box>
   );
