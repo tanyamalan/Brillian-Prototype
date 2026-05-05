@@ -29,7 +29,7 @@ function ClientRow({ client, onClick }: { client: Client; onClick: () => void })
       p="0"
       cursor="pointer"
       transition="box-shadow 0.15s, transform 0.05s"
-      _hover={{ shadow: '0 1px 3px rgba(0,0,0,0.12)' }}
+      _hover={{ shadow: 'card' }}
       _active={{ transform: 'translateY(1px)' }}
       onClick={onClick}
     >
@@ -40,7 +40,7 @@ function ClientRow({ client, onClick }: { client: Client; onClick: () => void })
         gap="4"
         p="5"
       >
-        <Circle size="44px" bg={client.logoColor} color="white" fontWeight={700} fontSize="16px" rounded="md" flexShrink={0}>
+        <Circle size="44px" bg={client.logoColor} color="fg.onBrand" fontWeight={700} fontSize="16px" rounded="md" flexShrink={0}>
           {client.initials}
         </Circle>
 
@@ -100,7 +100,7 @@ function ClientRow({ client, onClick }: { client: Client; onClick: () => void })
       {/* Mobile layout — stacked */}
       <Box display={{ base: 'block', md: 'none' }} p="4">
         <Flex align="center" gap="3" mb="3">
-          <Circle size="40px" bg={client.logoColor} color="white" fontWeight={700} fontSize="15px" rounded="md" flexShrink={0}>
+          <Circle size="40px" bg={client.logoColor} color="fg.onBrand" fontWeight={700} fontSize="15px" rounded="md" flexShrink={0}>
             {client.initials}
           </Circle>
           <Box flex="1" minW="0">
@@ -196,7 +196,7 @@ export function AdvisorClientsList({ onSelectClient }: AdvisorClientsListProps) 
         mb="6"
       >
         <Box>
-          <Heading as="h1" fontSize={{ base: '20px', md: '24px' }} fontWeight={600} color="fg" mb="1">
+          <Heading as="h1" fontSize={{ base: '20px', md: '24px' }} fontWeight={500} color="fg" mb="1">
             Clients
           </Heading>
           <Text fontSize="14px" color="fg.muted">

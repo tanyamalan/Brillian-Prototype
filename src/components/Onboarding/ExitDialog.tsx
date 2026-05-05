@@ -15,9 +15,9 @@ export default function ExitDialog({ open, onClose, onConfirm }: ExitDialogProps
       motionPreset="scale"
     >
       <Portal>
-        <Dialog.Backdrop bg="rgba(31, 31, 31, 0.5)" />
+        <Dialog.Backdrop bg="bg.scrim" />
         <Dialog.Positioner>
-          <Dialog.Content rounded="lg" maxW="420px" p="6" bg="bg" shadow="0 10px 30px rgba(0,0,0,0.2)">
+          <Dialog.Content rounded="lg" maxW="420px" p="6" bg="bg" shadow="modal">
             <Dialog.Header pb="2" px="0" pt="0">
               <Dialog.Title fontSize="18px" fontWeight={600} color="fg">
                 Save and exit?

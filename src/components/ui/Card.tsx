@@ -6,7 +6,7 @@ export function Card(props: BoxProps) {
     <Box
       bg="bg"
       shadow="card"
-      rounded="sm"
+      rounded="md"
       p="6"
       {...props}
     />

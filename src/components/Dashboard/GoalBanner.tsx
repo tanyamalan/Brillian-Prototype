@@ -34,8 +34,8 @@ export function GoalBanner({ onStartOnboarding }: GoalBannerProps) {
           </Progress.Track>
         </Progress.Root>
         <Badge
-          bg="brl.warningLight"
-          color="#7A6200"
+          bg="status.warning.tint"
+          color="status.warning.dark"
           rounded="sm"
           px="4"
           py="1.5"

@@ -107,7 +107,7 @@ function DocumentRow({
           <HStack flex="1" minW="140px" gap="2">
             {doc.clientId ? (
               <>
-                <Circle size="22px" bg={client.color} color="white" fontSize="10px" fontWeight={700} rounded="sm">
+                <Circle size="22px" bg={client.color} color="fg.onBrand" fontSize="10px" fontWeight={700} rounded="sm">
                   {client.name.charAt(0)}
                 </Circle>
                 <Text fontSize="12px" color="fg" truncate>
@@ -174,7 +174,7 @@ function DocumentRow({
             <HStack gap="1.5" flexWrap="wrap">
               {showClient && doc.clientId && (
                 <Badge variant="subtle" rounded="sm" px="2" py="0.5" fontSize="10px" fontWeight={600} gap="1">
-                  <Circle size="14px" bg={client.color} color="white" fontSize="8px" fontWeight={700} rounded="sm">
+                  <Circle size="14px" bg={client.color} color="fg.onBrand" fontSize="8px" fontWeight={700} rounded="sm">
                     {client.name.charAt(0)}
                   </Circle>
                   <Text as="span" truncate maxW="120px">{client.name}</Text>
@@ -319,7 +319,7 @@ export function AdvisorDocuments({ typeFilter = 'all', clientId }: AdvisorDocume
           {!isClientScoped && (
             <Flex align="center" justify="space-between" mb="4" flexWrap="wrap" gap="3">
               <Box>
-                <Heading as="h1" fontSize={{ base: '20px', md: '24px' }} fontWeight={600} color="fg" mb="1">
+                <Heading as="h1" fontSize={{ base: '20px', md: '24px' }} fontWeight={500} color="fg" mb="1">
                   Documents
                 </Heading>
                 <Text fontSize="14px" color="fg.muted">

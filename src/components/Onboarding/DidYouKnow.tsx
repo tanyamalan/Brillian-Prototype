@@ -25,15 +25,41 @@ export default function DidYouKnow({ Icon, headline, summary, expandedContent }:
   return (
     <Box
       as="aside"
-      bg="bg"
-      shadow="card"
-      rounded="sm"
-      overflow="hidden"
       position="sticky"
       top="6"
+      opacity={0}
+      animation="brl-card-in 0.8s ease-out 1.2s forwards"
+      // Soft glow halo — two large blurred radial blobs that drift around the
+      // card. No hard edges, no conic seam — feels like ambient light.
+      _before={{
+        content: '""',
+        position: 'absolute',
+        inset: { base: '-4px', md: '-12px' },
+        zIndex: 0,
+        background:
+          'radial-gradient(circle at 30% 30%, var(--chakra-colors-brand-500) 0%, transparent 55%), radial-gradient(circle at 70% 70%, var(--chakra-colors-purple-500) 0%, transparent 55%)',
+        filter: { base: 'blur(14px)', md: 'blur(20px)' },
+        opacity: { base: 0.3, md: 0.4 },
+        animation: 'brl-spin 14s linear infinite',
+        pointerEvents: 'none',
+      }}
     >
+      <Box
+        position="relative"
+        zIndex={1}
+        bg="bg"
+        rounded="sm"
+        shadow="card"
+        overflow="hidden"
+      >
       <HStack gap="2" pt="4" px="4" pb="2">
-        <Circle size="28px" bg="brl.warningLight" color="brl.warning" flexShrink={0}>
+        <Circle
+          size="28px"
+          bg="status.warning.tint"
+          color="status.warning"
+          flexShrink={0}
+          animation="brl-pulse 2.4s ease-in-out infinite"
+        >
           <Icon size={14} />
         </Circle>
         <Text
@@ -96,6 +122,7 @@ export default function DidYouKnow({ Icon, headline, summary, expandedContent }:
           </HStack>
         </Collapsible.Trigger>
       </Collapsible.Root>
+      </Box>
     </Box>
   );
 }

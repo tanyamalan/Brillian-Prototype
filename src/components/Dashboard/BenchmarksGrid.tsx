@@ -19,12 +19,13 @@ interface Benchmark {
   insight: React.ReactNode;
 }
 
+// Map semantic bar colors to brand tokens.
 const palettes: Record<BarColor, string> = {
-  green: '#1E8E3E',
-  orange: '#F9AB00',
-  blue: '#4285F4',
-  red: '#D93025',
-  gray: '#BDC1C6',
+  green: 'status.success',
+  orange: 'status.warning',
+  blue: 'brand.solid',
+  red: 'status.danger',
+  gray: 'warm.300',
 };
 
 function BenchmarkCard({ name, value, badgeText, badgePalette, bars, insight }: Benchmark) {

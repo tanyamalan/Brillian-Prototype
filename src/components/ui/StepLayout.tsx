@@ -7,7 +7,7 @@ export function StepHeader({ title, subtitle }: { title: string; subtitle: strin
       <Heading
         as="h1"
         fontSize={{ base: '22px', md: '28px' }}
-        fontWeight={600}
+        fontWeight={500}
         color="fg"
         letterSpacing="-0.4px"
         lineHeight="1.15"
@@ -52,6 +52,34 @@ export function FormCard({ title, children }: { title?: string; children: React.
       )}
       <Stack gap="4">{children}</Stack>
     </Card>
+  );
+}
+
+/**
+ * A "section question" — blue bold heading with help text, then children.
+ * Used for the primary questions in each onboarding step.
+ */
+export function Question({
+  title,
+  help,
+  children,
+}: {
+  title: string;
+  help?: string;
+  children?: React.ReactNode;
+}) {
+  return (
+    <Box>
+      <Text fontSize={{ base: '14px', md: '15px' }} fontWeight={600} color="fg" lineHeight="1.3" mb={help ? '1' : '2'}>
+        {title}
+      </Text>
+      {help && (
+        <Text fontSize="13px" color="fg.muted" mb="3" lineHeight="1.5">
+          {help}
+        </Text>
+      )}
+      {children}
+    </Box>
   );
 }
 

@@ -14,35 +14,38 @@ import ExitDialog from './ExitDialog';
 import { checkValidity } from './checkValidity';
 import { OnboardingRail } from './OnboardingRail';
 import type { OnboardingStep } from './OnboardingRail';
-import BusinessBasics from './steps/BusinessBasics';
-import RevenueProfit from './steps/RevenueProfit';
-import OwnerCompensation from './steps/OwnerCompensation';
-import CashFlow from './steps/CashFlow';
-import Customers from './steps/Customers';
-import Operations from './steps/Operations';
-import Goals from './steps/Goals';
-import ReviewFinish from './steps/ReviewFinish';
+import OwnerMotivations from './steps/OwnerMotivations';
+import BusinessProfile from './steps/BusinessProfile';
+import Finances from './steps/Finances';
+import FinancialPerformance from './steps/FinancialPerformance';
+import Adjustments from './steps/Adjustments';
+import Ownership from './steps/Ownership';
+import Risk from './steps/Risk';
+import Personnel from './steps/Personnel';
+import MarketContext from './steps/MarketContext';
 
 const STEPS: OnboardingStep[] = [
-  { num: 1, label: 'Details' },
-  { num: 2, label: 'Revenue & profit' },
-  { num: 3, label: 'Owner & add-backs' },
-  { num: 4, label: 'Cash flow' },
-  { num: 5, label: 'Customers' },
-  { num: 6, label: 'Operations' },
-  { num: 7, label: 'Goals' },
-  { num: 8, label: 'Review & finish' },
+  { num: 1, label: 'Owner & Motivations' },
+  { num: 2, label: 'Business profile' },
+  { num: 3, label: 'Finances' },
+  { num: 4, label: 'Financial performance' },
+  { num: 5, label: 'Adjustments' },
+  { num: 6, label: 'Ownership' },
+  { num: 7, label: 'Risk' },
+  { num: 8, label: 'Personnel' },
+  { num: 9, label: 'Market Context' },
 ];
 
 const STEP_COMPONENTS = [
-  BusinessBasics,
-  RevenueProfit,
-  OwnerCompensation,
-  CashFlow,
-  Customers,
-  Operations,
-  Goals,
-  ReviewFinish,
+  OwnerMotivations,
+  BusinessProfile,
+  Finances,
+  FinancialPerformance,
+  Adjustments,
+  Ownership,
+  Risk,
+  Personnel,
+  MarketContext,
 ];
 
 interface OnboardingProps {
@@ -55,6 +58,8 @@ export default function Onboarding({ onExit }: OnboardingProps) {
   const [showExitDialog, setShowExitDialog] = useState(false);
   const [railOpen, setRailOpen] = useState(false);
   const [isStepValid, setIsStepValid] = useState(false);
+  // Direction the user is moving through the flow — drives the slide animation.
+  const [direction, setDirection] = useState<'forward' | 'back'>('forward');
   const contentRef = useRef<HTMLDivElement | null>(null);
 
   const recomputeValidity = useCallback(() => {
@@ -70,6 +75,7 @@ export default function Onboarding({ onExit }: OnboardingProps) {
   const goToStep = useCallback(
     (n: number) => {
       if (n < 1 || n > STEPS.length) return;
+      setDirection(n >= currentStep ? 'forward' : 'back');
       setCompletedSteps(prev => new Set(prev).add(currentStep));
       setCurrentStep(n);
       setRailOpen(false);
@@ -203,7 +209,12 @@ export default function Onboarding({ onExit }: OnboardingProps) {
           px={{ base: '4', md: '8' }}
           py={{ base: '6', md: '11' }}
         >
-          <StepComponent />
+          <Box
+            key={currentStep}
+            animation={`${direction === 'forward' ? 'brl-step-in-fwd' : 'brl-step-in-back'} 0.7s cubic-bezier(0.22, 1, 0.36, 1) both`}
+          >
+            <StepComponent />
+          </Box>
         </Box>
 
         {/* Footer */}

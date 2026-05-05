@@ -39,7 +39,7 @@ function ClientHeader({ clientId }: { clientId: string }) {
         <Circle
           size="48px"
           bg={client.logoColor}
-          color="white"
+          color="fg.onBrand"
           fontWeight={700}
           fontSize="18px"
           rounded="md"
@@ -49,7 +49,7 @@ function ClientHeader({ clientId }: { clientId: string }) {
         </Circle>
         <Box flex="1" minW="0">
           <HStack gap="2" mb="0.5" flexWrap="wrap">
-            <Heading as="h1" fontSize={{ base: '20px', md: '24px' }} fontWeight={600} color="fg">
+            <Heading as="h1" fontSize={{ base: '20px', md: '24px' }} fontWeight={500} color="fg">
               {client.name}
             </Heading>
             <Badge colorPalette={status.palette} rounded="sm" px="2" py="0.5" fontSize="11px" fontWeight={600}>
@@ -69,7 +69,7 @@ function PlaceholderLens({ title, body }: { title: string; body: string }) {
   return (
     <Box px={{ base: '4', md: '8' }} py="6">
       <Card p={{ base: '6', md: '10' }} textAlign="center">
-        <Heading as="h2" fontSize="18px" fontWeight={600} color="fg" mb="2">
+        <Heading as="h2" fontSize="18px" fontWeight={500} color="fg" mb="2">
           {title}
         </Heading>
         <Text fontSize="14px" color="fg.muted" maxW="480px" mx="auto">

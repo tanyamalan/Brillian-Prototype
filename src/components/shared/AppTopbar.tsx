@@ -141,7 +141,7 @@ export function AppTopbar({ viewMode, onViewModeChange, onOpenMenu }: AppTopbarP
             h="4"
             rounded="full"
             bg="brl.danger"
-            color="white"
+            color="fg.onBrand"
             fontSize="9px"
             fontWeight={700}
             display="flex"

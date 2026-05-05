@@ -35,7 +35,7 @@ const findClientName = (id: string | null) =>
   id ? clients.find(c => c.id === id)?.name ?? '—' : '—';
 
 const findClientColor = (id: string | null) =>
-  id ? clients.find(c => c.id === id)?.logoColor ?? '#9AA0A6' : '#9AA0A6';
+  id ? clients.find(c => c.id === id)?.logoColor ?? 'warm.500' : 'warm.500';
 
 export const findClient = (id: string | null) => ({
   name: findClientName(id),

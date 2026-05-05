@@ -58,15 +58,15 @@ export function OnboardingRail({ steps, currentStep, completedSteps, goToStep }:
               onClick={() => canClick && goToStep(s.num)}
             >
               <Circle
-                size="4"
+                size="6"
                 bg={isActive || isComplete ? 'brand.solid' : 'bg'}
-                borderWidth={isActive || isComplete ? 0 : '1.5px'}
+                borderWidth={isActive || isComplete ? 0 : '1px'}
                 borderColor="border.emphasized"
                 boxShadow={isActive ? '0 0 0 3px var(--chakra-colors-brand-subtle)' : 'none'}
-                color="white"
+                color="fg.onBrand"
                 flexShrink={0}
               >
-                {isComplete && !isActive && <Check size={10} strokeWidth={3.5} />}
+                {isComplete && !isActive && <Check size={12} strokeWidth={3} />}
               </Circle>
               <Text
                 fontSize="14px"

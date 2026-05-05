@@ -36,7 +36,7 @@ export interface InnerPanelProps {
 const ownerCompany = {
   name: 'Acme Services LLC',
   initials: 'A',
-  logoColor: '#4285F4',
+  logoColor: 'brand.500',
 };
 
 function PanelHeader({ children }: { children: React.ReactNode }) {
@@ -50,7 +50,7 @@ function PanelHeader({ children }: { children: React.ReactNode }) {
 function CompanyChip({ name, initials, color }: { name: string; initials: string; color: string }) {
   return (
     <HStack gap="2" px="2" py="2">
-      <Circle size="32px" bg={color} color="white" fontWeight={700} fontSize="14px" rounded="md" flexShrink={0}>
+      <Circle size="32px" bg={color} color="fg.onBrand" fontWeight={700} fontSize="14px" rounded="md" flexShrink={0}>
         {initials}
       </Circle>
       <Text fontSize="14px" fontWeight={600} color="fg" truncate>
@@ -163,7 +163,7 @@ function ClientSwitcher({
                 gap="2"
                 fontSize="13px"
               >
-                <Circle size="24px" bg={c.logoColor} color="white" fontWeight={700} fontSize="11px" rounded="sm">
+                <Circle size="24px" bg={c.logoColor} color="fg.onBrand" fontWeight={700} fontSize="11px" rounded="sm">
                   {c.initials}
                 </Circle>
                 <Box flex="1">

@@ -86,7 +86,7 @@ export function OuterRail({ viewMode, activeId, onSelect }: OuterRailProps) {
       <Circle
         size="36px"
         bg="brand.solid"
-        color="white"
+        color="fg.onBrand"
         rounded="md"
         fontWeight={700}
         fontSize="16px"
