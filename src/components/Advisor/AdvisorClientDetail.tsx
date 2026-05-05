@@ -52,7 +52,7 @@ function ClientHeader({ clientId }: { clientId: string }) {
             <Heading as="h1" fontSize={{ base: '20px', md: '24px' }} fontWeight={500} color="fg">
               {client.name}
             </Heading>
-            <Badge colorPalette={status.palette} rounded="sm" px="2" py="0.5" fontSize="11px" fontWeight={600}>
+            <Badge intent={status.intent} fontSize="11px">
               {status.label}
             </Badge>
           </HStack>

@@ -49,7 +49,7 @@ function ClientRow({ client, onClick }: { client: Client; onClick: () => void })
             <Text fontSize="15px" fontWeight={600} color="fg">
               {client.name}
             </Text>
-            <Badge colorPalette={status.palette} rounded="sm" px="2" py="0.5" fontSize="10px" fontWeight={600}>
+            <Badge intent={status.intent} fontSize="10px">
               {status.label}
             </Badge>
           </HStack>
@@ -108,7 +108,7 @@ function ClientRow({ client, onClick }: { client: Client; onClick: () => void })
               <Text fontSize="14px" fontWeight={600} color="fg" truncate>
                 {client.name}
               </Text>
-              <Badge colorPalette={status.palette} rounded="sm" px="2" py="0.5" fontSize="10px" fontWeight={600}>
+              <Badge intent={status.intent} fontSize="10px">
                 {status.label}
               </Badge>
             </HStack>

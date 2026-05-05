@@ -12,7 +12,7 @@ import {
   Portal,
   Text,
 } from '@chakra-ui/react';
-import { ArrowLeftRight, Bell, ChevronDown, LogOut, Menu as MenuIcon, Search, Settings, User } from 'lucide-react';
+import { ArrowLeftRight, Bell, BookOpen, ChevronDown, LogOut, Menu as MenuIcon, Search, Settings, User } from 'lucide-react';
 import type { ViewMode } from './navConfig';
 
 interface AppTopbarProps {
@@ -82,6 +82,16 @@ function UserMenu({ viewMode, onViewModeChange }: Pick<AppTopbarProps, 'viewMode
               <Box flex="1">
                 Switch to {viewMode === 'owner' ? 'Advisor' : 'Owner'} view
               </Box>
+            </Menu.Item>
+            <Menu.Separator />
+            <Menu.Item
+              value="style-guide"
+              gap="2"
+              fontSize="13px"
+              onClick={() => { window.location.href = '/style-guide.html'; }}
+            >
+              <BookOpen size={14} />
+              <Box flex="1">Open style guide</Box>
             </Menu.Item>
             <Menu.Separator />
             <Menu.Item value="signout" gap="2" fontSize="13px" color="brl.danger">

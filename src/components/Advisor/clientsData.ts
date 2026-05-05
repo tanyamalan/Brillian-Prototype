@@ -15,14 +15,16 @@ export interface Client {
   owner: string;
 }
 
+export type BadgeIntent = 'danger' | 'critical' | 'warning' | 'info' | 'success' | 'brand' | 'neutral';
+
 export const statusMeta: Record<
   ClientStatus,
-  { label: string; palette: 'green' | 'yellow' | 'red' | 'blue' | 'gray' }
+  { label: string; intent: BadgeIntent }
 > = {
-  active: { label: 'Active', palette: 'green' },
-  'at-risk': { label: 'At risk', palette: 'red' },
-  onboarding: { label: 'Onboarding', palette: 'blue' },
-  exiting: { label: 'Exiting', palette: 'yellow' },
+  active: { label: 'Active', intent: 'success' },
+  'at-risk': { label: 'At risk', intent: 'danger' },
+  onboarding: { label: 'Onboarding', intent: 'info' },
+  exiting: { label: 'Exiting', intent: 'warning' },
 };
 
 export const clients: Client[] = [
@@ -44,7 +46,7 @@ export const clients: Client[] = [
     id: 'beta-corp',
     name: 'Beta Corp',
     initials: 'B',
-    logoColor: 'jade.700',
+    logoColor: 'lime.700',
     industry: 'Construction & Trades',
     valuation: '$1.1M',
     valuationGoal: '$2M',
@@ -114,7 +116,7 @@ export const clients: Client[] = [
     id: 'theta-llc',
     name: 'Theta LLC',
     initials: 'T',
-    logoColor: 'jade.700',
+    logoColor: 'lime.700',
     industry: 'Restaurants & Hospitality',
     valuation: '$420K',
     valuationGoal: '$1M',

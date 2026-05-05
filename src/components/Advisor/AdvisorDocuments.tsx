@@ -123,13 +123,13 @@ function DocumentRow({
         )}
 
         <Box flexShrink={0} minW="90px">
-          <Badge colorPalette={typeBadge.color as 'purple' | 'blue' | 'orange' | 'gray'} rounded="sm" px="2" py="0.5" fontSize="10px" fontWeight={600}>
+          <Badge intent={typeBadge.intent} fontSize="10px">
             {typeBadge.label}
           </Badge>
         </Box>
 
         <Box flexShrink={0} minW="120px">
-          <Badge colorPalette={statusBadge.palette} rounded="sm" px="2" py="0.5" fontSize="10px" fontWeight={600}>
+          <Badge intent={statusBadge.intent} fontSize="10px">
             {statusBadge.label}
           </Badge>
         </Box>
@@ -185,10 +185,10 @@ function DocumentRow({
                   Internal
                 </Badge>
               )}
-              <Badge colorPalette={typeBadge.color as 'purple' | 'blue' | 'orange' | 'gray'} rounded="sm" px="2" py="0.5" fontSize="10px" fontWeight={600}>
+              <Badge intent={typeBadge.intent} fontSize="10px">
                 {typeBadge.label}
               </Badge>
-              <Badge colorPalette={statusBadge.palette} rounded="sm" px="2" py="0.5" fontSize="10px" fontWeight={600}>
+              <Badge intent={statusBadge.intent} fontSize="10px">
                 {statusBadge.label}
               </Badge>
             </HStack>
@@ -380,7 +380,7 @@ export function AdvisorDocuments({ typeFilter = 'all', clientId }: AdvisorDocume
             <Tabs.Trigger value="pending" px="3" py="3" fontSize="14px" fontWeight={500} gap="2" flexShrink={0} whiteSpace="nowrap">
               <CheckCircle2 size={14} />
               Awaiting review
-              <Badge colorPalette="yellow" rounded="sm" fontSize="10px">{awaitingReview.length}</Badge>
+              <Badge intent="warning" fontSize="10px">{awaitingReview.length}</Badge>
             </Tabs.Trigger>
             {!isClientScoped && (
               <Tabs.Trigger value="templates" px="3" py="3" fontSize="14px" fontWeight={500} gap="2" flexShrink={0} whiteSpace="nowrap">

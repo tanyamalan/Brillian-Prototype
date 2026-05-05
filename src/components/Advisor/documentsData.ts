@@ -1,4 +1,5 @@
 import { clients } from './clientsData';
+import type { BadgeIntent } from './clientsData';
 
 export type DocType = 'tax' | 'financials' | 'legal' | 'template';
 export type DocStatus = 'reviewed' | 'pending' | 'shared';
@@ -15,20 +16,20 @@ export interface DocumentRecord {
   status: DocStatus;
 }
 
-export const docTypeMeta: Record<DocType, { label: string; color: string }> = {
-  tax: { label: 'Tax', color: 'purple' },
-  financials: { label: 'Financials', color: 'blue' },
-  legal: { label: 'Legal', color: 'orange' },
-  template: { label: 'Template', color: 'gray' },
+export const docTypeMeta: Record<DocType, { label: string; intent: BadgeIntent }> = {
+  tax: { label: 'Tax', intent: 'info' },
+  financials: { label: 'Financials', intent: 'brand' },
+  legal: { label: 'Legal', intent: 'critical' },
+  template: { label: 'Template', intent: 'neutral' },
 };
 
 export const docStatusMeta: Record<
   DocStatus,
-  { label: string; palette: 'green' | 'yellow' | 'blue' }
+  { label: string; intent: BadgeIntent }
 > = {
-  reviewed: { label: 'Reviewed', palette: 'green' },
-  pending: { label: 'Pending review', palette: 'yellow' },
-  shared: { label: 'Shared', palette: 'blue' },
+  reviewed: { label: 'Reviewed', intent: 'success' },
+  pending: { label: 'Pending review', intent: 'warning' },
+  shared: { label: 'Shared', intent: 'info' },
 };
 
 const findClientName = (id: string | null) =>

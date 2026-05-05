@@ -10,6 +10,8 @@ interface BenchBar {
   value: string;
 }
 
+type BadgeIntent = 'danger' | 'warning' | 'success';
+
 interface Benchmark {
   name: string;
   value: string;
@@ -18,6 +20,12 @@ interface Benchmark {
   bars: BenchBar[];
   insight: React.ReactNode;
 }
+
+const paletteToIntent: Record<'yellow' | 'red' | 'green', BadgeIntent> = {
+  yellow: 'warning',
+  red: 'danger',
+  green: 'success',
+};
 
 // Map semantic bar colors to brand tokens.
 const palettes: Record<BarColor, string> = {
@@ -38,7 +46,7 @@ function BenchmarkCard({ name, value, badgeText, badgePalette, bars, insight }: 
         <Text fontSize="32px" fontWeight={700} color="fg" lineHeight="1">
           {value}
         </Text>
-        <Badge colorPalette={badgePalette} rounded="sm" px="2" py="0.5" fontSize="11px" fontWeight={600}>
+        <Badge intent={paletteToIntent[badgePalette]} fontSize="11px">
           {badgeText}
         </Badge>
       </HStack>

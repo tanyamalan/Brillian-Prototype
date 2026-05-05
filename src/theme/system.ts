@@ -1,18 +1,33 @@
 import { createSystem, defaultConfig, defineConfig, defineRecipe } from '@chakra-ui/react';
+import { colorRamps, fonts, radii, shadows } from './tokens';
 
 /**
  * Brillian theme — primitives + semantic tokens, mapped to Chakra v3.
- * Source of truth: /reference/brillian-style-guide.html
  *
- * Two layers:
- *   1. Color ramps (brand blue, navy, jade, status palettes, neutrals)
- *   2. Semantic tokens (`fg`, `bg`, `border`, `brand.*`) that components consume
+ * Token *values* live in ./tokens.ts (single source of truth, also consumed by
+ * the in-app style guide). This file wraps those raw values into Chakra's
+ * `{ value }` shape and adds semantic tokens, recipes, and global CSS.
  */
+
+// Recursively wrap raw token values in Chakra's `{ value }` shape.
+type Wrapped<T> = T extends string
+  ? { value: string }
+  : { [K in keyof T]: Wrapped<T[K]> };
+
+function wrap<T extends Record<string, unknown>>(input: T): Wrapped<T> {
+  const out: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(input)) {
+    out[k] = typeof v === 'string' ? { value: v } : wrap(v as Record<string, unknown>);
+  }
+  return out as Wrapped<T>;
+}
+
+// ===== Recipes =====
 
 const buttonRecipe = defineRecipe({
   base: {
     px: '4',
-    rounded: 'sm',
+    rounded: 'xs',
     fontSize: '13px',
     fontWeight: 500,
   },
@@ -44,6 +59,81 @@ const buttonRecipe = defineRecipe({
     },
   },
 });
+
+const inputRecipe = defineRecipe({
+  base: {
+    h: 'control',
+    rounded: 'sm',
+    px: '3',
+    fontSize: '14px',
+    bg: 'bg',
+    borderWidth: '1px',
+    borderColor: 'border.emphasized',
+    color: 'fg',
+    transition: 'border-color 0.15s, box-shadow 0.15s',
+    _placeholder: { color: 'fg.subtle' },
+    _hover: { borderColor: 'fg.subtle' },
+    _focus: {
+      borderColor: 'brand.solid',
+      boxShadow: 'focus',
+      outline: 'none',
+    },
+    _disabled: { opacity: 0.6, cursor: 'not-allowed' },
+  },
+});
+
+const badgeRecipe = defineRecipe({
+  base: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: '1.5',
+    px: '3',
+    py: '1',
+    rounded: 'pill',
+    fontSize: '11px',
+    fontWeight: 600,
+    lineHeight: '1',
+    borderWidth: 0,
+    whiteSpace: 'nowrap',
+  },
+  variants: {
+    intent: {
+      danger: { bg: 'status.danger.tint', color: 'status.danger.dark' },
+      critical: { bg: 'status.critical.tint', color: 'status.critical.dark' },
+      warning: { bg: 'status.warning.tint', color: 'status.warning.dark' },
+      info: { bg: 'status.info.tint', color: 'status.info.dark' },
+      success: { bg: 'status.success.tint', color: 'status.success.dark' },
+      brand: { bg: 'brand.subtle', color: 'brand.fg' },
+      neutral: { bg: 'bg.subtle', color: 'fg.muted' },
+    },
+  },
+});
+
+const nativeSelectRecipe = defineRecipe({
+  className: 'native-select',
+  base: {
+    h: 'control',
+    '& select': {
+      h: 'control',
+      rounded: 'sm',
+      px: '3',
+      fontSize: '14px',
+      bg: 'bg',
+      borderWidth: '1px',
+      borderColor: 'border.emphasized',
+      color: 'fg',
+      transition: 'border-color 0.15s, box-shadow 0.15s',
+      _hover: { borderColor: 'fg.subtle' },
+      _focus: {
+        borderColor: 'brand.solid',
+        boxShadow: 'focus',
+        outline: 'none',
+      },
+    },
+  },
+});
+
+// ===== Config =====
 
 const config = defineConfig({
   globalCss: {
@@ -82,157 +172,43 @@ const config = defineConfig({
   },
   theme: {
     tokens: {
-      fonts: {
-        heading: { value: `'Manrope',-apple-system,sans-serif` },
-        body: { value: `'Manrope',-apple-system,sans-serif` },
-        mono: { value: `'JetBrains Mono', ui-monospace, monospace` },
-      },
+      fonts: wrap(fonts),
       colors: {
-        // ===== Color ramps from the style guide =====
-        brand: {
-          50: { value: '#EEF3FE' },
-          100: { value: '#DDE7FD' },
-          200: { value: '#B7CBFB' },
-          300: { value: '#8AA8F8' },
-          400: { value: '#4D7DF5' },
-          500: { value: '#265FF2' },
-          600: { value: '#1A4DD3' },
-          700: { value: '#1A3F9C' },
-          800: { value: '#14306F' },
-          900: { value: '#0F1F4A' },
-        },
-        navy: {
-          50: { value: '#E8EAF1' },
-          100: { value: '#C5CAD9' },
-          200: { value: '#8E97B4' },
-          500: { value: '#2C3D6B' },
-          700: { value: '#1A2A56' },
-          900: { value: '#0F1F4A' },
-        },
-        jade: {
-          50: { value: '#EAFAF7' },
-          100: { value: '#C2EBE5' },
-          200: { value: '#8FD9CF' },
-          500: { value: '#22B2A4' },
-          700: { value: '#138578' },
-          900: { value: '#0E6B61' },
-        },
-        warm: {
-          50: { value: '#F9F8F7' },
-          100: { value: '#F4F2EE' },
-          200: { value: '#ECEAE6' },
-          300: { value: '#DCD9D2' },
-          500: { value: '#9AA0A6' },
-          600: { value: '#6B7280' },
-          700: { value: '#4B5563' },
-          900: { value: '#0F1F4A' },
-        },
-        red: {
-          100: { value: '#FCD7D2' },
-          500: { value: '#DC2D24' },
-          900: { value: '#9B1F18' },
-        },
-        orange: {
-          100: { value: '#FBE0CC' },
-          500: { value: '#DB5614' },
-          900: { value: '#8C3508' },
-        },
-        amber: {
-          100: { value: '#FCEBB8' },
-          500: { value: '#E8B321' },
-          900: { value: '#7A5C0A' },
-        },
-        purple: {
-          100: { value: '#DDD3FA' },
-          500: { value: '#5938E4' },
-          900: { value: '#38228F' },
-        },
-        // ===== Legacy `brl.*` aliases — kept so existing direct refs keep working
+        ...wrap(colorRamps),
+        // Legacy `brl.*` aliases — kept so existing direct refs keep working.
+        // Prefer semantic tokens (`fg`, `bg`, `border`, `brand.*`) for new code.
         brl: {
-          primary: { value: '#265FF2' },
-          primaryLight: { value: '#EEF3FE' },
-          primaryMuted: { value: '#B7CBFB' },
-          primaryDark: { value: '#1A3F9C' },
-          success: { value: '#22B2A4' },
-          successLight: { value: '#C2EBE5' },
-          warning: { value: '#E8B321' },
-          warningLight: { value: '#FCEBB8' },
-          danger: { value: '#DC2D24' },
-          dangerLight: { value: '#FCD7D2' },
-          textPrimary: { value: '#0F1F4A' },
-          textSecondary: { value: '#4B5563' },
-          textTertiary: { value: '#6B7280' },
+          primary: { value: colorRamps.brand[500] },
+          primaryLight: { value: colorRamps.brand[50] },
+          primaryMuted: { value: colorRamps.brand[200] },
+          primaryDark: { value: colorRamps.brand[700] },
+          success: { value: colorRamps.lime[500] },
+          successLight: { value: colorRamps.lime[100] },
+          warning: { value: colorRamps.amber[500] },
+          warningLight: { value: colorRamps.amber[100] },
+          danger: { value: colorRamps.red[500] },
+          dangerLight: { value: colorRamps.red[100] },
+          textPrimary: { value: colorRamps.navy[900] },
+          textSecondary: { value: colorRamps.warm[700] },
+          textTertiary: { value: colorRamps.warm[600] },
           surface: { value: '#FFFFFF' },
-          surfaceDim: { value: '#F9F8F7' },
-          surfaceContainer: { value: '#F4F2EE' },
-          borderSubtle: { value: '#ECEAE6' },
-          borderStrong: { value: '#DCD9D2' },
+          surfaceDim: { value: colorRamps.warm[50] },
+          surfaceContainer: { value: colorRamps.warm[100] },
+          borderSubtle: { value: colorRamps.warm[200] },
+          borderStrong: { value: colorRamps.warm[300] },
         },
       },
-      radii: {
-        none: { value: '0' },
-        sm: { value: '4px' }, // button + input radius
-        md: { value: '8px' },
-        lg: { value: '12px' }, // card radius
-        xl: { value: '16px' },
-        full: { value: '9999px' },
-      },
+      radii: wrap(radii),
       sizes: {
         control: { value: '44px' },
       },
-      shadows: {
-        // Navy-tinted shadows for warmer, more cohesive depth.
-        card: { value: '0 1px 3px rgba(15, 31, 74, 0.08), 0 1px 2px rgba(15, 31, 74, 0.04)' },
-        modal: { value: '0 10px 30px rgba(15, 31, 74, 0.18)' },
-        focus: { value: '0 0 0 3px rgba(38, 95, 242, 0.18)' },
-      },
+      shadows: wrap(shadows),
     },
     recipes: {
       button: buttonRecipe,
-      input: defineRecipe({
-        base: {
-          h: 'control',
-          rounded: 'sm',
-          px: '3',
-          fontSize: '14px',
-          bg: 'bg',
-          borderWidth: '1px',
-          borderColor: 'border.emphasized',
-          color: 'fg',
-          transition: 'border-color 0.15s, box-shadow 0.15s',
-          _placeholder: { color: 'fg.subtle' },
-          _hover: { borderColor: 'fg.subtle' },
-          _focus: {
-            borderColor: 'brand.solid',
-            boxShadow: 'focus',
-            outline: 'none',
-          },
-          _disabled: { opacity: 0.6, cursor: 'not-allowed' },
-        },
-      }),
-      nativeSelect: defineRecipe({
-        className: 'native-select',
-        base: {
-          h: 'control',
-          '& select': {
-            h: 'control',
-            rounded: 'sm',
-            px: '3',
-            fontSize: '14px',
-            bg: 'bg',
-            borderWidth: '1px',
-            borderColor: 'border.emphasized',
-            color: 'fg',
-            transition: 'border-color 0.15s, box-shadow 0.15s',
-            _hover: { borderColor: 'fg.subtle' },
-            _focus: {
-              borderColor: 'brand.solid',
-              boxShadow: 'focus',
-              outline: 'none',
-            },
-          },
-        },
-      }),
+      badge: badgeRecipe,
+      input: inputRecipe,
+      nativeSelect: nativeSelectRecipe,
     },
     semanticTokens: {
       colors: {
@@ -264,7 +240,9 @@ const config = defineConfig({
           emphasized: { value: '{colors.brand.600}' },
           active: { value: '{colors.brand.700}' },
           dark: { value: '{colors.navy.900}' },
-          accent: { value: '{colors.jade.500}' },
+          accent: { value: '{colors.lime.500}' },
+          'accent.tint': { value: '{colors.lime.100}' },
+          'accent.dark': { value: '{colors.lime.700}' },
           focusRing: { value: '{colors.brand.500}' },
         },
         // ===== Status — paired tint + dark for legibility =====
@@ -281,9 +259,9 @@ const config = defineConfig({
           info: { value: '{colors.purple.500}' },
           'info.tint': { value: '{colors.purple.100}' },
           'info.dark': { value: '{colors.purple.900}' },
-          success: { value: '{colors.jade.500}' },
-          'success.tint': { value: '{colors.jade.100}' },
-          'success.dark': { value: '{colors.jade.900}' },
+          success: { value: '{colors.lime.500}' },
+          'success.tint': { value: '{colors.lime.100}' },
+          'success.dark': { value: '{colors.lime.700}' },
         },
       },
     },
@@ -297,5 +275,8 @@ export const system = createSystem(defaultConfig, config);
 declare module '@chakra-ui/react' {
   interface ButtonProps {
     intent?: 'primary' | 'secondary' | 'ghost';
+  }
+  interface BadgeProps {
+    intent?: 'danger' | 'critical' | 'warning' | 'info' | 'success' | 'brand' | 'neutral';
   }
 }
