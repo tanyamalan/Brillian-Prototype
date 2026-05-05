@@ -1,5 +1,6 @@
-import { Badge, Box, Circle, Flex, Heading, HStack, Text } from '@chakra-ui/react';
+import { Badge, Box, Flex, Heading, HStack, Text } from '@chakra-ui/react';
 import Dashboard from '../Dashboard/Dashboard';
+import { Avatar } from '../ui/Avatar';
 import { Card } from '../ui/Card';
 import { AdvisorDocuments } from './AdvisorDocuments';
 import { getClient, statusMeta } from './clientsData';
@@ -36,17 +37,7 @@ function ClientHeader({ clientId }: { clientId: string }) {
   return (
     <Box bg="bg" borderBottomWidth="1px" borderColor="border" px={{ base: '4', md: '8' }} py="4">
       <Flex align="center" gap="4" flexWrap="wrap">
-        <Circle
-          size="48px"
-          bg={client.logoColor}
-          color="fg.onBrand"
-          fontWeight={700}
-          fontSize="18px"
-          rounded="md"
-          flexShrink={0}
-        >
-          {client.initials}
-        </Circle>
+        <Avatar size="xl" color={client.logoColor} label={client.initials} />
         <Box flex="1" minW="0">
           <HStack gap="2" mb="0.5" flexWrap="wrap">
             <Heading as="h1" fontSize={{ base: '20px', md: '24px' }} fontWeight={500} color="fg">

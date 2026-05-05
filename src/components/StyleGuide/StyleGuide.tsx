@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Badge, Box, Button, Flex, Heading, Input, NativeSelect, SimpleGrid, Stack, Text } from '@chakra-ui/react';
 import { ArrowLeft, Lightbulb } from 'lucide-react';
+import { Alert } from '../ui/Alert';
+import { Avatar } from '../ui/Avatar';
 import { Card } from '../ui/Card';
 import { InlineRadio, yesNoOptions } from '../ui/InlineRadio';
+import { StatTile } from '../ui/StatTile';
 import { FormCard, FormField, Question } from '../ui/StepLayout';
 import DidYouKnow, { Source } from '../Onboarding/DidYouKnow';
 import {
@@ -36,6 +39,8 @@ const SECTIONS: SectionDef[] = [
   { id: 'shadows', title: 'Elevation', description: 'Three shadow tokens. All are navy-tinted (rgba on the navy ramp) so depth feels consistent with the rest of the palette.' },
   { id: 'motion', title: 'Motion', description: 'Durations and easings are tokenized; named keyframes are reused across the app. Prefer the standard easing curve — fast linear motion belongs only to spinners.' },
   { id: 'components', title: 'Components', description: "These render the real prototype components. If something looks wrong here, it's wrong everywhere — fix it at the recipe and watch this page update." },
+  { id: 'data', title: 'Data display', description: 'Stat tiles and avatars — the small atoms that surface identity and metrics across dashboards and list pages.' },
+  { id: 'feedback', title: 'Feedback', description: 'Alerts and inline notices share the seven-intent palette so every system message reads consistently.' },
   { id: 'forms', title: 'Form patterns', description: 'Question + help text, inline radios, form cards, and the DidYouKnow sidebar are the building blocks of every onboarding step.' },
 ];
 
@@ -673,13 +678,112 @@ function ComponentsSection() {
 }
 
 // ============================================================================
+// Data display — Avatar + StatTile
+// ============================================================================
+
+function DataDisplaySection() {
+  const def = SECTIONS.find(s => s.id === 'data')!;
+  const sizes: Array<'xs' | 'sm' | 'md' | 'lg' | 'xl'> = ['xs', 'sm', 'md', 'lg', 'xl'];
+  return (
+    <Section id={def.id} num={8} title={def.title} description={def.description}>
+      <Stack gap="10">
+        <Box>
+          <Text fontSize="md" fontWeight={600} color="fg" mb="3">Avatar</Text>
+          <Text fontSize="13px" color="fg.muted" mb="4" maxW="640px">
+            Initials chip used for company logos, user avatars, and client markers. Square by
+            default; pass <Text as="span" fontFamily="mono" fontSize="xs" color="fg">shape="circle"</Text>{' '}
+            for people. Five sizes from xs (20px) to xl (56px).
+          </Text>
+          <Flex gap="4" align="end" flexWrap="wrap" mb="6">
+            {sizes.map(s => (
+              <Stack key={s} gap="2" align="center">
+                <Avatar size={s} label="A" color="brand.500" />
+                <Text fontFamily="mono" fontSize="xs" color="fg.subtle">{s}</Text>
+              </Stack>
+            ))}
+          </Flex>
+          <Flex gap="3" flexWrap="wrap">
+            <Avatar label="A" color="brand.500" />
+            <Avatar label="B" color="lime.700" />
+            <Avatar label="C" color="amber.500" />
+            <Avatar label="D" color="red.500" />
+            <Avatar label="E" color="purple.500" />
+            <Avatar label="JR" color="navy.500" shape="circle" />
+          </Flex>
+        </Box>
+
+        <Box>
+          <Text fontSize="md" fontWeight={600} color="fg" mb="3">Stat tile</Text>
+          <Text fontSize="13px" color="fg.muted" mb="4" maxW="640px">
+            Labeled KPI card. Two sizes — default (28px value) for headline metrics and{' '}
+            <Text as="span" fontFamily="mono" fontSize="xs" color="fg">size="sm"</Text>{' '}
+            (22px) for dense dashboards.
+          </Text>
+          <SimpleGrid columns={{ base: 2, md: 4 }} gap="3" mb="6">
+            <StatTile label="Portfolio value" value="$26.8M" sublabel="across active clients" />
+            <StatTile label="Total clients" value="8" sublabel="2 added this month" />
+            <StatTile label="Open actions" value="34" sublabel="across all clients" />
+            <StatTile label="At risk" value="1" sublabel="needs attention" />
+          </SimpleGrid>
+          <SimpleGrid columns={{ base: 2, md: 4 }} gap="3">
+            <StatTile size="sm" label="Total" value="142" sublabel="all docs" />
+            <StatTile size="sm" label="Pending" value="6" sublabel="awaiting review" />
+            <StatTile size="sm" label="Shared" value="18" sublabel="last 7 days" />
+            <StatTile size="sm" label="Templates" value="9" sublabel="internal" />
+          </SimpleGrid>
+        </Box>
+      </Stack>
+    </Section>
+  );
+}
+
+// ============================================================================
+// Feedback — Alert
+// ============================================================================
+
+function FeedbackSection() {
+  const def = SECTIONS.find(s => s.id === 'feedback')!;
+  const intents: Array<'danger' | 'critical' | 'warning' | 'info' | 'success' | 'brand' | 'neutral'> = [
+    'danger', 'critical', 'warning', 'info', 'success', 'brand', 'neutral',
+  ];
+  return (
+    <Section id={def.id} num={9} title={def.title} description={def.description}>
+      <Text fontSize="13px" color="fg.muted" mb="4" maxW="640px">
+        Each alert pairs a 3px left-border with the matching tint background and dark text.
+        The default icon comes from the intent — pass{' '}
+        <Text as="span" fontFamily="mono" fontSize="xs" color="fg">icon</Text>{' '}
+        to override, or{' '}
+        <Text as="span" fontFamily="mono" fontSize="xs" color="fg">action</Text>{' '}
+        to add a trailing button.
+      </Text>
+      <Stack gap="3">
+        {intents.map(i => (
+          <Alert
+            key={i}
+            intent={i}
+            title={`${i.charAt(0).toUpperCase()}${i.slice(1)} alert`}
+            body="Short supporting detail explaining what just happened or what to do next."
+          />
+        ))}
+        <Alert
+          intent="brand"
+          title="Connect QuickBooks to unlock benchmarks"
+          body="We'll import your last 3 years of P&L and tighten the valuation range automatically."
+          action={<Button intent="primary" size="sm">Connect</Button>}
+        />
+      </Stack>
+    </Section>
+  );
+}
+
+// ============================================================================
 // Form patterns
 // ============================================================================
 
 function FormsSection() {
   const def = SECTIONS.find(s => s.id === 'forms')!;
   return (
-    <Section id={def.id} num={8} title={def.title} description={def.description}>
+    <Section id={def.id} num={10} title={def.title} description={def.description}>
       <SimpleGrid columns={{ base: 1, xl: 2 }} gap="6" alignItems="start">
         <FormCard>
           <Question
@@ -759,6 +863,8 @@ export default function StyleGuide() {
         <ShadowsSection />
         <MotionSection />
         <ComponentsSection />
+        <DataDisplaySection />
+        <FeedbackSection />
         <FormsSection />
         <Box px={{ base: '6', md: '12' }} py="10" textAlign="center">
           <Text fontSize="xs" color="fg.subtle" fontFamily="mono">

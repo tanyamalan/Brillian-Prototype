@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react';
 import {
   Box,
   Button,
-  Circle,
   HStack,
   Input,
   InputGroup,
@@ -12,6 +11,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { Check, ChevronDown, Search } from 'lucide-react';
+import { Avatar } from '../ui/Avatar';
 import { clients, getClient } from '../Advisor/clientsData';
 import {
   advisorActivitySubNav,
@@ -50,9 +50,7 @@ function PanelHeader({ children }: { children: React.ReactNode }) {
 function CompanyChip({ name, initials, color }: { name: string; initials: string; color: string }) {
   return (
     <HStack gap="2" px="2" py="2">
-      <Circle size="32px" bg={color} color="fg.onBrand" fontWeight={700} fontSize="14px" rounded="md" flexShrink={0}>
-        {initials}
-      </Circle>
+      <Avatar size="md" color={color} label={initials} />
       <Text fontSize="14px" fontWeight={600} color="fg" truncate>
         {name}
       </Text>
@@ -99,9 +97,7 @@ function ClientSwitcher({
           justifyContent="flex-start"
           _hover={{ bg: 'bg.dim' }}
         >
-          <Circle size="32px" bg={color} color={textColor} fontWeight={700} fontSize="14px" rounded="md" flexShrink={0}>
-            {initials}
-          </Circle>
+          <Avatar size="md" color={color} textColor={textColor} label={initials} />
           <Text fontSize="14px" fontWeight={600} color="fg" flex="1" textAlign="left" truncate>
             {label}
           </Text>
@@ -163,9 +159,7 @@ function ClientSwitcher({
                 gap="2"
                 fontSize="13px"
               >
-                <Circle size="24px" bg={c.logoColor} color="fg.onBrand" fontWeight={700} fontSize="11px" rounded="sm">
-                  {c.initials}
-                </Circle>
+                <Avatar size="sm" color={c.logoColor} label={c.initials} />
                 <Box flex="1">
                   <Text fontSize="13px" fontWeight={500} color="fg" lineHeight="1.2">
                     {c.name}

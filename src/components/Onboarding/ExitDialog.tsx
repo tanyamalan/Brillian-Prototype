@@ -20,12 +20,12 @@ export default function ExitDialog({ open, onClose, onConfirm }: ExitDialogProps
           <Dialog.Content rounded="lg" maxW="420px" p="6" bg="bg" shadow="modal">
             <Dialog.Header pb="2" px="0" pt="0">
               <Dialog.Title fontSize="18px" fontWeight={600} color="fg">
-                Save and exit?
+                Finish later?
               </Dialog.Title>
             </Dialog.Header>
             <Dialog.Body px="0" pb="6" pt="0">
               <Dialog.Description fontSize="14px" color="fg.muted" lineHeight="1.5">
-                All your progress has been saved. You can pick up right where you left off any time from your dashboard.
+                Your progress is saved automatically. You can pick up right where you left off any time from your dashboard.
               </Dialog.Description>
             </Dialog.Body>
             <Dialog.Footer p="0" gap="2" justifyContent="flex-end">
@@ -33,7 +33,7 @@ export default function ExitDialog({ open, onClose, onConfirm }: ExitDialogProps
                 Keep going
               </Button>
               <Button intent="primary" onClick={onConfirm}>
-                Save &amp; exit
+                Finish later
               </Button>
             </Dialog.Footer>
           </Dialog.Content>

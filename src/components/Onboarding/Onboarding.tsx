@@ -7,9 +7,10 @@ import {
   HStack,
   IconButton,
   Portal,
+  SimpleGrid,
   Text,
 } from '@chakra-ui/react';
-import { ArrowLeft, ArrowRight, Check, LogOut, Menu } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Menu, X } from 'lucide-react';
 import ExitDialog from './ExitDialog';
 import { checkValidity } from './checkValidity';
 import { OnboardingRail } from './OnboardingRail';
@@ -196,12 +197,12 @@ export default function Onboarding({ onExit }: OnboardingProps) {
             </Text>
           </HStack>
           <Button intent="secondary" onClick={() => setShowExitDialog(true)}>
-            Save &amp; Exit
-            <LogOut size={12} />
+            Finish later
+            <X size={14} />
           </Button>
         </Flex>
 
-        {/* Content */}
+        {/* Content (form + inline nav buttons below it) */}
         <Box
           ref={contentRef}
           flex="1"
@@ -214,48 +215,47 @@ export default function Onboarding({ onExit }: OnboardingProps) {
             animation={`${direction === 'forward' ? 'brl-step-in-fwd' : 'brl-step-in-back'} 0.7s cubic-bezier(0.22, 1, 0.36, 1) both`}
           >
             <StepComponent />
+
+            {/* Inline footer — same grid columns as StepLayout so the buttons
+                align with the form column, not the sidebar. */}
+            <SimpleGrid
+              columns={{ base: 1, md: 2 }}
+              gridTemplateColumns={{ base: '1fr', md: '1fr 280px', '2xl': '1fr 400px' }}
+              gap="6"
+              mt={{ base: '8', md: '10' }}
+            >
+              <Flex align="center" justify="space-between" gap="2" flexWrap="wrap">
+                <Box flex={{ base: 1, md: 'initial' }}>
+                  <Button
+                    intent="ghost"
+                    borderWidth={{ base: '1px', md: 0 }}
+                    borderColor="border.emphasized"
+                    w={{ base: 'full', md: 'auto' }}
+                    justifyContent="center"
+                    onClick={handleBack}
+                    disabled={currentStep === 1}
+                  >
+                    <ArrowLeft size={14} />
+                    Back
+                  </Button>
+                </Box>
+                <HStack gap="2" flex={{ base: 1, md: 'initial' }}>
+                  <Button
+                    intent="primary"
+                    w={{ base: 'full', md: 'auto' }}
+                    justifyContent="center"
+                    onClick={handleNext}
+                    disabled={!isStepValid}
+                  >
+                    {isLastStep ? 'Finish setup' : 'Save and continue'}
+                    {isLastStep ? <Check size={14} /> : <ArrowRight size={14} />}
+                  </Button>
+                </HStack>
+              </Flex>
+              <Box display={{ base: 'none', md: 'block' }} />
+            </SimpleGrid>
           </Box>
         </Box>
-
-        {/* Footer */}
-        <Flex
-          align="center"
-          justify="space-between"
-          px={{ base: '4', md: '8' }}
-          py={{ base: '2', md: '4' }}
-          borderTopWidth="1px"
-          borderColor="border"
-          bg="bg"
-          gap="2"
-          flexShrink={0}
-        >
-          <Box flex={{ base: 1, md: 'initial' }}>
-            <Button
-              intent="ghost"
-              borderWidth={{ base: '1px', md: 0 }}
-              borderColor="border.emphasized"
-              w={{ base: 'full', md: 'auto' }}
-              justifyContent="center"
-              onClick={handleBack}
-              disabled={currentStep === 1}
-            >
-              <ArrowLeft size={14} />
-              Back
-            </Button>
-          </Box>
-          <HStack gap="2" flex={{ base: 1, md: 'initial' }}>
-            <Button
-              intent="primary"
-              w={{ base: 'full', md: 'auto' }}
-              justifyContent="center"
-              onClick={handleNext}
-              disabled={!isStepValid}
-            >
-              {isLastStep ? 'Finish setup' : 'Save and continue'}
-              {isLastStep ? <Check size={14} /> : <ArrowRight size={14} />}
-            </Button>
-          </HStack>
-        </Flex>
       </Flex>
 
       <ExitDialog

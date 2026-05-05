@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Badge,
   Box,
   Button,
@@ -13,6 +12,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { ArrowLeftRight, Bell, BookOpen, ChevronDown, LogOut, Menu as MenuIcon, Search, Settings, User } from 'lucide-react';
+import { Avatar } from '../ui/Avatar';
 import type { ViewMode } from './navConfig';
 
 interface AppTopbarProps {
@@ -37,11 +37,7 @@ function UserMenu({ viewMode, onViewModeChange }: Pick<AppTopbarProps, 'viewMode
     <Menu.Root>
       <Menu.Trigger asChild>
         <Button variant="ghost" h="auto" minH="11" py="1" px="2" gap="2" rounded="sm" _hover={{ bg: 'bg.dim' }}>
-          <Avatar.Root size="sm" bg={avatarBg}>
-            <Avatar.Fallback color={avatarFg} fontWeight={700} fontSize="14px">
-              {avatarInitials}
-            </Avatar.Fallback>
-          </Avatar.Root>
+          <Avatar size="md" color={avatarBg} textColor={avatarFg} label={avatarInitials} />
           <Box display={{ base: 'none', md: 'block' }} textAlign="left">
             <Text fontSize="13px" fontWeight={600} color="fg" lineHeight="1.15">
               {userName}

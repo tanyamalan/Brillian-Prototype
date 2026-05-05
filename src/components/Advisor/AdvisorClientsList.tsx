@@ -2,7 +2,6 @@ import { useMemo, useState } from 'react';
 import {
   Badge,
   Box,
-  Circle,
   Flex,
   Heading,
   HStack,
@@ -14,7 +13,9 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { ChevronRight, Search } from 'lucide-react';
+import { Avatar } from '../ui/Avatar';
 import { Card } from '../ui/Card';
+import { StatTile } from '../ui/StatTile';
 import { clients, statusMeta } from './clientsData';
 import type { Client } from './clientsData';
 
@@ -40,9 +41,7 @@ function ClientRow({ client, onClick }: { client: Client; onClick: () => void })
         gap="4"
         p="5"
       >
-        <Circle size="44px" bg={client.logoColor} color="fg.onBrand" fontWeight={700} fontSize="16px" rounded="md" flexShrink={0}>
-          {client.initials}
-        </Circle>
+        <Avatar size="lg" color={client.logoColor} label={client.initials} />
 
         <Box flex="1" minW="180px">
           <HStack gap="2" mb="0.5">
@@ -100,9 +99,7 @@ function ClientRow({ client, onClick }: { client: Client; onClick: () => void })
       {/* Mobile layout — stacked */}
       <Box display={{ base: 'block', md: 'none' }} p="4">
         <Flex align="center" gap="3" mb="3">
-          <Circle size="40px" bg={client.logoColor} color="fg.onBrand" fontWeight={700} fontSize="15px" rounded="md" flexShrink={0}>
-            {client.initials}
-          </Circle>
+          <Avatar color={client.logoColor} label={client.initials} />
           <Box flex="1" minW="0">
             <HStack gap="2" mb="0.5" flexWrap="wrap">
               <Text fontSize="14px" fontWeight={600} color="fg" truncate>
@@ -147,24 +144,6 @@ function ClientRow({ client, onClick }: { client: Client; onClick: () => void })
           <Text>Active {client.lastActivity}</Text>
         </Flex>
       </Box>
-    </Card>
-  );
-}
-
-function StatTile({ label, value, sublabel }: { label: string; value: string; sublabel?: string }) {
-  return (
-    <Card>
-      <Text fontSize="12px" fontWeight={600} color="fg.muted" textTransform="uppercase" letterSpacing="0.5px" mb="1">
-        {label}
-      </Text>
-      <Text fontSize="28px" fontWeight={700} color="fg" lineHeight="1.1">
-        {value}
-      </Text>
-      {sublabel && (
-        <Text fontSize="12px" color="fg.subtle" mt="1">
-          {sublabel}
-        </Text>
-      )}
     </Card>
   );
 }

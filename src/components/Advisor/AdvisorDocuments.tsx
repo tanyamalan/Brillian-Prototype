@@ -3,7 +3,6 @@ import {
   Badge,
   Box,
   Button,
-  Circle,
   Flex,
   Heading,
   HStack,
@@ -22,7 +21,9 @@ import {
   Search,
   Upload,
 } from 'lucide-react';
+import { Avatar } from '../ui/Avatar';
 import { Card } from '../ui/Card';
+import { StatTile } from '../ui/StatTile';
 import {
   docStatusMeta,
   docTypeMeta,
@@ -42,24 +43,6 @@ interface AdvisorDocumentsProps {
 function getFileIcon(name: string) {
   if (name.endsWith('.xlsx') || name.endsWith('.csv')) return FileSpreadsheet;
   return FileText;
-}
-
-function StatTile({ label, value, sublabel }: { label: string; value: string; sublabel?: string }) {
-  return (
-    <Card p="4">
-      <Text fontSize="11px" fontWeight={600} color="fg.muted" textTransform="uppercase" letterSpacing="0.5px" mb="1">
-        {label}
-      </Text>
-      <Text fontSize="22px" fontWeight={700} color="fg" lineHeight="1.1">
-        {value}
-      </Text>
-      {sublabel && (
-        <Text fontSize="11px" color="fg.subtle" mt="1">
-          {sublabel}
-        </Text>
-      )}
-    </Card>
-  );
 }
 
 function DocumentRow({
@@ -107,9 +90,7 @@ function DocumentRow({
           <HStack flex="1" minW="140px" gap="2">
             {doc.clientId ? (
               <>
-                <Circle size="22px" bg={client.color} color="fg.onBrand" fontSize="10px" fontWeight={700} rounded="sm">
-                  {client.name.charAt(0)}
-                </Circle>
+                <Avatar size="sm" color={client.color} label={client.name.charAt(0)} />
                 <Text fontSize="12px" color="fg" truncate>
                   {client.name}
                 </Text>
@@ -174,9 +155,7 @@ function DocumentRow({
             <HStack gap="1.5" flexWrap="wrap">
               {showClient && doc.clientId && (
                 <Badge variant="subtle" rounded="sm" px="2" py="0.5" fontSize="10px" fontWeight={600} gap="1">
-                  <Circle size="14px" bg={client.color} color="fg.onBrand" fontSize="8px" fontWeight={700} rounded="sm">
-                    {client.name.charAt(0)}
-                  </Circle>
+                  <Avatar size="xs" color={client.color} label={client.name.charAt(0)} />
                   <Text as="span" truncate maxW="120px">{client.name}</Text>
                 </Badge>
               )}
@@ -404,14 +383,15 @@ export function AdvisorDocuments({ typeFilter = 'all', clientId }: AdvisorDocume
             mb="5"
           >
             <StatTile
+              size="sm"
               label="Total"
               value={String(totalCount)}
               sublabel={isClientScoped ? 'for this client' : 'across all clients'}
             />
-            <StatTile label="Awaiting review" value={String(pendingCount)} sublabel="needs your action" />
-            <StatTile label="Recently shared" value={String(sharedCount)} sublabel="in last 7 days" />
+            <StatTile size="sm" label="Awaiting review" value={String(pendingCount)} sublabel="needs your action" />
+            <StatTile size="sm" label="Recently shared" value={String(sharedCount)} sublabel="in last 7 days" />
             {!isClientScoped && (
-              <StatTile label="Templates" value={String(templateCount)} sublabel="internal" />
+              <StatTile size="sm" label="Templates" value={String(templateCount)} sublabel="internal" />
             )}
           </Box>
 

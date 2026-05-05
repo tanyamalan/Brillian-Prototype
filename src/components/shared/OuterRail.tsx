@@ -1,4 +1,5 @@
-import { Box, Button, Circle, Stack, Text } from '@chakra-ui/react';
+import { Box, Button, Stack, Text } from '@chakra-ui/react';
+import { Avatar } from '../ui/Avatar';
 import { getOuterItems, settingsItem } from './navConfig';
 import type { NavItem, ViewMode } from './navConfig';
 
@@ -83,18 +84,9 @@ export function OuterRail({ viewMode, activeId, onSelect }: OuterRailProps) {
       justifyContent={{ base: 'space-around', md: 'flex-start' }}
     >
       {/* Brand logo (desktop only) */}
-      <Circle
-        size="36px"
-        bg="brand.solid"
-        color="fg.onBrand"
-        rounded="md"
-        fontWeight={700}
-        fontSize="16px"
-        mb="2"
-        display={{ base: 'none', md: 'flex' }}
-      >
-        B
-      </Circle>
+      <Box mb="2" display={{ base: 'none', md: 'flex' }}>
+        <Avatar size="md" label="B" />
+      </Box>
 
       {/* Outer items */}
       <Stack
