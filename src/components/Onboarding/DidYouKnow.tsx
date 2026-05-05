@@ -63,7 +63,7 @@ export default function DidYouKnow({ Icon, headline, summary, expandedContent }:
           <Icon size={14} />
         </Circle>
         <Text
-          fontSize="10px"
+          fontSize="11px"
           fontWeight={600}
           letterSpacing="0.6px"
           textTransform="uppercase"
@@ -73,10 +73,10 @@ export default function DidYouKnow({ Icon, headline, summary, expandedContent }:
         </Text>
       </HStack>
       <Box px="4" pb="4">
-        <Text fontSize="13px" fontWeight={600} color="fg" lineHeight="1.4" mb="1.5">
+        <Text fontSize="15px" fontWeight={600} color="fg" lineHeight="1.4" mb="2">
           {headline}
         </Text>
-        <Text fontSize="12px" color="fg.muted" lineHeight="1.5">
+        <Text fontSize="14px" color="fg.muted" lineHeight="1.55">
           {summary}
         </Text>
       </Box>

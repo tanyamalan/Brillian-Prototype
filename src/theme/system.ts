@@ -83,7 +83,7 @@ const config = defineConfig({
   theme: {
     tokens: {
       fonts: {
-        heading: { value: `'Lora', Georgia, serif` },
+        heading: { value: `'Manrope',-apple-system,sans-serif` },
         body: { value: `'Manrope',-apple-system,sans-serif` },
         mono: { value: `'JetBrains Mono', ui-monospace, monospace` },
       },

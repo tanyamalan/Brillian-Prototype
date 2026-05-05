@@ -66,7 +66,7 @@ export function OnboardingRail({ steps, currentStep, completedSteps, goToStep }:
                 color="fg.onBrand"
                 flexShrink={0}
               >
-                {isComplete && !isActive && <Check size={12} strokeWidth={3} />}
+                {isComplete && !isActive && <Check size={7} strokeWidth={2.25} />}
               </Circle>
               <Text
                 fontSize="14px"

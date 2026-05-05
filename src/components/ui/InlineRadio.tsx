@@ -26,16 +26,12 @@ export function InlineRadio({ name, options, defaultValue }: InlineRadioProps) {
               gap="2.5"
               px="4"
               py="2.5"
-              borderWidth="1px"
-              borderColor="border"
+              borderWidth="0"
               rounded="sm"
               bg="bg"
               transition="all 0.15s"
-              _hover={{ borderColor: 'border.emphasized', bg: 'bg.dim' }}
-              _checked={{
-                borderColor: 'brand.solid',
-                bg: 'brand.subtle',
-              }}
+              _hover={{ bg: 'bg.dim' }}
+              _checked={{ bg: 'brand.subtle' }}
             >
               {/* Circle indicator — fills brand when checked */}
               <Box
