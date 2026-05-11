@@ -10,6 +10,7 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         styleGuide: resolve(__dirname, 'style-guide.html'),
+        blogBuilder: resolve(__dirname, 'blog-builder.html'),
       },
     },
   },
