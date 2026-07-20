@@ -31,8 +31,10 @@ export const HEADER_HEIGHT = '60px';
 
 // ===== Outer rail (app-wide sections) =====
 
+// Owner view has no inner panel — the rail carries the full business menu.
 export const ownerOuterItems: NavItem[] = [
   { id: 'home', label: 'Home', Icon: Home },
+  { id: 'profile', label: 'Company', Icon: ClipboardList },
   { id: 'documents', label: 'Documents', Icon: FileText },
   { id: 'reports', label: 'Reports', Icon: FileDown },
 ];

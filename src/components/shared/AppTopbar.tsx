@@ -128,16 +128,18 @@ export function AppTopbar({ viewMode, onViewModeChange, onOpenMenu }: AppTopbarP
       flexShrink={0}
     >
       <HStack gap={{ base: '2', md: '4' }} flex="1">
-        {/* Mobile-only hamburger to open the inner panel drawer */}
-        <IconButton
-          variant="ghost"
-          color="fg.muted"
-          aria-label="Open navigation"
-          display={{ base: 'inline-flex', md: 'none' }}
-          onClick={onOpenMenu}
-        >
-          <MenuIcon size={22} />
-        </IconButton>
+        {/* Mobile-only hamburger to open the inner panel drawer (advisor only) */}
+        {onOpenMenu && (
+          <IconButton
+            variant="ghost"
+            color="fg.muted"
+            aria-label="Open navigation"
+            display={{ base: 'inline-flex', md: 'none' }}
+            onClick={onOpenMenu}
+          >
+            <MenuIcon size={22} />
+          </IconButton>
+        )}
         <InputGroup
           flex="1"
           maxW={{ base: 'full', md: '320px' }}

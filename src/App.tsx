@@ -79,20 +79,18 @@ function App() {
     setSelectedClientId(id);
   };
 
+  // Owner view has no inner panel — the rail selection maps straight to a page.
   const renderOwnerContent = () => {
-    if (outerSection === 'home') {
-      switch (innerActiveId) {
-        case 'dashboard':
-          return <Dashboard onStartOnboarding={() => setShowOnboardingForm(true)} />;
-        case 'profile':
-          return <CompanyProfile />;
-        case 'onboarding':
-          return <OnboardingPage onStartForm={() => setShowOnboardingForm(true)} />;
-        default:
-          return <PlaceholderPage title={titleFor(innerActiveId)} body="Coming soon — this lens isn't built out yet." />;
-      }
+    switch (outerSection) {
+      case 'home':
+        return <Dashboard onStartOnboarding={() => setShowOnboardingForm(true)} />;
+      case 'profile':
+        return <CompanyProfile />;
+      case 'onboarding':
+        return <OnboardingPage onStartForm={() => setShowOnboardingForm(true)} />;
+      default:
+        return <PlaceholderPage title={titleFor(outerSection)} body="Section placeholder. Build this out next." />;
     }
-    return <PlaceholderPage title={titleFor(outerSection)} body="Section placeholder. Build this out next." />;
   };
 
   const renderAdvisorContent = () => {

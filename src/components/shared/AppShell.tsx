@@ -40,47 +40,55 @@ export default function AppShell({
     setInnerDrawerOpen(false);
   };
 
+  // Owner view is single-company: the rail carries the whole menu, so the
+  // contextual inner panel (and its mobile drawer) only exists for advisors.
+  const hasInnerPanel = viewMode === 'advisor';
+
   return (
     <Flex minH="100vh" w="full" flexDir={{ base: 'column', md: 'row' }}>
       <OuterRail viewMode={viewMode} activeId={outerSection} onSelect={onOuterSectionChange} />
-      <InnerPanel
-        viewMode={viewMode}
-        outerSection={outerSection}
-        activeItemId={innerActiveId}
-        onSelectItem={onInnerSelect}
-        selectedClientId={selectedClientId}
-        onSelectClient={onSelectClient}
-      />
+      {hasInnerPanel && (
+        <InnerPanel
+          viewMode={viewMode}
+          outerSection={outerSection}
+          activeItemId={innerActiveId}
+          onSelectItem={onInnerSelect}
+          selectedClientId={selectedClientId}
+          onSelectClient={onSelectClient}
+        />
+      )}
 
       {/* Mobile drawer for the InnerPanel — opened from the topbar hamburger */}
-      <Drawer.Root
-        open={innerDrawerOpen}
-        onOpenChange={(e) => setInnerDrawerOpen(e.open)}
-        placement="start"
-        size="xs"
-      >
-        <Portal>
-          <Drawer.Backdrop />
-          <Drawer.Positioner>
-            <Drawer.Content w="280px" h="100dvh">
-              <InnerPanelBody
-                viewMode={viewMode}
-                outerSection={outerSection}
-                activeItemId={innerActiveId}
-                onSelectItem={handleInnerSelectAndClose}
-                selectedClientId={selectedClientId}
-                onSelectClient={handleClientSelectAndClose}
-              />
-            </Drawer.Content>
-          </Drawer.Positioner>
-        </Portal>
-      </Drawer.Root>
+      {hasInnerPanel && (
+        <Drawer.Root
+          open={innerDrawerOpen}
+          onOpenChange={(e) => setInnerDrawerOpen(e.open)}
+          placement="start"
+          size="xs"
+        >
+          <Portal>
+            <Drawer.Backdrop />
+            <Drawer.Positioner>
+              <Drawer.Content w="280px" h="100dvh">
+                <InnerPanelBody
+                  viewMode={viewMode}
+                  outerSection={outerSection}
+                  activeItemId={innerActiveId}
+                  onSelectItem={handleInnerSelectAndClose}
+                  selectedClientId={selectedClientId}
+                  onSelectClient={handleClientSelectAndClose}
+                />
+              </Drawer.Content>
+            </Drawer.Positioner>
+          </Portal>
+        </Drawer.Root>
+      )}
 
       <Flex flex="1" minW="0" flexDir="column" pb={{ base: '20', md: '0' }}>
         <AppTopbar
           viewMode={viewMode}
           onViewModeChange={onViewModeChange}
-          onOpenMenu={() => setInnerDrawerOpen(true)}
+          onOpenMenu={hasInnerPanel ? () => setInnerDrawerOpen(true) : undefined}
         />
         {children}
       </Flex>
