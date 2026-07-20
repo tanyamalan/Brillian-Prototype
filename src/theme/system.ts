@@ -319,6 +319,12 @@ const config = defineConfig({
           borderSuccess: { value: '{colors.forest.500}' },
           borderDisabled: { value: '{colors.ink.100}' },
         },
+        // ===== Navigation — one scheme for the outer rail AND inner panel =====
+        nav: {
+          hoverBg: { value: '{colors.forest.50}' },
+          activeBg: { value: '{colors.forest.100}' },
+          activeFg: { value: '{colors.forest.600}' },
+        },
         // ===== Accent =====
         accent: {
           solid: { value: '{colors.lime.300}' },

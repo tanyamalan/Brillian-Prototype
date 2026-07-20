@@ -15,8 +15,10 @@ export interface FirmBrand {
   color: string;
   /** Contrast color for the initials text. */
   textColor: string;
-  /** Optional image URL. When set, renders instead of initials. */
+  /** Optional square mark. When set, renders in avatars instead of initials. */
   logoSrc?: string;
+  /** Optional horizontal wordmark. When set, co-brand lockups use it instead of avatar + name. */
+  wordmarkSrc?: string;
 }
 
 export const firmBrand: FirmBrand = {
@@ -24,5 +26,6 @@ export const firmBrand: FirmBrand = {
   initials: 'EJ',
   color: 'citron.400',
   textColor: 'fg',
-  // logoSrc: '/firm-logo.svg', // ← drop a file in public/ and uncomment
+  // logoSrc: '/firm-logo.svg', // ← square mark; drop a file in public/ and uncomment
+  wordmarkSrc: '/edward-jones.svg',
 };

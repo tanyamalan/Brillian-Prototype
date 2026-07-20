@@ -12,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { ArrowLeft, Menu, X } from 'lucide-react';
 import ExitDialog from './ExitDialog';
+import { CoBrand } from '../ui/CoBrand';
 import { checkValidity } from './checkValidity';
 import { OnboardingRail } from './OnboardingRail';
 import type { OnboardingStep } from './OnboardingRail';
@@ -196,10 +197,17 @@ export default function Onboarding({ onExit }: OnboardingProps) {
               Step {currentStep} of {STEPS.length}
             </Text>
           </HStack>
-          <Button intent="secondary" onClick={() => setShowExitDialog(true)}>
-            Finish later
-            <X size={14} />
-          </Button>
+          <HStack gap="4">
+            {/* Co-brand at the trust-critical moment — the owner is about to
+                share financials; their advisor's firm vouches for the ask. */}
+            <Box display={{ base: 'none', md: 'block' }}>
+              <CoBrand variant="inline" />
+            </Box>
+            <Button intent="secondary" onClick={() => setShowExitDialog(true)}>
+              Finish later
+              <X size={14} />
+            </Button>
+          </HStack>
         </Flex>
 
         {/* Content (form + inline nav buttons below it) */}

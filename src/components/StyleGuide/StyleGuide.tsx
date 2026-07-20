@@ -90,8 +90,8 @@ function Sidebar({ activeId }: { activeId: string }) {
               fontSize="13px"
               fontWeight={active ? 600 : 500}
               color={active ? 'fg' : 'fg.muted'}
-              bg={active ? 'bg.dim' : 'transparent'}
-              _hover={{ bg: 'bg.dim', color: 'fg' }}
+              bg={active ? 'nav.activeBg' : 'transparent'}
+              _hover={{ bg: 'nav.hoverBg', color: 'fg' }}
               display="flex"
               alignItems="baseline"
               gap="2"

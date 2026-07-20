@@ -1,8 +1,5 @@
-import { Box, Heading, SimpleGrid } from '@chakra-ui/react';
-import { BenchmarksGrid } from './BenchmarksGrid';
-import { GoalBanner } from './GoalBanner';
-import { OpportunitiesCard } from './OpportunitiesCard';
-import { ValuationCard } from './ValuationCard';
+import { Box, Button, Heading, Text } from '@chakra-ui/react';
+import { Card } from '../ui/Card';
 
 interface DashboardProps {
   onStartOnboarding: () => void;
@@ -15,14 +12,16 @@ export default function Dashboard({ onStartOnboarding }: DashboardProps) {
         Welcome Back, John
       </Heading>
 
-      <GoalBanner onStartOnboarding={onStartOnboarding} />
-
-      <SimpleGrid columns={{ base: 1, md: 2 }} gap="4" mb="6">
-        <ValuationCard />
-        <OpportunitiesCard />
-      </SimpleGrid>
-
-      <BenchmarksGrid />
+      {/* Dashboard content cleared — rebuild widgets here. */}
+      <Card size="lg" textAlign="center">
+        <Text fontSize="14px" color="fg.muted" mb="4" maxW="440px" mx="auto">
+          Your dashboard is empty. Complete setup to unlock your valuation, benchmarks, and
+          opportunities.
+        </Text>
+        <Button intent="primary" onClick={onStartOnboarding}>
+          Complete Setup
+        </Button>
+      </Card>
     </Box>
   );
 }

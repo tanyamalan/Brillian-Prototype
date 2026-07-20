@@ -53,8 +53,8 @@ export function OnboardingRail({ steps, currentStep, completedSteps, goToStep }:
               justifyContent="flex-start"
               gap="2"
               rounded="md"
-              bg={isActive ? 'bg.dim' : 'transparent'}
-              _hover={{ bg: 'bg.dim' }}
+              bg={isActive ? 'nav.activeBg' : 'transparent'}
+              _hover={{ bg: 'nav.hoverBg' }}
               onClick={() => canClick && goToStep(s.num)}
             >
               <Circle

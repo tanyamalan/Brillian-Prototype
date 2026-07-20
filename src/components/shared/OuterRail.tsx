@@ -30,12 +30,12 @@ function RailItem({
       gap="1"
       rounded="lg"
       bg="transparent"
-      color={active ? 'fg' : 'fg.muted'}
+      color={active ? 'nav.activeFg' : 'fg.muted'}
       fontWeight={active ? 600 : 500}
       // Pill-style hover/active highlight wraps just the icon, not the label.
       _hover={{
-        '& .rail-icon': { bg: 'bg.subtle' },
-        color: 'fg',
+        '& .rail-icon': { bg: active ? 'nav.activeBg' : 'nav.hoverBg' },
+        color: active ? 'nav.activeFg' : 'fg',
       }}
       onClick={onClick}
     >
@@ -43,7 +43,7 @@ function RailItem({
         className="rail-icon"
         boxSize="40px"
         rounded="lg"
-        bg={active ? 'border' : 'transparent'}
+        bg={active ? 'nav.activeBg' : 'transparent'}
         display="flex"
         alignItems="center"
         justifyContent="center"
@@ -76,7 +76,9 @@ export function OuterRail({ viewMode, activeId, onSelect }: OuterRailProps) {
       py={{ base: '2', md: '0' }}
       px={{ base: '2', md: '0' }}
       gap="0"
-      position={{ base: 'fixed', md: 'static' }}
+      position={{ base: 'fixed', md: 'sticky' }}
+      top={{ base: 'auto', md: 0 }}
+      h={{ base: 'auto', md: '100vh' }}
       bottom={{ base: 0, md: 'auto' }}
       left={{ base: 0, md: 'auto' }}
       zIndex={{ base: 100, md: 'auto' }}

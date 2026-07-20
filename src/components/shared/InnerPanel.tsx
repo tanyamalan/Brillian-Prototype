@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { Check, ChevronDown, Search } from 'lucide-react';
 import { Avatar } from '../ui/Avatar';
+import { CoBrand } from '../ui/CoBrand';
 import { clients, getClient } from '../Advisor/clientsData';
 import {
   advisorActivitySubNav,
@@ -58,7 +59,7 @@ function PanelHeader({ children }: { children: React.ReactNode }) {
 
 function CompanyChip({ name, initials, color }: { name: string; initials: string; color: string }) {
   return (
-    <HStack gap="2" px="2" py="2" w="full" cursor="pointer" rounded="control" _hover={{ bg: 'bg.dim' }}>
+    <HStack gap="2" px="2" py="2" w="full" cursor="pointer" rounded="control" _hover={{ bg: 'nav.hoverBg' }}>
       <Avatar size="md" color={color} textColor="fg" label={initials} />
       <Text fontSize="14px" fontWeight={600} color="fg" flex="1" truncate>
         {name}
@@ -105,7 +106,7 @@ function ClientSwitcher({
           gap="2"
           rounded="md"
           justifyContent="flex-start"
-          _hover={{ bg: 'bg.dim' }}
+          _hover={{ bg: 'nav.hoverBg' }}
         >
           <Avatar size="md" color={color} textColor={textColor} label={initials} />
           <Text fontSize="14px" fontWeight={600} color="fg" flex="1" textAlign="left" truncate>
@@ -208,11 +209,13 @@ function PanelItem({
       gap="2"
       justifyContent="flex-start"
       rounded="md"
-      bg={active ? 'bg.subtle' : 'transparent'}
-      color={active ? 'fg' : 'fg.muted'}
+      bg={active ? 'nav.activeBg' : 'transparent'}
+      color={active ? 'nav.activeFg' : 'fg.muted'}
       fontWeight={active ? 600 : 500}
       fontSize="14px"
-      _hover={{ bg: 'bg.dim', color: 'fg' }}
+      _hover={active
+        ? { bg: 'nav.activeBg', color: 'nav.activeFg' }
+        : { bg: 'nav.hoverBg', color: 'fg' }}
       onClick={onClick}
     >
       <Icon size={18} />
@@ -304,6 +307,10 @@ export function InnerPanelBody({
           />
         ))}
       </Stack>
+      {/* Co-brand footer — the advisory firm's mark anchors the workspace */}
+      <Box mt="auto" pt="4" pb="4" px="2" borderTopWidth="1px" borderColor="border.subtle">
+        <CoBrand variant="partnership" />
+      </Box>
     </Box>
   );
 }
@@ -319,6 +326,9 @@ export function InnerPanel(props: InnerPanelProps) {
       flexShrink={0}
       display={{ base: 'none', md: 'flex' }}
       flexDir="column"
+      position={{ base: 'static', md: 'sticky' }}
+      top={{ md: 0 }}
+      h={{ md: '100vh' }}
     >
       <InnerPanelBody {...props} />
     </Box>

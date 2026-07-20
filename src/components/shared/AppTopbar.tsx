@@ -47,7 +47,7 @@ function UserMenu({ viewMode, onViewModeChange }: Pick<AppTopbarProps, 'viewMode
   return (
     <Menu.Root>
       <Menu.Trigger asChild>
-        <Button variant="ghost" h="auto" minH="11" py="1" px="2" gap="2" rounded="md" _hover={{ bg: 'bg.dim' }}>
+        <Button variant="ghost" h="auto" minH="11" py="1" px="2" gap="2" rounded="md" _hover={{ bg: 'nav.hoverBg' }}>
           <Avatar size="md" {...avatarProps} />
           <Box display={{ base: 'none', md: 'block' }} textAlign="left">
             <Text fontSize="13px" fontWeight={600} color="fg" lineHeight="1.15">
