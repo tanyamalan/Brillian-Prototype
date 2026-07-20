@@ -23,7 +23,7 @@ export default function BusinessProfile() {
               help="Your business type helps determine valuation assumptions and benchmarks."
             >
               <NativeSelect.Root>
-                <NativeSelect.Field rounded="sm" defaultValue="" {...({ required: true } as object)}>
+                <NativeSelect.Field defaultValue="" {...({ required: true } as object)}>
                   <option value="" disabled>Select business type</option>
                   <option>Professional Services</option>
                   <option>Construction & Trades</option>
@@ -55,7 +55,7 @@ export default function BusinessProfile() {
                   </FormField>
                   <FormField label="State">
                     <NativeSelect.Root>
-                      <NativeSelect.Field rounded="sm" defaultValue="" {...({ required: true } as object)}>
+                      <NativeSelect.Field defaultValue="" {...({ required: true } as object)}>
                         <option value="" disabled>Select state</option>
                         {stateOptions.map(s => <option key={s}>{s}</option>)}
                       </NativeSelect.Field>

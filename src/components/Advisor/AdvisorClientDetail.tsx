@@ -2,6 +2,7 @@ import { Badge, Box, Flex, Heading, HStack, Text } from '@chakra-ui/react';
 import Dashboard from '../Dashboard/Dashboard';
 import { Avatar } from '../ui/Avatar';
 import { Card } from '../ui/Card';
+import { CompanyProfile } from '../Company/CompanyProfile';
 import { AdvisorDocuments } from './AdvisorDocuments';
 import { getClient, statusMeta } from './clientsData';
 
@@ -35,7 +36,7 @@ function ClientHeader({ clientId }: { clientId: string }) {
   if (!client) return null;
   const status = statusMeta[client.status];
   return (
-    <Box bg="bg" borderBottomWidth="1px" borderColor="border" px={{ base: '4', md: '8' }} py="4">
+    <Box bg="bg" borderBottomWidth="1px" borderColor="border.subtle" px={{ base: '4', md: '8' }} py="4">
       <Flex align="center" gap="4" flexWrap="wrap">
         <Avatar size="xl" color={client.logoColor} label={client.initials} />
         <Box flex="1" minW="0">
@@ -59,7 +60,7 @@ function ClientHeader({ clientId }: { clientId: string }) {
 function PlaceholderLens({ title, body }: { title: string; body: string }) {
   return (
     <Box px={{ base: '4', md: '8' }} py="6">
-      <Card p={{ base: '6', md: '10' }} textAlign="center">
+      <Card size="lg" textAlign="center">
         <Heading as="h2" fontSize="18px" fontWeight={500} color="fg" mb="2">
           {title}
         </Heading>
@@ -73,6 +74,7 @@ function PlaceholderLens({ title, body }: { title: string; body: string }) {
 
 export function AdvisorClientDetail({ clientId, lens, onStartOnboarding }: AdvisorClientDetailProps) {
   const lensConfig = lensTitles[lens];
+  const client = getClient(clientId);
 
   return (
     <Box flex="1">
@@ -81,6 +83,8 @@ export function AdvisorClientDetail({ clientId, lens, onStartOnboarding }: Advis
         <Dashboard onStartOnboarding={onStartOnboarding} />
       ) : lens === 'documents' ? (
         <AdvisorDocuments clientId={clientId} />
+      ) : lens === 'profile' ? (
+        <CompanyProfile companyName={client?.name} />
       ) : lensConfig ? (
         <PlaceholderLens title={lensConfig.title} body={lensConfig.body} />
       ) : (

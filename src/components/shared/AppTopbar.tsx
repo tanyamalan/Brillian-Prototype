@@ -13,6 +13,8 @@ import {
 } from '@chakra-ui/react';
 import { ArrowLeftRight, Bell, BookOpen, ChevronDown, LogOut, Menu as MenuIcon, Search, Settings, User } from 'lucide-react';
 import { Avatar } from '../ui/Avatar';
+import { firmBrand } from '../../config/firmBrand';
+import { HEADER_HEIGHT } from './navConfig';
 import type { ViewMode } from './navConfig';
 
 interface AppTopbarProps {
@@ -27,17 +29,26 @@ function UserMenu({ viewMode, onViewModeChange }: Pick<AppTopbarProps, 'viewMode
   // Owner mode: avatar is the user; text is name / role.
   const isAdvisor = viewMode === 'advisor';
   const userName = isAdvisor ? 'Sarah K.' : 'John R.';
-  const userCompany = isAdvisor ? 'Edward Jones' : null;
+  const userCompany = isAdvisor ? firmBrand.name : null;
   const userRole = isAdvisor ? 'Advisor' : 'Acme Owner';
-  const avatarInitials = isAdvisor ? 'EJ' : 'JR';
-  const avatarBg = isAdvisor ? 'brl.warning' : 'bg.subtle';
-  const avatarFg = isAdvisor ? 'white' : 'fg.muted';
+
+  // Advisor → firm logo (image if provided, otherwise initials).
+  // Owner → personal initials in a neutral chip.
+  const avatarProps = isAdvisor
+    ? {
+        label: firmBrand.initials,
+        src: firmBrand.logoSrc,
+        alt: firmBrand.name,
+        color: firmBrand.color,
+        textColor: firmBrand.textColor,
+      }
+    : { label: 'JR', color: 'bg.subtle', textColor: 'fg.muted' };
 
   return (
     <Menu.Root>
       <Menu.Trigger asChild>
-        <Button variant="ghost" h="auto" minH="11" py="1" px="2" gap="2" rounded="sm" _hover={{ bg: 'bg.dim' }}>
-          <Avatar size="md" color={avatarBg} textColor={avatarFg} label={avatarInitials} />
+        <Button variant="ghost" h="auto" minH="11" py="1" px="2" gap="2" rounded="md" _hover={{ bg: 'bg.dim' }}>
+          <Avatar size="md" {...avatarProps} />
           <Box display={{ base: 'none', md: 'block' }} textAlign="left">
             <Text fontSize="13px" fontWeight={600} color="fg" lineHeight="1.15">
               {userName}
@@ -106,10 +117,12 @@ export function AppTopbar({ viewMode, onViewModeChange, onOpenMenu }: AppTopbarP
     <Flex
       align="center"
       justify="space-between"
+      h={{ base: 'auto', md: HEADER_HEIGHT }}
+      minH={{ base: HEADER_HEIGHT, md: HEADER_HEIGHT }}
       px={{ base: '4', md: '8' }}
-      py="2"
+      py={{ base: '2', md: '0' }}
       borderBottomWidth="1px"
-      borderColor="border"
+      borderColor="border.subtle"
       bg="bg"
       gap="2"
       flexShrink={0}
@@ -130,7 +143,7 @@ export function AppTopbar({ viewMode, onViewModeChange, onOpenMenu }: AppTopbarP
           maxW={{ base: 'full', md: '320px' }}
           startElement={<Search size={16} color="var(--chakra-colors-fg-subtle)" />}
         >
-          <Input placeholder="Search" bg="bg.dim" borderColor="border" />
+          <Input placeholder="Search" bg="bg.dim" />
         </InputGroup>
       </HStack>
 

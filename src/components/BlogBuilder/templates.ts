@@ -11,19 +11,21 @@ import { colorRamps, radii } from '../../theme/tokens';
 
 const FONT_STACK = `'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif`;
 
+// Key names predate the v2 rebrand; values now point at the v2 palette
+// (navy→forest darks, brand→forest solids, warm→sand neutrals, lime→accent).
 const C = {
-  navy900: colorRamps.navy[900],
-  navy700: colorRamps.navy[700],
-  brand500: colorRamps.brand[500],
-  brand600: colorRamps.brand[600],
-  brand700: colorRamps.brand[700],
-  brand50: colorRamps.brand[50],
-  warm50: colorRamps.warm[50],
-  warm100: colorRamps.warm[100],
-  warm200: colorRamps.warm[200],
-  warm600: colorRamps.warm[600],
-  warm700: colorRamps.warm[700],
-  lime500: colorRamps.lime[500],
+  navy900: colorRamps.forest[900],
+  navy700: colorRamps.forest[800],
+  brand500: colorRamps.forest[700],
+  brand600: colorRamps.forest[800],
+  brand700: colorRamps.forest[900],
+  brand50: colorRamps.forest[50],
+  warm50: colorRamps.sand[50],
+  warm100: colorRamps.sand[100],
+  warm200: colorRamps.sand[200],
+  warm600: colorRamps.sand[600],
+  warm700: colorRamps.sand[700],
+  lime500: colorRamps.lime[300],
   lime100: colorRamps.lime[100],
 };
 

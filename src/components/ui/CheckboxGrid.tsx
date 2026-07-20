@@ -18,8 +18,8 @@ export function CheckboxGrid({ options, columns = { base: 1, md: 2 } }: Checkbox
             px="2"
             py="2"
             borderWidth="1px"
-            borderColor="border.emphasized"
-            rounded="sm"
+            borderColor="border"
+            rounded="control"
             bg="bg"
             fontSize="13px"
             fontWeight={500}
@@ -33,8 +33,8 @@ export function CheckboxGrid({ options, columns = { base: 1, md: 2 } }: Checkbox
               w="4"
               h="4"
               flexShrink={0}
-              borderColor="border.emphasized"
-              rounded="sm"
+              borderColor="border"
+              rounded="control"
               _checked={{ bg: 'brand.solid', borderColor: 'brand.solid' }}
             >
               <Checkbox.Indicator />

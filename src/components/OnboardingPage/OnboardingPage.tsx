@@ -86,7 +86,7 @@ export default function OnboardingPage({ onStartForm }: OnboardingPageProps) {
             Complete these steps to unlock your full dashboard and insights.
           </Text>
         </Box>
-        <Card p="2" px="4" rounded="sm" flexShrink={0}>
+        <Card p="2" px="4" flexShrink={0}>
           <Text fontSize="13px" fontWeight={600} color="fg.muted">
             0 of {steps.length} complete
           </Text>
@@ -100,7 +100,6 @@ export default function OnboardingPage({ onStartForm }: OnboardingPageProps) {
           return (
             <Card
               key={step.num}
-              p={{ base: '4', md: '6' }}
               opacity={isLocked ? 0.55 : 1}
               borderLeftWidth={isAction ? '3px' : 0}
               borderLeftColor={isAction ? 'brand.solid' : 'transparent'}

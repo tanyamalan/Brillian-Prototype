@@ -17,9 +17,9 @@ export interface DocumentRecord {
 }
 
 export const docTypeMeta: Record<DocType, { label: string; intent: BadgeIntent }> = {
-  tax: { label: 'Tax', intent: 'info' },
+  tax: { label: 'Tax', intent: 'accent' },
   financials: { label: 'Financials', intent: 'brand' },
-  legal: { label: 'Legal', intent: 'critical' },
+  legal: { label: 'Legal', intent: 'warning' },
   template: { label: 'Template', intent: 'neutral' },
 };
 
@@ -28,15 +28,15 @@ export const docStatusMeta: Record<
   { label: string; intent: BadgeIntent }
 > = {
   reviewed: { label: 'Reviewed', intent: 'success' },
-  pending: { label: 'Pending review', intent: 'warning' },
-  shared: { label: 'Shared', intent: 'info' },
+  pending: { label: 'Pending review', intent: 'moderate' },
+  shared: { label: 'Shared', intent: 'brand' },
 };
 
 const findClientName = (id: string | null) =>
   id ? clients.find(c => c.id === id)?.name ?? '—' : '—';
 
 const findClientColor = (id: string | null) =>
-  id ? clients.find(c => c.id === id)?.logoColor ?? 'warm.500' : 'warm.500';
+  id ? clients.find(c => c.id === id)?.logoColor ?? 'sand.500' : 'sand.500';
 
 export const findClient = (id: string | null) => ({
   name: findClientName(id),

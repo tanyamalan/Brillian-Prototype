@@ -12,9 +12,8 @@ import type { LucideIcon } from 'lucide-react';
 
 export type AlertIntent =
   | 'danger'
-  | 'critical'
   | 'warning'
-  | 'info'
+  | 'moderate'
   | 'success'
   | 'brand'
   | 'neutral';
@@ -36,35 +35,28 @@ const INTENT_STYLES: Record<
   danger: {
     bg: 'status.danger.tint',
     border: 'status.danger',
-    fg: 'status.danger.dark',
+    fg: 'status.danger.text',
     iconColor: 'status.danger',
     icon: XCircle,
-  },
-  critical: {
-    bg: 'status.critical.tint',
-    border: 'status.critical',
-    fg: 'status.critical.dark',
-    iconColor: 'status.critical',
-    icon: AlertCircle,
   },
   warning: {
     bg: 'status.warning.tint',
     border: 'status.warning',
-    fg: 'status.warning.dark',
+    fg: 'status.warning.text',
     iconColor: 'status.warning',
     icon: AlertTriangle,
   },
-  info: {
-    bg: 'status.info.tint',
-    border: 'status.info',
-    fg: 'status.info.dark',
-    iconColor: 'status.info',
-    icon: Info,
+  moderate: {
+    bg: 'status.moderate.tint',
+    border: 'status.moderate',
+    fg: 'status.moderate.text',
+    iconColor: 'status.moderate.text',
+    icon: AlertCircle,
   },
   success: {
     bg: 'status.success.tint',
     border: 'status.success',
-    fg: 'status.success.dark',
+    fg: 'status.success.text',
     iconColor: 'status.success',
     icon: CheckCircle2,
   },
@@ -88,7 +80,7 @@ const INTENT_STYLES: Record<
  * Alert — a section-level callout banner. Use for system messages, page-level
  * tips, or feature gates. For ephemeral confirmations use Toast (coming soon).
  */
-export function Alert({ intent = 'info', title, body, icon, action, ...rest }: AlertProps) {
+export function Alert({ intent = 'brand', title, body, icon, action, ...rest }: AlertProps) {
   const s = INTENT_STYLES[intent];
   const Icon = icon ?? s.icon;
   return (
@@ -98,7 +90,7 @@ export function Alert({ intent = 'info', title, body, icon, action, ...rest }: A
       gap="3"
       px="4"
       py="3"
-      rounded="md"
+      rounded="lg"
       bg={s.bg}
       borderLeftWidth="3px"
       borderLeftColor={s.border}

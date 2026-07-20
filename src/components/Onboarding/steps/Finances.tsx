@@ -18,7 +18,7 @@ export default function Finances() {
               help="How the business is performing today shapes the valuation approach."
             >
               <NativeSelect.Root>
-                <NativeSelect.Field rounded="sm" defaultValue="going-concern" {...({ required: true } as object)}>
+                <NativeSelect.Field defaultValue="going-concern" {...({ required: true } as object)}>
                   <option value="going-concern">Going concern</option>
                   <option value="growth">Rapid growth</option>
                   <option value="declining">Declining</option>
@@ -37,7 +37,7 @@ export default function Finances() {
               help="Revenue recognition affects how we interpret your financials. Cash-basis counts revenue when payment is received; accrual counts it when it's earned."
             >
               <NativeSelect.Root>
-                <NativeSelect.Field rounded="sm" defaultValue="accrual" {...({ required: true } as object)}>
+                <NativeSelect.Field defaultValue="accrual" {...({ required: true } as object)}>
                   <option value="accrual">Accrual</option>
                   <option value="cash">Cash</option>
                   <option value="hybrid">Hybrid</option>

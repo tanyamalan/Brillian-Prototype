@@ -3,9 +3,11 @@ import { Badge, Box, Button, Flex, Heading, Input, NativeSelect, SimpleGrid, Sta
 import { ArrowLeft, Lightbulb } from 'lucide-react';
 import { Alert } from '../ui/Alert';
 import { Avatar } from '../ui/Avatar';
-import { Card } from '../ui/Card';
+import { Card, CardDivider, CardHeader } from '../ui/Card';
+import { DisplayField } from '../ui/DisplayField';
 import { InlineRadio, yesNoOptions } from '../ui/InlineRadio';
 import { StatTile } from '../ui/StatTile';
+import { TabNav } from '../ui/TabNav';
 import { FormCard, FormField, Question } from '../ui/StepLayout';
 import DidYouKnow, { Source } from '../Onboarding/DidYouKnow';
 import {
@@ -14,7 +16,6 @@ import {
   fonts,
   motion,
   radii,
-  reservedColors,
   semanticColors,
   shadows,
   spacing,
@@ -35,12 +36,12 @@ const SECTIONS: SectionDef[] = [
   { id: 'colors', title: 'Color', description: 'Two layers: raw ramps for designers picking values, and semantic tokens for engineers writing components. Always reach for semantics first — they survive rebrands.' },
   { id: 'typography', title: 'Typography', description: 'Manrope across all surfaces. Two weights — 500 medium for emphasis, 400 regular for body. Headings stay in medium, never bold or semibold.' },
   { id: 'spacing', title: 'Spacing', description: "Built on a 4px grid. Use Chakra's numeric scale (e.g. p='4' for 16px). Anything outside the scale is a smell — push back or add a token." },
-  { id: 'radii', title: 'Border radius', description: 'Six radii cover every surface. Buttons get a sharp radius.xs (4px) that sets them apart from pills — a deliberate corner language that reads more financial-product, less consumer-app.' },
-  { id: 'shadows', title: 'Elevation', description: 'Three shadow tokens. All are navy-tinted (rgba on the navy ramp) so depth feels consistent with the rest of the palette.' },
+  { id: 'radii', title: 'Border radius', description: 'Eight primitive radii plus three semantic aliases: radii.control (4px) for buttons, inputs, selects, and chips; radii.card (8px) for cards, panels, and modals; radii.pill for tags, avatars, and toggles. Components reference the aliases, never the primitives.' },
+  { id: 'shadows', title: 'Elevation', description: 'Four primitive shadows plus two semantic aliases: shadow.elevated (the card default) and shadow.raised (overlays, popovers, menus). The focus ring is a forest-tinted spread.' },
   { id: 'motion', title: 'Motion', description: 'Durations and easings are tokenized; named keyframes are reused across the app. Prefer the standard easing curve — fast linear motion belongs only to spinners.' },
   { id: 'components', title: 'Components', description: "These render the real prototype components. If something looks wrong here, it's wrong everywhere — fix it at the recipe and watch this page update." },
   { id: 'data', title: 'Data display', description: 'Stat tiles and avatars — the small atoms that surface identity and metrics across dashboards and list pages.' },
-  { id: 'feedback', title: 'Feedback', description: 'Alerts and inline notices share the seven-intent palette so every system message reads consistently.' },
+  { id: 'feedback', title: 'Feedback', description: 'Alerts and inline notices share the intent palette (health-scale statuses + brand + neutral) so every system message reads consistently.' },
   { id: 'forms', title: 'Form patterns', description: 'Question + help text, inline radios, form cards, and the DidYouKnow sidebar are the building blocks of every onboarding step.' },
 ];
 
@@ -85,7 +86,7 @@ function Sidebar({ activeId }: { activeId: string }) {
               {...({ href: `#${s.id}` } as object)}
               px="3"
               py="2"
-              rounded="sm"
+              rounded="md"
               fontSize="13px"
               fontWeight={active ? 600 : 500}
               color={active ? 'fg' : 'fg.muted'}
@@ -153,7 +154,7 @@ function PageHeader() {
           </Text>
         </Box>
         <Stack gap="1" textAlign="right" fontFamily="mono" fontSize="xs" color="fg.subtle">
-          <Text>v1 · Manrope · 4px grid</Text>
+          <Text>July 13 tokens · Manrope · 4px grid</Text>
           <Text>{new Date().toISOString().slice(0, 10)}</Text>
         </Stack>
       </Flex>
@@ -214,7 +215,7 @@ function RampRow({ name, ramp }: { name: string; ramp: Record<string, string> })
       <SimpleGrid columns={{ base: 5, md: 10 }} gap="2">
         {steps.map(([step, hex]) => (
           <Stack key={step} gap="1.5">
-            <Box bg={hex} h="56px" rounded="md" borderWidth="1px" borderColor="border" />
+            <Box bg={hex} h="56px" rounded="lg" borderWidth="1px" borderColor="border" />
             <Text fontFamily="mono" fontSize="xs" color="fg.subtle" lineHeight="1.2">
               {step}
             </Text>
@@ -304,11 +305,31 @@ function ColorsSection() {
             </Badge>
           </Flex>
           <Text fontSize="13px" color="fg.muted" lineHeight="1.6" maxW="720px" mb="4">
-            A four-step text hierarchy plus on-brand and eyebrow accents. Always reach for the
-            semantic token, never the underlying ramp.
+            Eleven text tokens on the Ink ramp — primary (900), body (800), secondary (600),
+            subtle (500), placeholder/disabled (400) — plus error, success, and the inverse trio
+            for dark surfaces. Always reach for the semantic token, never the underlying ramp.
           </Text>
           <SimpleGrid columns={{ base: 2, md: 4, xl: 5 }} gap="3">
             {Object.values(semanticColors.fg).map(t => (
+              <SemanticSwatch key={t.name} name={t.name} hex={resolveSemantic(t)} />
+            ))}
+          </SimpleGrid>
+        </Box>
+
+        <Box>
+          <Flex align="baseline" gap="2" mb="2" flexWrap="wrap">
+            <Text fontSize="md" fontWeight={600} color="fg">Input</Text>
+            <Badge intent="neutral" fontSize="10px" letterSpacing="0.4px" textTransform="uppercase">
+              semantic
+            </Badge>
+          </Flex>
+          <Text fontSize="13px" color="fg.muted" lineHeight="1.6" maxW="720px" mb="4">
+            Eight state tokens covering every field: white surface, ink borders at rest/hover,
+            forest focus, brick error, forest success, and the disabled pair. All inputs are 40px
+            tall with radii.control corners.
+          </Text>
+          <SimpleGrid columns={{ base: 2, md: 4 }} gap="3">
+            {Object.values(semanticColors.input).map(t => (
               <SemanticSwatch key={t.name} name={t.name} hex={resolveSemantic(t)} />
             ))}
           </SimpleGrid>
@@ -321,57 +342,60 @@ function ColorsSection() {
               primitive
             </Badge>
           </Flex>
-              <Text fontSize="13px" color="fg.muted" lineHeight="1.6" maxW="720px" mb="4">
-                The five status primitives. At the semantic layer these become{' '}
-                <Text as="span" fontFamily="mono" fontSize="xs" color="fg">status.danger</Text>,{' '}
-                <Text as="span" fontFamily="mono" fontSize="xs" color="fg">status.critical</Text>,{' '}
-                <Text as="span" fontFamily="mono" fontSize="xs" color="fg">status.warning</Text>,{' '}
-                <Text as="span" fontFamily="mono" fontSize="xs" color="fg">status.info</Text>, and{' '}
-                <Text as="span" fontFamily="mono" fontSize="xs" color="fg">status.success</Text>. Each gets a{' '}
-                <Text as="span" fontFamily="mono" fontSize="xs" color="fg">tint / base / dark</Text> triplet —
-                always used together, never mixed across status types. Status colors live only in pills,
-                dots, icon tints, and small marks — never as full surfaces.
-              </Text>
-          <SimpleGrid columns={{ base: 1, sm: 2, lg: 5 }} gap="3">
+          <Text fontSize="13px" color="fg.muted" lineHeight="1.6" maxW="720px" mb="4">
+            The four status primitives, health-scale ordered (healthiest first):{' '}
+            <Text as="span" fontFamily="mono" fontSize="xs" color="fg">status.success</Text> →{' '}
+            <Text as="span" fontFamily="mono" fontSize="xs" color="fg">status.moderate</Text> →{' '}
+            <Text as="span" fontFamily="mono" fontSize="xs" color="fg">status.warning</Text> →{' '}
+            <Text as="span" fontFamily="mono" fontSize="xs" color="fg">status.danger</Text>. Each gets a{' '}
+            <Text as="span" fontFamily="mono" fontSize="xs" color="fg">tint / base / text</Text> triplet —
+            the tint (family 100) for backgrounds, the text (family 800) for text on those tints. Always
+            used together, never mixed across status types. Inverse metrics (e.g. Inventory Days) reverse
+            the scale direction.
+          </Text>
+          <SimpleGrid columns={{ base: 1, sm: 2, lg: 4 }} gap="3">
             {Object.values(semanticColors.status).map(s => {
               const ramp = colorRamps[s.ramp] as Record<number, string>;
               return (
                 <Card key={s.label} p="4">
-                      <Text fontSize="14px" fontWeight={600} color="fg" mb="3">
-                        {s.label}
-                      </Text>
-                      <Box mb="4">
-                        <Badge
-                          rounded="pill"
-                          px="3"
-                          py="1"
-                          fontSize="11px"
-                          fontWeight={600}
-                          bg={ramp[s.tint.step]}
-                          color={ramp[s.dark.step]}
-                          borderWidth="0"
-                        >
-                          {s.label}
-                        </Badge>
-                      </Box>
-                      <Stack gap="1.5">
-                        {[s.tint, s.base, s.dark].map(t => (
-                          <Flex key={t.name} align="center" gap="2">
-                            <Box
-                              boxSize="14px"
-                              rounded="xs"
-                              bg={ramp[t.step]}
-                              borderWidth="1px"
-                              borderColor="border"
-                              flexShrink={0}
-                            />
-                            <Text fontFamily="mono" fontSize="11px" color="fg.muted">
-                              {t.name}
-                            </Text>
-                          </Flex>
-                        ))}
-                      </Stack>
-                    </Card>
+                  <Text fontSize="14px" fontWeight={600} color="fg" mb="1">
+                    {s.label}
+                  </Text>
+                  <Text fontSize="11px" color="fg.muted" mb="3" lineHeight="1.4">
+                    {s.use}
+                  </Text>
+                  <Box mb="4">
+                    <Badge
+                      rounded="pill"
+                      px="3"
+                      py="1"
+                      fontSize="11px"
+                      fontWeight={500}
+                      bg={ramp[s.tint.step]}
+                      color={ramp[s.text.step]}
+                      borderWidth="0"
+                    >
+                      {s.label}
+                    </Badge>
+                  </Box>
+                  <Stack gap="1.5">
+                    {[s.tint, s.base, s.text].map(t => (
+                      <Flex key={t.name} align="center" gap="2">
+                        <Box
+                          boxSize="14px"
+                          rounded="base"
+                          bg={ramp[t.step]}
+                          borderWidth="1px"
+                          borderColor="border"
+                          flexShrink={0}
+                        />
+                        <Text fontFamily="mono" fontSize="11px" color="fg.muted">
+                          {t.name}
+                        </Text>
+                      </Flex>
+                    ))}
+                  </Stack>
+                </Card>
               );
             })}
           </SimpleGrid>
@@ -379,34 +403,19 @@ function ColorsSection() {
 
         <Box>
           <Flex align="baseline" gap="2" mb="2" flexWrap="wrap">
-            <Text fontSize="md" fontWeight={600} color="fg">Reserved colors</Text>
+            <Text fontSize="md" fontWeight={600} color="fg">Accent</Text>
             <Badge intent="neutral" fontSize="10px" letterSpacing="0.4px" textTransform="uppercase">
-              marketing &amp; data viz
+              semantic
             </Badge>
           </Flex>
           <Text fontSize="13px" color="fg.muted" lineHeight="1.6" maxW="720px" mb="4">
-            Off-palette accents reserved for marketing illustrations and data visualization
-            only — never use them in product UI primitives.
+            Lime accent for highlights and CTAs on dark surfaces.{' '}
+            <Text as="span" fontFamily="mono" fontSize="xs" color="fg">accent.solid</Text> takes dark
+            text only — never white.
           </Text>
-          <SimpleGrid columns={{ base: 1, md: 2 }} gap="3">
-            {reservedColors.map(c => (
-              <Card key={c.name} p="4">
-                <Flex align="center" gap="3">
-                  <Box
-                    boxSize="48px"
-                    rounded="md"
-                    bg={c.hex}
-                    borderWidth="1px"
-                    borderColor="border"
-                    flexShrink={0}
-                  />
-                  <Box>
-                    <Text fontFamily="mono" fontSize="sm" color="fg" mb="0.5">{c.name}</Text>
-                    <Text fontFamily="mono" fontSize="xs" color="fg.subtle">{c.hex}</Text>
-                    <Text fontSize="11px" color="fg.muted" mt="1">{c.note}</Text>
-                  </Box>
-                </Flex>
-              </Card>
+          <SimpleGrid columns={{ base: 2, md: 4 }} gap="3">
+            {Object.values(semanticColors.accent).map(t => (
+              <SemanticSwatch key={t.name} name={t.name} hex={resolveSemantic(t)} />
             ))}
           </SimpleGrid>
         </Box>
@@ -493,7 +502,7 @@ function SpacingSection() {
           <Flex key={key} align="center" gap="4">
             <Text fontFamily="mono" fontSize="xs" color="fg.subtle" w="36px">{key}</Text>
             <Text fontFamily="mono" fontSize="xs" color="fg" w="48px">{value}</Text>
-            <Box bg="brand.solid" h="12px" w={value} rounded="xs" />
+            <Box bg="brand.solid" h="12px" w={value} rounded="base" />
           </Flex>
         ))}
       </Stack>
@@ -508,12 +517,13 @@ function SpacingSection() {
 function RadiiSection() {
   const def = SECTIONS.find(s => s.id === 'radii')!;
   const items: Array<{ key: keyof typeof radii; useCase: string }> = [
-    { key: 'xs', useCase: 'Buttons' },
-    { key: 'sm', useCase: 'Inputs · chips' },
-    { key: 'md', useCase: 'Cards · menus' },
-    { key: 'lg', useCase: 'Hero cards · modals' },
-    { key: 'xl', useCase: 'Marketing surfaces' },
-    { key: 'pill', useCase: 'CTA pills · badges' },
+    { key: 'sm', useCase: 'Micro elements' },
+    { key: 'base', useCase: 'Controls — buttons · inputs (radii.control)' },
+    { key: 'md', useCase: 'Nav items · chips' },
+    { key: 'lg', useCase: 'Cards · panels · modals (radii.card)' },
+    { key: 'xl', useCase: 'Large surfaces' },
+    { key: '2xl', useCase: 'Marketing surfaces' },
+    { key: 'full', useCase: 'Tags · avatars · toggles (radii.pill)' },
   ];
   return (
     <Section id={def.id} num={4} title={def.title} description={def.description}>
@@ -542,7 +552,7 @@ function ShadowsSection() {
       <SimpleGrid columns={{ base: 1, md: 4 }} gap="6">
         {Object.entries(shadows).map(([name, value]) => (
           <Box key={name}>
-            <Box bg="bg" h="120px" rounded="md" shadow={name as keyof typeof shadows} mb="3" />
+            <Box bg="bg" h="120px" rounded="lg" shadow={name as keyof typeof shadows} mb="3" />
             <Text fontFamily="mono" fontSize="sm" color="fg" mb="1">shadow.{name}</Text>
             <Text fontFamily="mono" fontSize="xs" color="fg.subtle" lineHeight="1.4" wordBreak="break-all">
               {value}
@@ -618,6 +628,7 @@ function ComponentsSection() {
           <Text fontSize="md" fontWeight={600} color="fg" mb="4">Buttons</Text>
           <Flex gap="3" flexWrap="wrap" align="center">
             <Button intent="primary">Primary action</Button>
+            <Button intent="accent">Accent CTA</Button>
             <Button intent="secondary">Secondary</Button>
             <Button intent="ghost">Ghost</Button>
             <Button intent="primary" disabled>Disabled</Button>
@@ -630,7 +641,7 @@ function ComponentsSection() {
             <Input placeholder="Default state" />
             <Input placeholder="Disabled" disabled />
             <NativeSelect.Root>
-              <NativeSelect.Field rounded="sm" defaultValue="">
+              <NativeSelect.Field defaultValue="">
                 <option value="" disabled>Select option</option>
                 <option>One</option>
                 <option>Two</option>
@@ -648,7 +659,7 @@ function ComponentsSection() {
             semantic variant — never style badge colors inline.
           </Text>
           <Flex gap="2" flexWrap="wrap">
-            {(['danger', 'critical', 'warning', 'info', 'success', 'brand', 'neutral'] as const).map(i => (
+            {(['danger', 'warning', 'moderate', 'success', 'brand', 'accent', 'neutral'] as const).map(i => (
               <Badge key={i} intent={i}>
                 {i}
               </Badge>
@@ -658,22 +669,69 @@ function ComponentsSection() {
 
         <Box>
           <Text fontSize="md" fontWeight={600} color="fg" mb="4">Card</Text>
-          <Card maxW="480px">
-            <Text fontSize="sm" fontWeight={600} color="fg.eyebrow" textTransform="uppercase" letterSpacing="0.6px" mb="2">
-              Card eyebrow
-            </Text>
-            <Heading as="h3" fontSize="lg" fontWeight={500} color="fg" mb="2">
-              Default card surface
-            </Heading>
-            <Text fontSize="base" color="fg.muted" mb="4">
-              Cards inherit shadow.card and radius.md by default. Use them everywhere a content
-              container needs subtle elevation.
-            </Text>
-            <Button intent="primary">Action</Button>
+          <Text fontSize="13px" color="fg.muted" mb="3" maxW="640px">
+            The primary container. Anatomy: header (title + description + action area), a
+            border.subtle divider, then body content — every element optional except the
+            container. Radius is always radii.card (8px); controls inside keep radii.control (4px).
+            Default variant is elevated with shadow.elevated.
+          </Text>
+          <Card maxW="480px" display="flex" flexDir="column" gap="4">
+            <CardHeader
+              title="Title"
+              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor."
+              action={<Button intent="secondary" size="sm" h="9">Button</Button>}
+            />
+            <CardDivider />
+            <Box>
+              <Text fontSize="md" fontWeight={500} color="fg" mb="3">
+                Optional section header
+              </Text>
+              <Text fontSize="13px" fontWeight={500} color="fg" mb="1.5">
+                Email Address
+              </Text>
+              <Input placeholder="Email address" />
+            </Box>
           </Card>
+        </Box>
+
+        <Box>
+          <Text fontSize="md" fontWeight={600} color="fg" mb="4">Tabs</Text>
+          <Text fontSize="13px" color="fg.muted" mb="3" maxW="640px">
+            In-page section switcher (see Company Details). Active tab is a filled brand pill;
+            the row scrolls horizontally when it overflows on small screens.
+          </Text>
+          <TabNavDemo />
+        </Box>
+
+        <Box>
+          <Text fontSize="md" fontWeight={600} color="fg" mb="4">Display field</Text>
+          <Text fontSize="13px" color="fg.muted" mb="3" maxW="640px">
+            Read-only counterpart to an input for detail views — pairs with EditableSection,
+            which swaps these for live inputs behind an Edit / Save / Cancel header.
+          </Text>
+          <SimpleGrid columns={{ base: 1, md: 3 }} gap="4" maxW="800px">
+            <DisplayField label="Owner Type" value="Natural person" />
+            <DisplayField label="Ownership %" value="10.0%" />
+            <DisplayField label="Website (optional)" value="" />
+          </SimpleGrid>
         </Box>
       </Stack>
     </Section>
+  );
+}
+
+function TabNavDemo() {
+  const [active, setActive] = useState('ownership');
+  return (
+    <TabNav
+      tabs={[
+        { id: 'ownership', label: 'Ownership' },
+        { id: 'business', label: 'Business Overview' },
+        { id: 'financial', label: 'Financial Performance' },
+      ]}
+      activeId={active}
+      onSelect={setActive}
+    />
   );
 }
 
@@ -697,18 +755,18 @@ function DataDisplaySection() {
           <Flex gap="4" align="end" flexWrap="wrap" mb="6">
             {sizes.map(s => (
               <Stack key={s} gap="2" align="center">
-                <Avatar size={s} label="A" color="brand.500" />
+                <Avatar size={s} label="A" color="forest.500" />
                 <Text fontFamily="mono" fontSize="xs" color="fg.subtle">{s}</Text>
               </Stack>
             ))}
           </Flex>
           <Flex gap="3" flexWrap="wrap">
-            <Avatar label="A" color="brand.500" />
-            <Avatar label="B" color="lime.700" />
-            <Avatar label="C" color="amber.500" />
-            <Avatar label="D" color="red.500" />
-            <Avatar label="E" color="purple.500" />
-            <Avatar label="JR" color="navy.500" shape="circle" />
+            <Avatar label="A" color="forest.500" />
+            <Avatar label="B" color="forest.400" />
+            <Avatar label="C" color="citron.600" />
+            <Avatar label="D" color="brick.500" />
+            <Avatar label="E" color="coral.500" />
+            <Avatar label="JR" color="forest.800" shape="circle" />
           </Flex>
         </Box>
 
@@ -743,8 +801,8 @@ function DataDisplaySection() {
 
 function FeedbackSection() {
   const def = SECTIONS.find(s => s.id === 'feedback')!;
-  const intents: Array<'danger' | 'critical' | 'warning' | 'info' | 'success' | 'brand' | 'neutral'> = [
-    'danger', 'critical', 'warning', 'info', 'success', 'brand', 'neutral',
+  const intents: Array<'danger' | 'warning' | 'moderate' | 'success' | 'brand' | 'neutral'> = [
+    'danger', 'warning', 'moderate', 'success', 'brand', 'neutral',
   ];
   return (
     <Section id={def.id} num={9} title={def.title} description={def.description}>

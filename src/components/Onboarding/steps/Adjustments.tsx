@@ -32,7 +32,7 @@ export default function Adjustments() {
               help="We weight the numbers differently depending on whether they were audited, reviewed, compiled, or self-prepared."
             >
               <NativeSelect.Root>
-                <NativeSelect.Field rounded="sm" defaultValue="" {...({ required: true } as object)}>
+                <NativeSelect.Field defaultValue="" {...({ required: true } as object)}>
                   <option value="" disabled>Select an assurance level</option>
                   <option value="audited">Audited</option>
                   <option value="reviewed">Reviewed</option>

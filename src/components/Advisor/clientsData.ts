@@ -15,7 +15,7 @@ export interface Client {
   owner: string;
 }
 
-export type BadgeIntent = 'danger' | 'critical' | 'warning' | 'info' | 'success' | 'brand' | 'neutral';
+export type BadgeIntent = 'danger' | 'warning' | 'moderate' | 'success' | 'brand' | 'accent' | 'neutral';
 
 export const statusMeta: Record<
   ClientStatus,
@@ -23,8 +23,8 @@ export const statusMeta: Record<
 > = {
   active: { label: 'Active', intent: 'success' },
   'at-risk': { label: 'At risk', intent: 'danger' },
-  onboarding: { label: 'Onboarding', intent: 'info' },
-  exiting: { label: 'Exiting', intent: 'warning' },
+  onboarding: { label: 'Onboarding', intent: 'brand' },
+  exiting: { label: 'Exiting', intent: 'moderate' },
 };
 
 export const clients: Client[] = [
@@ -32,7 +32,7 @@ export const clients: Client[] = [
     id: 'acme',
     name: 'Acme Services LLC',
     initials: 'A',
-    logoColor: 'brand.500',
+    logoColor: 'forest.500',
     industry: 'Professional Services',
     valuation: '$2.4M',
     valuationGoal: '$3M',
@@ -46,7 +46,7 @@ export const clients: Client[] = [
     id: 'beta-corp',
     name: 'Beta Corp',
     initials: 'B',
-    logoColor: 'lime.700',
+    logoColor: 'forest.400',
     industry: 'Construction & Trades',
     valuation: '$1.1M',
     valuationGoal: '$2M',
@@ -60,7 +60,7 @@ export const clients: Client[] = [
     id: 'gamma-inc',
     name: 'Gamma Inc.',
     initials: 'G',
-    logoColor: 'amber.500',
+    logoColor: 'citron.600',
     industry: 'Manufacturing',
     valuation: '$5.2M',
     valuationGoal: '$8M',
@@ -74,7 +74,7 @@ export const clients: Client[] = [
     id: 'delta-co',
     name: 'Delta Co.',
     initials: 'D',
-    logoColor: 'red.500',
+    logoColor: 'brick.500',
     industry: 'Retail & E-commerce',
     valuation: '$780K',
     valuationGoal: '$1.5M',
@@ -88,7 +88,7 @@ export const clients: Client[] = [
     id: 'epsilon-grp',
     name: 'Epsilon Group',
     initials: 'E',
-    logoColor: 'purple.500',
+    logoColor: 'coral.500',
     industry: 'Healthcare',
     valuation: '$3.6M',
     valuationGoal: '$5M',
@@ -102,7 +102,7 @@ export const clients: Client[] = [
     id: 'zeta-ind',
     name: 'Zeta Industries',
     initials: 'Z',
-    logoColor: 'navy.500',
+    logoColor: 'forest.800',
     industry: 'Technology & Software',
     valuation: '$11.4M',
     valuationGoal: '$15M',
@@ -116,7 +116,7 @@ export const clients: Client[] = [
     id: 'theta-llc',
     name: 'Theta LLC',
     initials: 'T',
-    logoColor: 'lime.700',
+    logoColor: 'forest.400',
     industry: 'Restaurants & Hospitality',
     valuation: '$420K',
     valuationGoal: '$1M',
@@ -130,7 +130,7 @@ export const clients: Client[] = [
     id: 'iota-co',
     name: 'Iota Co.',
     initials: 'I',
-    logoColor: 'amber.500',
+    logoColor: 'citron.600',
     industry: 'Professional Services',
     valuation: '$1.9M',
     valuationGoal: '$2.5M',

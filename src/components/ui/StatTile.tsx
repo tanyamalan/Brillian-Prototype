@@ -19,7 +19,7 @@ interface StatTileProps {
 export function StatTile({ label, value, sublabel, size = 'md' }: StatTileProps) {
   const isSm = size === 'sm';
   return (
-    <Card p={isSm ? '4' : undefined}>
+    <Card size={isSm ? 'sm' : 'md'}>
       <Text
         fontSize={isSm ? '11px' : '12px'}
         fontWeight={600}

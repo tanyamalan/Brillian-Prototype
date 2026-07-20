@@ -7,7 +7,7 @@ interface GoalBannerProps {
 
 export function GoalBanner({ onStartOnboarding }: GoalBannerProps) {
   return (
-    <Card mb="6" p={{ base: '4', md: '4' }} px={{ md: '6' }}>
+    <Card mb="6" size="sm">
       <Flex align="center" gap="4" flexWrap={{ base: 'wrap', md: 'nowrap' }}>
         <Text fontSize="13px" fontWeight={600} color="fg.muted" whiteSpace="nowrap">
           Your Goal
@@ -34,9 +34,9 @@ export function GoalBanner({ onStartOnboarding }: GoalBannerProps) {
           </Progress.Track>
         </Progress.Root>
         <Badge
-          bg="status.warning.tint"
-          color="status.warning.dark"
-          rounded="sm"
+          bg="status.moderate.tint"
+          color="status.moderate.text"
+          rounded="md"
           px="4"
           py="1.5"
           fontSize="12px"

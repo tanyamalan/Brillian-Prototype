@@ -10,7 +10,7 @@ interface BenchBar {
   value: string;
 }
 
-type BadgeIntent = 'danger' | 'warning' | 'success';
+type BadgeIntent = 'danger' | 'warning' | 'moderate' | 'success';
 
 interface Benchmark {
   name: string;
@@ -22,7 +22,7 @@ interface Benchmark {
 }
 
 const paletteToIntent: Record<'yellow' | 'red' | 'green', BadgeIntent> = {
-  yellow: 'warning',
+  yellow: 'moderate',
   red: 'danger',
   green: 'success',
 };
@@ -33,7 +33,7 @@ const palettes: Record<BarColor, string> = {
   orange: 'status.warning',
   blue: 'brand.solid',
   red: 'status.danger',
-  gray: 'warm.300',
+  gray: 'sand.300',
 };
 
 function BenchmarkCard({ name, value, badgeText, badgePalette, bars, insight }: Benchmark) {

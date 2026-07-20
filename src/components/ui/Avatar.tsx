@@ -1,12 +1,16 @@
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Image, Text } from '@chakra-ui/react';
 import type { BoxProps } from '@chakra-ui/react';
 
 export type AvatarSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type AvatarShape = 'square' | 'circle';
 
 interface AvatarProps extends Omit<BoxProps, 'children'> {
-  /** Initials or short label rendered inside (1–3 chars). */
+  /** Initials or short label rendered when no image is supplied (1–3 chars). */
   label: string;
+  /** Optional image src (e.g. a firm logo). Falls back to initials on load error. */
+  src?: string;
+  /** Alt text for the image — defaults to the label. */
+  alt?: string;
   /** Background color — accepts any Chakra color token (e.g. `brand.500`, `lime.700`). */
   color?: string;
   /** One of five preset sizes. */
@@ -32,6 +36,8 @@ const SIZE_MAP: Record<AvatarSize, { box: string; font: string }> = {
  */
 export function Avatar({
   label,
+  src,
+  alt,
   color = 'brand.solid',
   size = 'md',
   shape = 'square',
@@ -39,21 +45,33 @@ export function Avatar({
   ...rest
 }: AvatarProps) {
   const dims = SIZE_MAP[size];
+  const rounded = shape === 'circle' ? 'full' : 'md';
   return (
     <Box
       display="inline-flex"
       alignItems="center"
       justifyContent="center"
       flexShrink={0}
+      overflow="hidden"
       boxSize={dims.box}
-      rounded={shape === 'circle' ? 'full' : 'md'}
-      bg={color}
+      rounded={rounded}
+      bg={src ? 'bg' : color}
       color={textColor}
       {...rest}
     >
-      <Text as="span" fontSize={dims.font} fontWeight={700} lineHeight="1">
-        {label}
-      </Text>
+      {src ? (
+        <Image
+          src={src}
+          alt={alt ?? label}
+          boxSize="full"
+          objectFit="contain"
+          loading="lazy"
+        />
+      ) : (
+        <Text as="span" fontSize={dims.font} fontWeight={700} lineHeight="1">
+          {label}
+        </Text>
+      )}
     </Box>
   );
 }

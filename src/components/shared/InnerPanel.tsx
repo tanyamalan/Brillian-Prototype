@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import {
   Box,
   Button,
+  Flex,
   HStack,
   Input,
   InputGroup,
@@ -19,6 +20,7 @@ import {
   advisorHomeSubNav,
   companyLenses,
   documentsSubNav,
+  HEADER_HEIGHT,
   reportsSubNav,
   settingsSubNav,
 } from './navConfig';
@@ -34,26 +36,34 @@ export interface InnerPanelProps {
 }
 
 const ownerCompany = {
-  name: 'Acme Services LLC',
-  initials: 'A',
-  logoColor: 'brand.500',
+  name: 'Acme Inc',
+  initials: 'JD',
+  logoColor: 'citron.300',
 };
 
 function PanelHeader({ children }: { children: React.ReactNode }) {
   return (
-    <Box pb="2" mb="2" borderBottomWidth="1px" borderColor="border">
-      {children}
-    </Box>
+    <Flex
+      h={HEADER_HEIGHT}
+      align="center"
+      px="2"
+      flexShrink={0}
+    >
+      <Box w="full" minW="0">
+        {children}
+      </Box>
+    </Flex>
   );
 }
 
 function CompanyChip({ name, initials, color }: { name: string; initials: string; color: string }) {
   return (
-    <HStack gap="2" px="2" py="2">
-      <Avatar size="md" color={color} label={initials} />
-      <Text fontSize="14px" fontWeight={600} color="fg" truncate>
+    <HStack gap="2" px="2" py="2" w="full" cursor="pointer" rounded="control" _hover={{ bg: 'bg.dim' }}>
+      <Avatar size="md" color={color} textColor="fg" label={initials} />
+      <Text fontSize="14px" fontWeight={600} color="fg" flex="1" truncate>
         {name}
       </Text>
+      <Box as={ChevronDown} color="fg.subtle" w="16px" h="16px" flexShrink={0} />
     </HStack>
   );
 }
@@ -93,7 +103,7 @@ function ClientSwitcher({
           px="2"
           py="2"
           gap="2"
-          rounded="sm"
+          rounded="md"
           justifyContent="flex-start"
           _hover={{ bg: 'bg.dim' }}
         >
@@ -111,7 +121,7 @@ function ClientSwitcher({
             <Box
               p="2"
               borderBottomWidth="1px"
-              borderColor="border"
+              borderColor="border.subtle"
               onKeyDown={e => e.stopPropagation()}
               onClick={e => e.stopPropagation()}
             >
@@ -124,7 +134,6 @@ function ClientSwitcher({
                   onChange={e => setQuery(e.target.value)}
                   size="sm"
                   bg="bg.dim"
-                  borderColor="border"
                   autoFocus
                 />
               </InputGroup>
@@ -198,9 +207,9 @@ function PanelItem({
       px="2"
       gap="2"
       justifyContent="flex-start"
-      rounded="sm"
-      bg={active ? 'bg.dim' : 'transparent'}
-      color={active ? 'brand.fg' : 'fg.muted'}
+      rounded="md"
+      bg={active ? 'bg.subtle' : 'transparent'}
+      color={active ? 'fg' : 'fg.muted'}
       fontWeight={active ? 600 : 500}
       fontSize="14px"
       _hover={{ bg: 'bg.dim', color: 'fg' }}
@@ -283,9 +292,9 @@ export function InnerPanelBody({
   const { header, items } = getPanelConfig({ viewMode, outerSection, selectedClientId, onSelectClient });
 
   return (
-    <Box w="full" p="2" display="flex" flexDir="column" overflowY="auto" flex="1">
+    <Box w="full" display="flex" flexDir="column" overflowY="auto" flex="1">
       <PanelHeader>{header}</PanelHeader>
-      <Stack gap="0.5">
+      <Stack gap="0.5" p="2">
         {items.map(item => (
           <PanelItem
             key={item.id}
@@ -306,7 +315,7 @@ export function InnerPanel(props: InnerPanelProps) {
       w={{ base: 'full', md: '220px' }}
       bg="bg"
       borderRightWidth={{ base: 0, md: '1px' }}
-      borderColor="border"
+      borderColor="border.subtle"
       flexShrink={0}
       display={{ base: 'none', md: 'flex' }}
       flexDir="column"

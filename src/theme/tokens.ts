@@ -1,80 +1,139 @@
 /**
  * Single source of truth for design-system token values.
+ * Source: Brillian Token Build Reference (July 13) — companion to the
+ * guidelines site in the Brillian-Design repo (Netlify).
  *
- * `system.ts` consumes these to build the Chakra system; the in-app style guide
- * (src/components/StyleGuide) reads the same exports to render swatches and
- * tables. Anywhere else in the app, prefer Chakra style props
- * (`bg="brand.500"`, `rounded="lg"`) so values flow through the theme system.
+ * Build order: primitives → semantic → component. Primitives hold raw values;
+ * semantic tokens alias primitives; components consume semantic tokens.
+ * Nothing here references a raw hex twice.
+ *
+ * `system.ts` consumes these to build the Chakra system; the in-app style
+ * guide (src/components/StyleGuide) reads the same exports for its swatches.
  */
 
-// ===== Color ramps =====
+// ===== Color ramps · 71 tokens =====
 
 export const colorRamps = {
-  brand: {
-    50: '#EEF3FE',
-    100: '#DDE7FD',
-    200: '#B7CBFB',
-    300: '#8AA8F8',
-    400: '#4D7DF5',
-    500: '#265FF2',
-    600: '#1A4DD3',
-    700: '#1A3F9C',
-    800: '#14306F',
-    900: '#0F1F4A',
+  forest: {
+    50: '#F3F8F7',
+    100: '#E4EFEC',
+    200: '#C9DFD9',
+    300: '#A3C5BB',
+    400: '#6FA191',
+    500: '#3F7568',
+    600: '#1B463D', // brand
+    700: '#153831',
+    800: '#0E2A25',
+    900: '#061714',
   },
-  navy: {
-    50: '#E8EAF1',
-    100: '#C5CAD9',
-    200: '#8E97B4',
-    500: '#2C3D6B',
-    700: '#1A2A56',
-    900: '#0F1F4A',
+  sand: {
+    50: '#F6F5F3',
+    100: '#EBE7E0',
+    200: '#D6D0C5',
+    300: '#BFB8AD',
+    400: '#A5A097',
+    500: '#8E887E',
+    600: '#757067',
+    700: '#5C5851',
+    800: '#423F3A',
+    900: '#292724',
+  },
+  brick: {
+    50: '#FDF0F0',
+    100: '#F8D5D5',
+    200: '#F2BABA',
+    300: '#E69494',
+    400: '#D67070',
+    500: '#C35050',
+    600: '#A83B3B',
+    700: '#832F2F',
+    800: '#5F2323',
+    900: '#3B1616',
+  },
+  coral: {
+    50: '#FDF2EF',
+    100: '#F9D5C9',
+    200: '#F4B7A4',
+    300: '#F0A188',
+    400: '#EB8B6C',
+    500: '#E67551',
+    600: '#D95126',
+    700: '#A44223',
+    800: '#72311D',
+    900: '#431F14',
+  },
+  citron: {
+    50: '#FDFDF2',
+    100: '#F7F6CE',
+    200: '#F0EFAA',
+    300: '#E9E787',
+    400: '#E0DE6C',
+    500: '#D6D451',
+    600: '#C5C231',
+    700: '#9C9929',
+    800: '#737120',
+    900: '#4B4A16',
   },
   lime: {
-    50: '#F5FCDD',
-    100: '#E0F491',
-    500: '#87A902',
-    700: '#4D7C2A',
-    900: '#1F4D2A',
+    50: '#F7FCF0',
+    100: '#E6F7CD',
+    200: '#D4F3A8',
+    300: '#C3F083',
+    400: '#AFE75F',
+    500: '#9ADD3C',
+    600: '#83C524',
+    700: '#689C1E',
+    800: '#4E7417',
+    900: '#334C10',
   },
-  warm: {
-    50: '#F9F8F7',
-    100: '#F4F2EE',
-    200: '#ECEAE6',
-    300: '#DCD9D2',
-    500: '#9AA0A6',
-    600: '#6B7280',
-    700: '#4B5563',
-    900: '#0F1F4A',
+  // Ink — green-grey neutrals for text, borders, and input chrome.
+  ink: {
+    50: '#F5F6F5',
+    100: '#E8E9E9',
+    200: '#D1D4D2',
+    300: '#A4A8A6',
+    400: '#828985',
+    500: '#5E6B64',
+    600: '#47574F',
+    700: '#33463F',
+    800: '#1F3D36',
+    900: '#0B211C',
   },
-  red: { 100: '#FCD7D2', 500: '#DC2D24', 900: '#9B1F18' },
-  orange: { 100: '#FBE0CC', 500: '#DB5614', 900: '#8C3508' },
-  amber: { 100: '#FCEBB8', 500: '#E8B321', 900: '#7A5C0A' },
-  purple: { 100: '#DDD3FA', 500: '#5938E4', 900: '#38228F' },
-  cyan: { 500: '#0197FF' },
-  pink: { 500: '#F66DBD' },
 } as const;
 
-// ===== Radii =====
+export const white = '#FFFFFF';
+
+// ===== Radii · theme.radii (8) =====
+// Semantic aliases: radii.control → base (4px), radii.card → lg (8px),
+// radii.pill → full.
 
 export const radii = {
   none: '0',
-  xs: '4px',
-  sm: '6px',
-  md: '8px',
-  lg: '12px',
-  xl: '16px',
-  pill: '100px',
-  full: '9999px',
+  sm: '2px',
+  base: '4px', // → control
+  md: '6px',
+  lg: '8px', // → card
+  xl: '12px',
+  '2xl': '16px',
+  full: '9999px', // → pill
 } as const;
 
-// ===== Shadows =====
+export const radiiAliases = {
+  control: { alias: 'base', value: radii.base, use: 'Buttons, inputs, selects, chips' },
+  card: { alias: 'lg', value: radii.lg, use: 'Cards, panels, modals' },
+  pill: { alias: 'full', value: radii.full, use: 'Tags, avatars, toggles' },
+} as const;
+
+// ===== Shadows · theme.shadows (4) =====
+// Semantic aliases: shadow.elevated → sm (card default), shadow.raised → lg
+// (overlays, popovers, menus).
 
 export const shadows = {
-  sm: '0 1px 2px rgba(15, 31, 74, 0.04)',
-  card: '0 1px 3px rgba(15, 31, 74, 0.08), 0 1px 2px rgba(15, 31, 74, 0.04)',
-  modal: '0 10px 30px rgba(15, 31, 74, 0.18)',
-  focus: '0 0 0 3px rgba(38, 95, 242, 0.18)',
+  xs: '0 1px 4px rgba(12, 12, 13, 0.05)',
+  sm: '0 1px 2px rgba(0, 0, 0, 0.15)', // → elevated
+  md: '0 4px 12px rgba(11, 33, 28, 0.10)',
+  lg: '0 8px 24px rgba(11, 33, 28, 0.16)', // → raised
+  focus: '0 0 0 3px rgba(27, 70, 61, 0.22)',
 } as const;
 
 // ===== Type scale =====
@@ -98,7 +157,7 @@ export const fonts = {
   mono: `'JetBrains Mono', ui-monospace, monospace`,
 } as const;
 
-// ===== Spacing scale (Chakra default — listed for the doc) =====
+// ===== Spacing scale (Chakra default 4px grid — listed for the doc) =====
 
 export const spacing = {
   '0': '0',
@@ -116,86 +175,103 @@ export const spacing = {
 } as const;
 
 // ===== Semantic tokens =====
-// These map descriptive intent to a ramp value. Render the swatches by reading
+// These map descriptive intent to a ramp value. Render swatches by reading
 // from `colorRamps` so changes there flow through automatically.
 
 export const semanticColors = {
+  // Text (11)
   fg: {
-    DEFAULT: { ramp: 'navy', step: 900, name: 'fg' },
-    muted: { ramp: 'warm', step: 700, name: 'fg.muted' },
-    subtle: { ramp: 'warm', step: 600, name: 'fg.subtle' },
-    onBrand: { ramp: null, value: '#FFFFFF', name: 'fg.onBrand' },
-    eyebrow: { ramp: 'brand', step: 500, name: 'fg.eyebrow' },
+    DEFAULT: { ramp: 'ink', step: 900, name: 'text.primary' },
+    body: { ramp: 'ink', step: 800, name: 'text.body' },
+    muted: { ramp: 'ink', step: 600, name: 'text.secondary' },
+    subtle: { ramp: 'ink', step: 500, name: 'text.subtle' },
+    placeholder: { ramp: 'ink', step: 400, name: 'text.placeholder' },
+    disabled: { ramp: 'ink', step: 400, name: 'text.disabled' },
+    error: { ramp: 'brick', step: 700, name: 'text.error' },
+    success: { ramp: 'forest', step: 700, name: 'text.success' },
+    inverse: { ramp: 'ink', step: 50, name: 'text.inverse-primary' },
+    inverseSecondary: { ramp: 'ink', step: 200, name: 'text.inverse-secondary' },
+    inverseSubtle: { ramp: 'ink', step: 300, name: 'text.inverse-subtle' },
   },
+  // Brand & surface
   bg: {
-    DEFAULT: { ramp: null, value: '#FFFFFF', name: 'bg' },
-    dim: { ramp: 'warm', step: 50, name: 'bg.dim' },
-    subtle: { ramp: 'warm', step: 100, name: 'bg.subtle' },
-    inverse: { ramp: 'navy', step: 900, name: 'bg.inverse' },
+    DEFAULT: { ramp: null, value: white, name: 'surface.bg-surface' },
+    dim: { ramp: 'sand', step: 50, name: 'surface.bg-canvas' },
+    subtle: { ramp: 'sand', step: 100, name: 'bg.subtle' },
+    inverse: { ramp: 'forest', step: 800, name: 'bg.inverse' },
   },
+  // Border (4)
   border: {
-    DEFAULT: { ramp: 'warm', step: 200, name: 'border' },
-    emphasized: { ramp: 'warm', step: 300, name: 'border.emphasized' },
+    subtle: { ramp: 'ink', step: 100, name: 'border.subtle' },
+    DEFAULT: { ramp: 'ink', step: 200, name: 'border.default' },
+    strong: { ramp: 'ink', step: 400, name: 'border.strong' },
+    onDark: { ramp: 'ink', step: 700, name: 'border.on-dark' },
   },
   brand: {
-    solid: { ramp: 'brand', step: 500, name: 'brand.solid' },
-    emphasized: { ramp: 'brand', step: 600, name: 'brand.emphasized' },
-    active: { ramp: 'brand', step: 700, name: 'brand.active' },
-    fg: { ramp: 'brand', step: 700, name: 'brand.fg' },
-    subtle: { ramp: 'brand', step: 50, name: 'brand.subtle' },
-    muted: { ramp: 'brand', step: 100, name: 'brand.muted' },
-    contrast: { ramp: null, value: '#FFFFFF', name: 'brand.contrast' },
-    dark: { ramp: 'navy', step: 900, name: 'brand.dark' },
-    accent: { ramp: 'lime', step: 500, name: 'brand.accent' },
-    'accent.tint': { ramp: 'lime', step: 100, name: 'brand.accent.tint' },
-    'accent.dark': { ramp: 'lime', step: 700, name: 'brand.accent.dark' },
+    solid: { ramp: 'forest', step: 600, name: 'brand' },
+    emphasized: { ramp: 'forest', step: 700, name: 'brand.emphasized' },
+    active: { ramp: 'forest', step: 800, name: 'brand.active' },
+    fg: { ramp: 'forest', step: 600, name: 'brand.fg' },
+    subtle: { ramp: 'forest', step: 50, name: 'brand.subtle' },
+    muted: { ramp: 'forest', step: 100, name: 'brand.muted' },
+    contrast: { ramp: 'ink', step: 50, name: 'brand.contrast' },
+    dark: { ramp: 'forest', step: 800, name: 'brand.dark' },
   },
+  // Input (8)
+  input: {
+    bg: { ramp: null, value: white, name: 'input.bg' },
+    bgDisabled: { ramp: 'ink', step: 50, name: 'input.bg-disabled' },
+    borderRest: { ramp: 'ink', step: 200, name: 'input.border-rest' },
+    borderHover: { ramp: 'ink', step: 400, name: 'input.border-hover' },
+    borderFocus: { ramp: 'forest', step: 600, name: 'input.border-focus' },
+    borderError: { ramp: 'brick', step: 500, name: 'input.border-error' },
+    borderSuccess: { ramp: 'forest', step: 500, name: 'input.border-success' },
+    borderDisabled: { ramp: 'ink', step: 100, name: 'input.border-disabled' },
+  },
+  accent: {
+    solid: { ramp: 'lime', step: 300, name: 'accent.solid' },
+    emphasized: { ramp: 'lime', step: 400, name: 'accent.emphasized' },
+    tint: { ramp: 'lime', step: 50, name: 'accent.tint' },
+    text: { ramp: 'lime', step: 800, name: 'accent.text' },
+    required: { ramp: 'brick', step: 500, name: 'accent.required' },
+  },
+  // Health-scale order, healthiest first: success → moderate → warning → danger.
+  // Each status pairs a `.tint` for backgrounds with a `.text` for text on tints.
   status: {
-    danger: {
-      label: 'High risk',
-      ramp: 'red',
-      tint: { step: 100, name: 'status.danger.tint' },
-      base: { step: 500, name: 'status.danger' },
-      dark: { step: 900, name: 'status.danger.dark' },
+    success: {
+      label: 'Success',
+      use: 'Healthy metrics, above target',
+      ramp: 'forest',
+      tint: { step: 100, name: 'status.success.tint' },
+      base: { step: 600, name: 'status.success' },
+      text: { step: 700, name: 'status.success.text' },
     },
-    critical: {
-      label: 'Critical',
-      ramp: 'orange',
-      tint: { step: 100, name: 'status.critical.tint' },
-      base: { step: 500, name: 'status.critical' },
-      dark: { step: 900, name: 'status.critical.dark' },
+    moderate: {
+      label: 'Moderate',
+      use: 'Middle-band metrics, watch items. Dark text only.',
+      ramp: 'citron',
+      tint: { step: 100, name: 'status.moderate.tint' },
+      base: { step: 400, name: 'status.moderate' },
+      text: { step: 800, name: 'status.moderate.text' },
     },
     warning: {
-      label: 'Moderate',
-      ramp: 'amber',
+      label: 'Warning',
+      use: 'Below target, needs attention',
+      ramp: 'coral',
       tint: { step: 100, name: 'status.warning.tint' },
       base: { step: 500, name: 'status.warning' },
-      dark: { step: 900, name: 'status.warning.dark' },
+      text: { step: 800, name: 'status.warning.text' },
     },
-    info: {
-      label: 'At target',
-      ramp: 'purple',
-      tint: { step: 100, name: 'status.info.tint' },
-      base: { step: 500, name: 'status.info' },
-      dark: { step: 900, name: 'status.info.dark' },
-    },
-    success: {
-      label: 'Above target',
-      ramp: 'lime',
-      tint: { step: 100, name: 'status.success.tint' },
-      base: { step: 500, name: 'status.success' },
-      dark: { step: 700, name: 'status.success.dark' },
+    danger: {
+      label: 'Danger',
+      use: 'Critical risk, destructive actions',
+      ramp: 'brick',
+      tint: { step: 100, name: 'status.danger.tint' },
+      base: { step: 500, name: 'status.danger' },
+      text: { step: 800, name: 'status.danger.text' },
     },
   },
 } as const;
-
-// ===== Reserved colors =====
-// Marketing & data-viz only — never appear in product UI primitives.
-
-export const reservedColors = [
-  { name: 'cyan.base', hex: colorRamps.cyan[500], note: 'Marketing accent · data viz' },
-  { name: 'pink.base', hex: colorRamps.pink[500], note: 'Marketing accent · data viz' },
-] as const;
 
 export type ColorRampKey = keyof typeof colorRamps;
 
@@ -205,12 +281,12 @@ export type ColorRampKey = keyof typeof colorRamps;
 export const motion = {
   durations: {
     fast: '150ms',
-    base: '250ms',
-    slow: '450ms',
+    base: '300ms',
+    slow: '500ms',
     stepTransition: '700ms',
   },
   easings: {
-    standard: 'cubic-bezier(0.22, 1, 0.36, 1)',
+    standard: 'cubic-bezier(0.4, 0, 0.2, 1)',
     linear: 'linear',
   },
   keyframes: [

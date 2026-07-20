@@ -75,7 +75,7 @@ function Sidebar({ activeId, onSelect }: { activeId: string; onSelect: (id: stri
       top="0"
       h="100vh"
       borderRightWidth="1px"
-      borderColor="border"
+      borderColor="border.subtle"
       bg="bg"
       px="4"
       py="6"
@@ -112,7 +112,7 @@ function Sidebar({ activeId, onSelect }: { activeId: string; onSelect: (id: stri
               } as object)}
               px="3"
               py="2"
-              rounded="sm"
+              rounded="md"
               fontSize="13px"
               fontWeight={active ? 600 : 500}
               color={active ? 'fg' : 'fg.muted'}
@@ -133,7 +133,7 @@ function Sidebar({ activeId, onSelect }: { activeId: string; onSelect: (id: stri
         })}
       </Stack>
 
-      <Box mt="6" pt="4" borderTopWidth="1px" borderColor="border">
+      <Box mt="6" pt="4" borderTopWidth="1px" borderColor="border.subtle">
         <Box
           as="a"
           {...({ href: '/' } as object)}
@@ -155,7 +155,7 @@ function Sidebar({ activeId, onSelect }: { activeId: string; onSelect: (id: stri
 
 function PageHeader({ demoUrl }: { demoUrl: string }) {
   return (
-    <Box bg="bg" borderBottomWidth="1px" borderColor="border" px={{ base: '6', md: '12' }} py="10">
+    <Box bg="bg" borderBottomWidth="1px" borderColor="border.subtle" px={{ base: '6', md: '12' }} py="10">
       <Flex align="baseline" justify="space-between" gap="6" flexWrap="wrap">
         <Box>
           <Text
@@ -208,7 +208,7 @@ function Section({
       px={{ base: '6', md: '12' }}
       py={{ base: '8', md: '12' }}
       borderBottomWidth="1px"
-      borderColor="border"
+      borderColor="border.subtle"
       scrollMarginTop="0"
     >
       <Flex align="baseline" gap="4" mb="2">
@@ -280,9 +280,9 @@ function ViewButton({ open, onToggle }: { open: boolean; onToggle: () => void })
 function HtmlSource({ html }: { html: string }) {
   return (
     <Box
-      bg="navy.900"
-      color="warm.100"
-      rounded="sm"
+      bg="bg.inverse"
+      color="sand.100"
+      rounded="md"
       p="4"
       fontFamily="mono"
       fontSize="12px"
@@ -322,7 +322,7 @@ function BlockCard({
         px="6"
         py="4"
         borderBottomWidth="1px"
-        borderColor="border"
+        borderColor="border.subtle"
         bg="bg.dim"
         flexWrap="wrap"
       >
@@ -338,7 +338,7 @@ function BlockCard({
       <Box px="6" py="6" bg="bg.dim">
         <Stack gap="3">{editor}</Stack>
       </Box>
-      <Box px="6" py="8" bg={previewBg} borderTopWidth="1px" borderColor="border">
+      <Box px="6" py="8" bg={previewBg} borderTopWidth="1px" borderColor="border.subtle">
         <Text
           fontSize="10px"
           fontWeight={600}
@@ -352,7 +352,7 @@ function BlockCard({
         {preview}
       </Box>
       {showSource && (
-        <Box px="6" py="4" borderTopWidth="1px" borderColor="border">
+        <Box px="6" py="4" borderTopWidth="1px" borderColor="border.subtle">
           <HtmlSource html={html} />
         </Box>
       )}
@@ -380,7 +380,7 @@ function GlobalsSection({
   const def = SECTIONS.find(s => s.id === 'globals')!;
   return (
     <Section id={def.id} num={1} title={def.title} description={def.description}>
-      <Card p="6" maxW="720px">
+      <Card maxW="720px">
         <FieldLabel>Default demo / booking URL</FieldLabel>
         <Input
           value={demoUrl}
@@ -459,7 +459,7 @@ function CtaEditorCard({
               value={state.body}
               onChange={e => set('body', e.target.value)}
               rows={3}
-              rounded="sm"
+              rounded="md"
               borderColor="border.emphasized"
               _focus={{ borderColor: 'brand.solid', boxShadow: 'focus', outline: 'none' }}
             />
@@ -547,7 +547,7 @@ function StatEditorCard() {
               <NativeSelect.Field
                 value={String(count)}
                 onChange={e => setCount(Number(e.target.value) as 3 | 4)}
-                rounded="sm"
+                rounded="md"
               >
                 <option value="3">3 stats</option>
                 <option value="4">4 stats</option>
@@ -560,8 +560,8 @@ function StatEditorCard() {
               <Box
                 key={idx}
                 borderWidth="1px"
-                borderColor="border"
-                rounded="sm"
+                borderColor="border.subtle"
+                rounded="md"
                 bg="bg"
                 p="4"
               >
@@ -607,7 +607,7 @@ function StatEditorCard() {
                       value={item.description}
                       onChange={e => setItem(idx, { description: e.target.value })}
                       rows={2}
-                      rounded="sm"
+                      rounded="md"
                       borderColor="border.emphasized"
                       _focus={{ borderColor: 'brand.solid', boxShadow: 'focus', outline: 'none' }}
                     />
@@ -660,7 +660,7 @@ function QuoteEditorCard() {
               value={state.quote}
               onChange={e => set('quote', e.target.value)}
               rows={3}
-              rounded="sm"
+              rounded="md"
               borderColor="border.emphasized"
               _focus={{ borderColor: 'brand.solid', boxShadow: 'focus', outline: 'none' }}
             />
@@ -732,7 +732,7 @@ function ProseEditorCard() {
               value={state.body}
               onChange={e => set('body', e.target.value)}
               rows={16}
-              rounded="sm"
+              rounded="md"
               borderColor="border.emphasized"
               fontFamily="mono"
               fontSize="13px"

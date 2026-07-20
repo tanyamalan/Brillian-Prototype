@@ -6,6 +6,7 @@ import OnboardingPage from './components/OnboardingPage/OnboardingPage';
 import Onboarding from './components/Onboarding/Onboarding';
 import { AdvisorClientsList } from './components/Advisor/AdvisorClientsList';
 import { AdvisorClientDetail } from './components/Advisor/AdvisorClientDetail';
+import { CompanyProfile } from './components/Company/CompanyProfile';
 import { Card } from './components/ui/Card';
 import type { ViewMode } from './components/shared/navConfig';
 
@@ -83,6 +84,8 @@ function App() {
       switch (innerActiveId) {
         case 'dashboard':
           return <Dashboard onStartOnboarding={() => setShowOnboardingForm(true)} />;
+        case 'profile':
+          return <CompanyProfile />;
         case 'onboarding':
           return <OnboardingPage onStartForm={() => setShowOnboardingForm(true)} />;
         default:

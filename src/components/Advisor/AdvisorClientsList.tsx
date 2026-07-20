@@ -30,7 +30,7 @@ function ClientRow({ client, onClick }: { client: Client; onClick: () => void })
       p="0"
       cursor="pointer"
       transition="box-shadow 0.15s, transform 0.05s"
-      _hover={{ shadow: 'card' }}
+      _hover={{ shadow: 'md' }}
       _active={{ transform: 'translateY(1px)' }}
       onClick={onClick}
     >

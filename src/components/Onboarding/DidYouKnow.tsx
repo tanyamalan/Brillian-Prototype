@@ -37,7 +37,7 @@ export default function DidYouKnow({ Icon, headline, summary, expandedContent }:
         inset: { base: '-4px', md: '-12px' },
         zIndex: 0,
         background:
-          'radial-gradient(circle at 30% 30%, var(--chakra-colors-brand-500) 0%, transparent 55%), radial-gradient(circle at 70% 70%, var(--chakra-colors-purple-500) 0%, transparent 55%)',
+          'radial-gradient(circle at 30% 30%, var(--chakra-colors-forest-500) 0%, transparent 55%), radial-gradient(circle at 70% 70%, var(--chakra-colors-lime-500) 0%, transparent 55%)',
         filter: { base: 'blur(14px)', md: 'blur(20px)' },
         opacity: { base: 0.3, md: 0.4 },
         animation: 'brl-spin 14s linear infinite',
@@ -48,15 +48,15 @@ export default function DidYouKnow({ Icon, headline, summary, expandedContent }:
         position="relative"
         zIndex={1}
         bg="bg"
-        rounded="sm"
-        shadow="card"
+        rounded="card"
+        shadow="elevated"
         overflow="hidden"
       >
       <HStack gap="2" pt="4" px="4" pb="2">
         <Circle
           size="28px"
-          bg="status.warning.tint"
-          color="status.warning"
+          bg="status.moderate.tint"
+          color="status.moderate.text"
           flexShrink={0}
           animation="brl-pulse 2.4s ease-in-out infinite"
         >
@@ -86,7 +86,7 @@ export default function DidYouKnow({ Icon, headline, summary, expandedContent }:
             px="4"
             py="2"
             borderTopWidth="1px"
-            borderColor="border"
+            borderColor="border.subtle"
             fontSize="12px"
             color="fg.muted"
             lineHeight="1.55"
@@ -104,7 +104,7 @@ export default function DidYouKnow({ Icon, headline, summary, expandedContent }:
             py="2"
             bg="bg"
             borderTopWidth="1px"
-            borderColor="border"
+            borderColor="border.subtle"
             fontSize="12px"
             fontWeight={600}
             color="brand.solid"

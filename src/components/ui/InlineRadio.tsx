@@ -27,7 +27,7 @@ export function InlineRadio({ name, options, defaultValue }: InlineRadioProps) {
               px="4"
               py="2.5"
               borderWidth="0"
-              rounded="sm"
+              rounded="control"
               bg="bg"
               transition="all 0.15s"
               _hover={{ bg: 'bg.dim' }}
@@ -38,7 +38,7 @@ export function InlineRadio({ name, options, defaultValue }: InlineRadioProps) {
                 boxSize="16px"
                 rounded="full"
                 borderWidth="1px"
-                borderColor="border.emphasized"
+                borderColor="border"
                 display="flex"
                 alignItems="center"
                 justifyContent="center"

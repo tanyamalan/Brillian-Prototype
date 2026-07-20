@@ -21,6 +21,7 @@ import {
   Search,
   Upload,
 } from 'lucide-react';
+import { Alert } from '../ui/Alert';
 import { Avatar } from '../ui/Avatar';
 import { Card } from '../ui/Card';
 import { StatTile } from '../ui/StatTile';
@@ -69,7 +70,7 @@ function DocumentRow({
         px="4"
         py="3"
         borderBottomWidth="1px"
-        borderColor="border"
+        borderColor="border.subtle"
         _hover={{ bg: 'bg.dim' }}
         _last={{ borderBottomWidth: 0 }}
       >
@@ -138,7 +139,7 @@ function DocumentRow({
         px="4"
         py="3"
         borderBottomWidth="1px"
-        borderColor="border"
+        borderColor="border.subtle"
         _last={{ borderBottomWidth: 0 }}
       >
         <Flex align="flex-start" gap="3">
@@ -154,13 +155,13 @@ function DocumentRow({
             </Text>
             <HStack gap="1.5" flexWrap="wrap">
               {showClient && doc.clientId && (
-                <Badge variant="subtle" rounded="sm" px="2" py="0.5" fontSize="10px" fontWeight={600} gap="1">
+                <Badge variant="subtle" rounded="md" px="2" py="0.5" fontSize="10px" fontWeight={600} gap="1">
                   <Avatar size="xs" color={client.color} label={client.name.charAt(0)} />
                   <Text as="span" truncate maxW="120px">{client.name}</Text>
                 </Badge>
               )}
               {showClient && !doc.clientId && (
-                <Badge variant="subtle" rounded="sm" px="2" py="0.5" fontSize="10px" fontWeight={600}>
+                <Badge variant="subtle" rounded="md" px="2" py="0.5" fontSize="10px" fontWeight={600}>
                   Internal
                 </Badge>
               )}
@@ -200,7 +201,7 @@ function DocumentsTable({
 }) {
   if (rows.length === 0) {
     return (
-      <Card p={{ base: '6', md: '10' }} textAlign="center">
+      <Card size="lg" textAlign="center">
         <Text fontSize="14px" color="fg.muted">
           {emptyText}
         </Text>
@@ -219,7 +220,7 @@ function DocumentsTable({
 function TemplatesGrid({ rows }: { rows: DocumentRecord[] }) {
   if (rows.length === 0) {
     return (
-      <Card p={{ base: '6', md: '10' }} textAlign="center">
+      <Card size="lg" textAlign="center">
         <Text fontSize="14px" color="fg.muted">No templates yet.</Text>
       </Card>
     );
@@ -227,7 +228,7 @@ function TemplatesGrid({ rows }: { rows: DocumentRecord[] }) {
   return (
     <Box display="grid" gridTemplateColumns={{ base: '1fr', md: 'repeat(3, 1fr)' }} gap="3">
       {rows.map(d => (
-        <Card key={d.id} p="4">
+        <Card key={d.id} size="sm">
           <Box color="fg.muted" mb="2">
             <FileText size={20} />
           </Box>
@@ -292,7 +293,7 @@ export function AdvisorDocuments({ typeFilter = 'all', clientId }: AdvisorDocume
     <Tabs.Root defaultValue="all" variant="line">
       <Box flex="1">
         {/* ===== White header band: title row + tabs ===== */}
-        <Box bg="bg" borderBottomWidth="1px" borderColor="border" px={{ base: '4', md: '8' }} pt="6">
+        <Box bg="bg" borderBottomWidth="1px" borderColor="border.subtle" px={{ base: '4', md: '8' }} pt="6">
           {/* Page header — hidden in client scope; the client header from
               AdvisorClientDetail provides the title above */}
           {!isClientScoped && (
@@ -350,11 +351,11 @@ export function AdvisorDocuments({ typeFilter = 'all', clientId }: AdvisorDocume
             <Tabs.Trigger value="all" px="3" py="3" fontSize="14px" fontWeight={500} gap="2" flexShrink={0} whiteSpace="nowrap">
               <FileText size={14} />
               All documents
-              <Badge variant="subtle" rounded="sm" fontSize="10px">{totalCount}</Badge>
+              <Badge variant="subtle" rounded="md" fontSize="10px">{totalCount}</Badge>
             </Tabs.Trigger>
             <Tabs.Trigger value="recent" px="3" py="3" fontSize="14px" fontWeight={500} gap="2" flexShrink={0} whiteSpace="nowrap">
               Recently shared
-              <Badge variant="subtle" rounded="sm" fontSize="10px">{recentlyShared.length}</Badge>
+              <Badge variant="subtle" rounded="md" fontSize="10px">{recentlyShared.length}</Badge>
             </Tabs.Trigger>
             <Tabs.Trigger value="pending" px="3" py="3" fontSize="14px" fontWeight={500} gap="2" flexShrink={0} whiteSpace="nowrap">
               <CheckCircle2 size={14} />
@@ -364,7 +365,7 @@ export function AdvisorDocuments({ typeFilter = 'all', clientId }: AdvisorDocume
             {!isClientScoped && (
               <Tabs.Trigger value="templates" px="3" py="3" fontSize="14px" fontWeight={500} gap="2" flexShrink={0} whiteSpace="nowrap">
                 Templates
-                <Badge variant="subtle" rounded="sm" fontSize="10px">{templates.length}</Badge>
+                <Badge variant="subtle" rounded="md" fontSize="10px">{templates.length}</Badge>
               </Tabs.Trigger>
             )}
           </Tabs.List>
@@ -440,21 +441,12 @@ export function AdvisorDocuments({ typeFilter = 'all', clientId }: AdvisorDocume
 
         <Tabs.Content value="pending" p="0">
           <Stack gap="3">
-            <Card p="4" bg="brl.warningLight" borderLeftWidth="3px" borderLeftColor="brl.warning">
-              <HStack gap="3">
-                <Box color="brl.warning">
-                  <CheckCircle2 size={20} />
-                </Box>
-                <Box flex="1">
-                  <Text fontSize="13px" fontWeight={600} color="fg">
-                    {awaitingReview.length} {awaitingReview.length === 1 ? 'document' : 'documents'} awaiting your review
-                  </Text>
-                  <Text fontSize="12px" color="fg.muted">
-                    Review and acknowledge so the client knows you've seen it.
-                  </Text>
-                </Box>
-              </HStack>
-            </Card>
+            <Alert
+              intent="moderate"
+              icon={CheckCircle2}
+              title={`${awaitingReview.length} ${awaitingReview.length === 1 ? 'document' : 'documents'} awaiting your review`}
+              body="Review and acknowledge so the client knows you've seen it."
+            />
             <DocumentsTable rows={awaitingReview} showClient={!isClientScoped} actionLabel="Review" emptyText="Nothing pending — you're all caught up." />
           </Stack>
         </Tabs.Content>

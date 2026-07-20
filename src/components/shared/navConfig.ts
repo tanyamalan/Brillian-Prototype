@@ -1,10 +1,8 @@
 import {
   Activity,
-  BarChart3,
   Briefcase,
   CircleCheck,
-  Compass,
-  DollarSign,
+  ClipboardList,
   FileDown,
   FileText,
   Home,
@@ -12,7 +10,6 @@ import {
   Settings,
   Users,
   Workflow,
-  Zap,
 } from 'lucide-react';
 import type { ComponentType, SVGProps } from 'react';
 
@@ -25,6 +22,12 @@ export interface NavItem {
 }
 
 export type ViewMode = 'owner' | 'advisor';
+
+/**
+ * Shared height for the top band of every column (outer rail logo, inner panel
+ * header, topbar). Keeps the header row aligned across the whole shell.
+ */
+export const HEADER_HEIGHT = '60px';
 
 // ===== Outer rail (app-wide sections) =====
 
@@ -50,13 +53,11 @@ export function getOuterItems(mode: ViewMode): NavItem[] {
 // ===== Inner panel: per-company lenses (Dashboard, Valuation, etc.) =====
 
 export const companyLenses: NavItem[] = [
-  { id: 'dashboard', label: 'Dashboard', Icon: LayoutGrid },
-  { id: 'valuation', label: 'Valuation', Icon: DollarSign },
-  { id: 'benchmarks', label: 'Benchmarks', Icon: BarChart3 },
-  { id: 'opportunities', label: 'Opportunities', Icon: Zap },
-  { id: 'actions', label: 'Action Items', Icon: CircleCheck },
+  { id: 'dashboard', label: 'Dashboard', Icon: Home },
+  { id: 'profile', label: 'Company Details', Icon: ClipboardList },
   { id: 'documents', label: 'Documents', Icon: FileText },
-  { id: 'onboarding', label: 'Onboarding', Icon: Compass },
+  { id: 'reports', label: 'Reports', Icon: FileDown },
+  { id: 'settings', label: 'Settings', Icon: Settings },
 ];
 
 // ===== Inner panel: advisor "Clients" section sub-nav (no client selected) =====

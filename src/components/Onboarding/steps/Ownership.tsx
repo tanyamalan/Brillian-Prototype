@@ -6,11 +6,11 @@ import { InlineRadio, yesNoOptions } from '../../ui/InlineRadio';
 
 function OwnerBlock() {
   return (
-    <Box borderWidth="1px" borderColor="border" rounded="sm" p="4" bg="bg.dim">
+    <Box borderWidth="1px" borderColor="border.subtle" rounded="md" p="4" bg="bg.dim">
       <Stack gap="4">
         <FormField label="Owner Type">
           <NativeSelect.Root>
-            <NativeSelect.Field rounded="sm" defaultValue="Individual">
+            <NativeSelect.Field defaultValue="Individual">
               <option>Individual</option>
               <option>Trust</option>
               <option>Entity / Corporation</option>

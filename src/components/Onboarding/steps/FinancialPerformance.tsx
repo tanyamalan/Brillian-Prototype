@@ -30,8 +30,8 @@ export default function FinancialPerformance() {
               <Button
                 bg="status.success"
                 color="fg.onBrand"
-                _hover={{ bg: 'status.success.dark' }}
-                rounded="sm"
+                _hover={{ bg: 'status.success.text' }}
+                rounded="md"
                 px="4"
                 fontWeight={500}
                 fontSize="13px"

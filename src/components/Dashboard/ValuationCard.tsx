@@ -10,7 +10,7 @@ interface Metric {
 
 function MetricCard({ value, label, change }: Metric) {
   return (
-    <Box bg="bg.dim" rounded="sm" p={{ base: '3', md: '4' }} minW="0">
+    <Box bg="bg.dim" rounded="md" p={{ base: '3', md: '4' }} minW="0">
       <Text
         fontSize={{ base: '18px', md: '22px' }}
         fontWeight={700}

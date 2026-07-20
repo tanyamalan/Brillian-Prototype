@@ -1,6 +1,5 @@
-import { Box, Button, Stack, Text } from '@chakra-ui/react';
-import { Avatar } from '../ui/Avatar';
-import { getOuterItems, settingsItem } from './navConfig';
+import { Box, Button, Flex, Image, Stack, Text } from '@chakra-ui/react';
+import { getOuterItems, HEADER_HEIGHT, settingsItem } from './navConfig';
 import type { NavItem, ViewMode } from './navConfig';
 
 interface OuterRailProps {
@@ -29,7 +28,7 @@ function RailItem({
       minW={{ base: '14', md: 'auto' }}
       flexDir="column"
       gap="1"
-      rounded="md"
+      rounded="lg"
       bg="transparent"
       color={active ? 'fg' : 'fg.muted'}
       fontWeight={active ? 600 : 500}
@@ -43,7 +42,7 @@ function RailItem({
       <Box
         className="rail-icon"
         boxSize="40px"
-        rounded="md"
+        rounded="lg"
         bg={active ? 'border' : 'transparent'}
         display="flex"
         alignItems="center"
@@ -69,24 +68,40 @@ export function OuterRail({ viewMode, activeId, onSelect }: OuterRailProps) {
       bg="bg"
       borderRightWidth={{ base: 0, md: '1px' }}
       borderTopWidth={{ base: '1px', md: 0 }}
-      borderColor="border"
+      borderColor="border.subtle"
       flexShrink={0}
       display="flex"
       flexDir={{ base: 'row', md: 'column' }}
       alignItems="center"
-      py={{ base: '2', md: '4' }}
+      py={{ base: '2', md: '0' }}
       px={{ base: '2', md: '0' }}
-      gap={{ base: '0', md: '1' }}
+      gap="0"
       position={{ base: 'fixed', md: 'static' }}
       bottom={{ base: 0, md: 'auto' }}
       left={{ base: 0, md: 'auto' }}
       zIndex={{ base: 100, md: 'auto' }}
       justifyContent={{ base: 'space-around', md: 'flex-start' }}
     >
-      {/* Brand logo (desktop only) */}
-      <Box mb="2" display={{ base: 'none', md: 'flex' }}>
-        <Avatar size="md" label="B" />
-      </Box>
+      {/* Brand logo — header band, lines up with the topbar */}
+      <Flex
+        display={{ base: 'none', md: 'flex' }}
+        h={HEADER_HEIGHT}
+        w="full"
+        align="center"
+        justify="center"
+        flexShrink={0}
+      >
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          boxSize="36px"
+          rounded="lg"
+          bg="brand.solid"
+        >
+          <Image src="/brillian-logo-white.svg" alt="Brillian" h="18px" w="auto" />
+        </Box>
+      </Flex>
 
       {/* Outer items */}
       <Stack
@@ -96,6 +111,7 @@ export function OuterRail({ viewMode, activeId, onSelect }: OuterRailProps) {
         justifyContent={{ base: 'space-around', md: 'flex-start' }}
         w={{ base: 'full', md: 'full' }}
         align="stretch"
+        pt={{ base: '0', md: '1' }}
       >
         {items.map(item => (
           <RailItem
@@ -109,7 +125,7 @@ export function OuterRail({ viewMode, activeId, onSelect }: OuterRailProps) {
 
       {/* Spacer + Settings (desktop only) */}
       <Box flex="1" display={{ base: 'none', md: 'block' }} />
-      <Box display={{ base: 'none', md: 'block' }} w="full">
+      <Box display={{ base: 'none', md: 'block' }} w="full" pb="4">
         <RailItem
           item={settingsItem}
           active={activeId === settingsItem.id}

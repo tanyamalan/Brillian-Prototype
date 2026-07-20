@@ -10,7 +10,7 @@ import {
   SimpleGrid,
   Text,
 } from '@chakra-ui/react';
-import { ArrowLeft, ArrowRight, Check, Menu, X } from 'lucide-react';
+import { ArrowLeft, Menu, X } from 'lucide-react';
 import ExitDialog from './ExitDialog';
 import { checkValidity } from './checkValidity';
 import { OnboardingRail } from './OnboardingRail';
@@ -109,7 +109,7 @@ export default function Onboarding({ onExit }: OnboardingProps) {
         w="240px"
         flexShrink={0}
         borderRightWidth="1px"
-        borderColor="border"
+        borderColor="border.subtle"
         display={{ base: 'none', md: 'block' }}
       >
         <OnboardingRail
@@ -151,7 +151,7 @@ export default function Onboarding({ onExit }: OnboardingProps) {
           px={{ base: '4', md: '8' }}
           py="4"
           borderBottomWidth="1px"
-          borderColor="border"
+          borderColor="border.subtle"
           bg="bg"
           gap="4"
           flexWrap="wrap"
@@ -169,7 +169,7 @@ export default function Onboarding({ onExit }: OnboardingProps) {
               fontSize="12px"
               fontWeight={500}
               color="fg.muted"
-              rounded="sm"
+              rounded="md"
             >
               <Menu size={16} />
               <Text as="span">
@@ -190,7 +190,7 @@ export default function Onboarding({ onExit }: OnboardingProps) {
               color="fg.subtle"
               pl="2"
               borderLeftWidth="1px"
-              borderColor="border"
+              borderColor="border.subtle"
               display={{ base: 'none', md: 'inline' }}
             >
               Step {currentStep} of {STEPS.length}
@@ -224,33 +224,33 @@ export default function Onboarding({ onExit }: OnboardingProps) {
               gap="6"
               mt={{ base: '8', md: '10' }}
             >
-              <Flex align="center" justify="space-between" gap="2" flexWrap="wrap">
-                <Box flex={{ base: 1, md: 'initial' }}>
-                  <Button
-                    intent="ghost"
-                    borderWidth={{ base: '1px', md: 0 }}
-                    borderColor="border.emphasized"
-                    w={{ base: 'full', md: 'auto' }}
-                    justifyContent="center"
-                    onClick={handleBack}
-                    disabled={currentStep === 1}
-                  >
-                    <ArrowLeft size={14} />
-                    Back
-                  </Button>
-                </Box>
-                <HStack gap="2" flex={{ base: 1, md: 'initial' }}>
-                  <Button
-                    intent="primary"
-                    w={{ base: 'full', md: 'auto' }}
-                    justifyContent="center"
-                    onClick={handleNext}
-                    disabled={!isStepValid}
-                  >
-                    {isLastStep ? 'Finish setup' : 'Save and continue'}
-                    {isLastStep ? <Check size={14} /> : <ArrowRight size={14} />}
-                  </Button>
-                </HStack>
+              <Flex gap="3" align="stretch">
+                <Button
+                  intent="primary"
+                  onClick={handleBack}
+                  disabled={currentStep === 1}
+                  h="13"
+                  w="13"
+                  px="0"
+                  rounded="lg"
+                  flexShrink={0}
+                  justifyContent="center"
+                  aria-label="Go back"
+                >
+                  <ArrowLeft size={18} />
+                </Button>
+                <Button
+                  intent="primary"
+                  onClick={handleNext}
+                  disabled={!isStepValid}
+                  h="13"
+                  flex="1"
+                  rounded="lg"
+                  fontSize="15px"
+                  justifyContent="center"
+                >
+                  {isLastStep ? 'Finish setup' : 'Save and Continue'}
+                </Button>
               </Flex>
               <Box display={{ base: 'none', md: 'block' }} />
             </SimpleGrid>

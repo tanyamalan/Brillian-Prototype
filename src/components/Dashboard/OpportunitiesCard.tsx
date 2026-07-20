@@ -17,7 +17,7 @@ function OpportunityRow({
   showDivider: boolean;
 }) {
   return (
-    <Box py="4" borderBottomWidth={showDivider ? '1px' : 0} borderColor="border">
+    <Box py="4" borderBottomWidth={showDivider ? '1px' : 0} borderColor="border.subtle">
       {/* Desktop / tablet — single horizontal row */}
       <Flex display={{ base: 'none', md: 'flex' }} align="center" gap="4">
         <Box flex="1" minW="0">

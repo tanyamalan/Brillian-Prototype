@@ -52,7 +52,7 @@ export function OnboardingRail({ steps, currentStep, completedSteps, goToStep }:
               w="full"
               justifyContent="flex-start"
               gap="2"
-              rounded="sm"
+              rounded="md"
               bg={isActive ? 'bg.dim' : 'transparent'}
               _hover={{ bg: 'bg.dim' }}
               onClick={() => canClick && goToStep(s.num)}
