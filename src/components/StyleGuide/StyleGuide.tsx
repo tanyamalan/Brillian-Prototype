@@ -51,7 +51,7 @@ const SECTIONS: SectionDef[] = [
   { id: 'elevation', title: 'Elevation', group: 'Foundations' },
   { id: 'motion', title: 'Motion', group: 'Foundations' },
   { id: 'inputs', title: 'Inputs & States', group: 'Components' },
-  { id: 'buttons', title: 'Buttons', group: 'Components', wip: true },
+  { id: 'buttons', title: 'Buttons', group: 'Components' },
   { id: 'cards', title: 'Cards', group: 'Components' },
   { id: 'library', title: 'Component Library', group: 'Components' },
   { id: 'feedback', title: 'Feedback', group: 'Components' },
@@ -992,6 +992,8 @@ interface BtnStyle {
   bg: string;
   color: string;
   border?: string;
+  borderW?: string;
+  opacity?: number;
 }
 
 function DemoBtn({ s, children }: { s: BtnStyle; children: React.ReactNode }) {
@@ -1001,15 +1003,16 @@ function DemoBtn({ s, children }: { s: BtnStyle; children: React.ReactNode }) {
       display="inline-flex"
       align="center"
       justify="center"
-      fontSize="14px"
+      fontSize="13px"
       fontWeight={600}
-      px="18px"
-      h="36px"
+      px="4"
+      h="control"
       rounded="control"
-      borderWidth="1.5px"
+      borderWidth={s.borderW ?? '1.5px'}
       borderColor={s.border ?? 'transparent'}
       bg={s.bg}
       color={s.color}
+      opacity={s.opacity}
       lineHeight="1"
       whiteSpace="nowrap"
     >
@@ -1020,6 +1023,7 @@ function DemoBtn({ s, children }: { s: BtnStyle; children: React.ReactNode }) {
 
 function ButtonsSection() {
   const def = SECTIONS.find(s => s.id === 'buttons')!;
+  // State values read straight off the button recipe in src/theme/system.ts.
   const tiers: Array<{ label: string; text: string; states: [BtnStyle, BtnStyle, BtnStyle, BtnStyle] }> = [
     {
       label: 'Primary',
@@ -1028,27 +1032,37 @@ function ButtonsSection() {
         { bg: forest[600], color: ink[50] },
         { bg: forest[700], color: ink[50] },
         { bg: forest[800], color: ink[50] },
-        { bg: ink[200], color: ink[400] },
+        { bg: forest[600], color: ink[50], opacity: 0.4 },
+      ],
+    },
+    {
+      label: 'Accent',
+      text: 'Get started',
+      states: [
+        { bg: lime[300], color: ink[900] },
+        { bg: lime[400], color: ink[900] },
+        { bg: lime[500], color: ink[900] },
+        { bg: lime[300], color: ink[900], opacity: 0.4 },
       ],
     },
     {
       label: 'Secondary',
       text: 'Save changes',
       states: [
-        { bg: 'white', color: forest[700], border: forest[600] },
-        { bg: forest[50], color: forest[700], border: forest[600] },
-        { bg: forest[100], color: forest[700], border: forest[600] },
-        { bg: 'white', color: ink[300], border: ink[200] },
+        { bg: 'white', color: ink[600], border: ink[200], borderW: '1px' },
+        { bg: sand[100], color: ink[600], border: ink[200], borderW: '1px' },
+        { bg: sand[200], color: ink[600], border: ink[200], borderW: '1px' },
+        { bg: 'white', color: ink[400], border: ink[100], borderW: '1px' },
       ],
     },
     {
-      label: 'Tertiary',
+      label: 'Ghost',
       text: 'Save changes',
       states: [
-        { bg: 'transparent', color: forest[700] },
-        { bg: forest[50], color: forest[700] },
-        { bg: forest[100], color: forest[700] },
-        { bg: 'transparent', color: ink[300] },
+        { bg: 'transparent', color: forest[600] },
+        { bg: forest[50], color: forest[600] },
+        { bg: forest[100], color: forest[600] },
+        { bg: 'transparent', color: ink[400] },
       ],
     },
     {
@@ -1058,33 +1072,33 @@ function ButtonsSection() {
         { bg: brick[600], color: ink[50] },
         { bg: brick[700], color: ink[50] },
         { bg: brick[800], color: ink[50] },
-        { bg: ink[200], color: ink[400] },
-      ],
-    },
-    {
-      label: 'Subtle',
-      text: 'Save changes',
-      states: [
-        { bg: sand[50], color: ink[900] },
-        { bg: sand[100], color: ink[900] },
-        { bg: sand[200], color: ink[900] },
-        { bg: ink[50], color: ink[400] },
+        { bg: brick[600], color: ink[50], opacity: 0.4 },
       ],
     },
   ];
 
   return (
-    <Section def={def} lede="Five tiers of emphasis. Fills and borders carry the brand; every label comes from Ink. States move by darkening the fill, never by changing hue. Primary steps Forest 600 → 700 → 800; focus and pressed share the deepest step. Subtle is a neutral tonal fill (Sand 50 → 100 → 200) for low-emphasis actions like the one in a card header.">
-      <Box bg="citron.50" borderWidth="1px" borderColor="citron.200" borderLeftWidth="3px" borderLeftColor="citron.600" rounded="card" px="4.5" py="3.5" fontSize="13.5px" color="citron.900" maxW="820px" mb="6" lineHeight="1.6">
-        <B>Work in progress.</B> Button variants, states, and the focus treatment are still being
-        refined — don't build production components off this section yet. Colors and tokens may
-        change. The other sections are stable.
-      </Box>
+    <Section def={def} lede="Five intents on one recipe. Fills carry the brand; states move by darkening the fill one step at a time, never by changing hue. Focus is ring-free and shares the pressed (deepest) step, matching links. Accent is the lime CTA — dark text only. Disabled fades the resting state rather than going gray.">
+      <SubHead>Live recipe</SubHead>
+      <Flex gap="3" flexWrap="wrap" align="center" mb="2">
+        <Button intent="primary">Primary action</Button>
+        <Button intent="accent">Accent CTA</Button>
+        <Button intent="secondary">Secondary</Button>
+        <Button intent="ghost">Ghost</Button>
+        <Button intent="destructive">Destructive</Button>
+        <Button intent="primary" disabled>
+          Disabled
+        </Button>
+      </Flex>
+      <Text fontSize="12px" color="fg.subtle" mb="4">
+        Rendered from the real Chakra recipe — hover, press, and tab through these to see the live states.
+      </Text>
 
+      <SubHead>State matrix</SubHead>
       <Box overflowX="auto">
         <Box display="grid" gridTemplateColumns="112px repeat(4, 1fr)" gap="16px 18px" alignItems="center" minW="640px" maxW="860px">
           <Box />
-          {['Rest', 'Hover', 'Focus', 'Disabled'].map(c => (
+          {['Rest', 'Hover', 'Pressed / Focus', 'Disabled'].map(c => (
             <Text key={c} fontSize="10.5px" fontWeight={600} letterSpacing="0.05em" textTransform="uppercase" color="fg.placeholder" textAlign="center">
               {c}
             </Text>
@@ -1102,12 +1116,23 @@ function ButtonsSection() {
         </Box>
       </Box>
 
+      <SubHead>Spec</SubHead>
+      <GTable
+        head={['Intent', 'Rest', 'Label', 'Hover → Pressed', 'Use for']}
+        rows={[
+          [<Mono strong>primary</Mono>, <><Sw hex={forest[600]} /><Mono>Forest 600</Mono></>, <Mono>Ink 50</Mono>, <Mono>Forest 700 → 800</Mono>, <Text as="span" color="fg.subtle">The page's main action — one per view</Text>],
+          [<Mono strong>accent</Mono>, <><Sw hex={lime[300]} /><Mono>Lime 300</Mono></>, <Mono>Ink 900</Mono>, <Mono>Lime 400 → 500</Mono>, <Text as="span" color="fg.subtle">High-energy CTAs — onboarding, marketing moments</Text>],
+          [<Mono strong>secondary</Mono>, <><Sw hex="#FFFFFF" /><Mono>white + Ink 200 border</Mono></>, <Mono>Ink 600</Mono>, <Mono>Sand 100 → 200</Mono>, <Text as="span" color="fg.subtle">Supporting actions, card-header buttons</Text>],
+          [<Mono strong>ghost</Mono>, <Mono>transparent</Mono>, <Mono>Forest 600</Mono>, <Mono>Forest 50 → 100</Mono>, <Text as="span" color="fg.subtle">Low-emphasis and icon actions, nav</Text>],
+          [<Mono strong>destructive</Mono>, <><Sw hex={brick[600]} /><Mono>Brick 600</Mono></>, <Mono>Ink 50</Mono>, <Mono>Brick 700 → 800</Mono>, <Text as="span" color="fg.subtle">Irreversible actions — delete, remove, revoke</Text>],
+        ]}
+      />
       <Note>
-        <B>Focus — no ring.</B> Focus is shown by shifting the fill to its deepest step: primary →
-        Forest 800, destructive → Brick 800, secondary/tertiary → a Forest 100 tint. No outline, no
-        inset. Focus shares the deepest fill with the pressed state — an accepted tradeoff for a
-        ring-free look — and the shift is well over 3:1 from rest, so keyboard focus stays clearly
-        visible. On dark, the primary lightens one step further (Forest 200).
+        <B>Focus — no ring.</B> Keyboard focus shares the pressed (deepest) fill — an accepted
+        tradeoff for a ring-free look; the shift is well over 3:1 from rest, so focus stays clearly
+        visible. Use the <Mono strong>intent</Mono> prop, never inline colors. This recipe supersedes
+        the five-tier exploration in the static reference doc. On dark, primary inverts to a light
+        fill (Forest 400 + Ink 900) — see Dark Mode.
       </Note>
     </Section>
   );
@@ -1243,17 +1268,6 @@ function LibrarySection() {
   const sizes: Array<'xs' | 'sm' | 'md' | 'lg' | 'xl'> = ['xs', 'sm', 'md', 'lg', 'xl'];
   return (
     <Section def={def} lede="The real prototype components, rendered live from the Chakra recipes. If something looks wrong here, it's wrong everywhere — fix it at the recipe and watch this page update.">
-      <SubHead>Buttons (app recipes)</SubHead>
-      <Flex gap="3" flexWrap="wrap" align="center">
-        <Button intent="primary">Primary action</Button>
-        <Button intent="accent">Accent CTA</Button>
-        <Button intent="secondary">Secondary</Button>
-        <Button intent="ghost">Ghost</Button>
-        <Button intent="primary" disabled>
-          Disabled
-        </Button>
-      </Flex>
-
       <SubHead>Badges</SubHead>
       <Text fontSize="13.5px" color="fg.subtle" mb="3" maxW="760px" lineHeight="1.6">
         All badges share the pill silhouette and tint + dark text pattern. Use the{' '}

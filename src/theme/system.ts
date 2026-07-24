@@ -28,9 +28,10 @@ function wrap<T extends Record<string, unknown>>(input: T): Wrapped<T> {
 
 // ===== Recipes =====
 
-// NOTE (July 13 reference): production button tokens are WIP — variants and
-// state colors are still being refined in the guidelines. These intents keep
-// the current look wired through semantic tokens; don't harden further.
+// Buttons — the app recipe IS the canonical direction (it superseded the
+// five-tier exploration in the static reference doc). States move by
+// darkening the fill one step at a time; focus is ring-free and shares the
+// pressed (deepest) step, matching links.
 const buttonRecipe = defineRecipe({
   base: {
     px: '4',
@@ -41,7 +42,10 @@ const buttonRecipe = defineRecipe({
   variants: {
     size: {
       // Override Chakra's default `md` so it hits our 40px control size.
-      md: { h: 'control', px: '4' },
+      // Chakra's size variants set `textStyle` (which carries a fontSize that
+      // wins over base), so neutralize it and pin the label size here.
+      md: { h: 'control', px: '4', textStyle: 'none', fontSize: '13px' },
+      sm: { textStyle: 'none', fontSize: '13px' },
     },
     intent: {
       primary: {
@@ -49,12 +53,15 @@ const buttonRecipe = defineRecipe({
         color: 'fg.inverse',
         _hover: { bg: 'brand.emphasized' },
         _active: { bg: 'brand.active' },
+        _focusVisible: { bg: 'brand.active', outline: 'none', boxShadow: 'none' },
         _disabled: { bg: 'brand.solid', opacity: 0.4, cursor: 'not-allowed' },
       },
       accent: {
         bg: 'accent.solid',
         color: 'fg',
         _hover: { bg: 'accent.emphasized' },
+        _active: { bg: 'lime.500' },
+        _focusVisible: { bg: 'lime.500', outline: 'none', boxShadow: 'none' },
         _disabled: { bg: 'accent.solid', opacity: 0.4, cursor: 'not-allowed' },
       },
       secondary: {
@@ -63,11 +70,25 @@ const buttonRecipe = defineRecipe({
         borderWidth: '1px',
         borderColor: 'border',
         _hover: { bg: 'bg.subtle' },
+        _active: { bg: 'sand.200' },
+        _focusVisible: { bg: 'sand.200', outline: 'none', boxShadow: 'none' },
+        _disabled: { color: 'fg.disabled', borderColor: 'border.subtle', bg: 'bg', cursor: 'not-allowed' },
       },
       ghost: {
         bg: 'transparent',
         color: 'forest.600',
         _hover: { bg: 'brand.subtle' },
+        _active: { bg: 'brand.muted' },
+        _focusVisible: { bg: 'brand.muted', outline: 'none', boxShadow: 'none' },
+        _disabled: { color: 'fg.disabled', bg: 'transparent', cursor: 'not-allowed' },
+      },
+      destructive: {
+        bg: 'brick.600',
+        color: 'fg.inverse',
+        _hover: { bg: 'brick.700' },
+        _active: { bg: 'brick.800' },
+        _focusVisible: { bg: 'brick.800', outline: 'none', boxShadow: 'none' },
+        _disabled: { bg: 'brick.600', opacity: 0.4, cursor: 'not-allowed' },
       },
     },
   },
@@ -421,7 +442,7 @@ export const system = createSystem(defaultConfig, config);
 // sites can write `<Button intent="primary">` with full type safety.
 declare module '@chakra-ui/react' {
   interface ButtonProps {
-    intent?: 'primary' | 'accent' | 'secondary' | 'ghost';
+    intent?: 'primary' | 'accent' | 'secondary' | 'ghost' | 'destructive';
   }
   interface BadgeProps {
     intent?: 'danger' | 'warning' | 'moderate' | 'success' | 'brand' | 'accent' | 'neutral';
