@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Badge, Box, Button, Flex, Heading, Input, NativeSelect, SimpleGrid, Stack, Text } from '@chakra-ui/react';
+import { Badge, Box, Button, Flex, Heading, Input, Link as ChakraLink, NativeSelect, SimpleGrid, Stack, Text } from '@chakra-ui/react';
 import { ArrowLeft, BookOpen, FileCode, Lightbulb } from 'lucide-react';
 import { Alert } from '../ui/Alert';
 import { Avatar } from '../ui/Avatar';
@@ -526,6 +526,124 @@ function TextSection() {
         <PreviewPanel bg="white" title="Primary on white" />
         <PreviewPanel bg={sand[50]} title="Primary on Sand 50" />
       </SimpleGrid>
+
+      <SubHead>Links</SubHead>
+      <Text fontSize="13.5px" color="fg.subtle" maxW="760px" mb="4" lineHeight="1.6">
+        The one deliberate exception to the one rule: color signals interactivity, so links carry
+        Forest. Three variants on the <Mono strong>Link</Mono> recipe — pick by context, never
+        restyle inline.
+      </Text>
+      <Stack gap="4" maxW="760px" mb="5">
+        <Box>
+          <Text fontSize="10.5px" fontWeight={600} letterSpacing="0.05em" textTransform="uppercase" color="fg.placeholder" mb="1.5">
+            Inline — inside body copy
+          </Text>
+          <Text fontSize="base" color="fg.body" lineHeight="1.6">
+            Your valuation range updated after we imported the latest financials.{' '}
+            <ChakraLink variant="inline" {...({ href: '#text' } as object)}>
+              See what changed
+            </ChakraLink>{' '}
+            or review the assumptions behind it.
+          </Text>
+        </Box>
+        <Box>
+          <Text fontSize="10.5px" fontWeight={600} letterSpacing="0.05em" textTransform="uppercase" color="fg.placeholder" mb="1.5">
+            Standalone — card actions, view-all, breadcrumbs
+          </Text>
+          <Flex gap="5">
+            <ChakraLink variant="standalone" fontSize="base" {...({ href: '#text' } as object)}>
+              View all documents
+            </ChakraLink>
+            <ChakraLink variant="standalone" fontSize="base" {...({ href: '#text' } as object)}>
+              Edit assumptions
+            </ChakraLink>
+          </Flex>
+        </Box>
+        <Box>
+          <Text fontSize="10.5px" fontWeight={600} letterSpacing="0.05em" textTransform="uppercase" color="fg.placeholder" mb="1.5">
+            Subtle — footers, metadata, tertiary nav
+          </Text>
+          <Flex gap="5">
+            <ChakraLink variant="subtle" fontSize="sm" {...({ href: '#text' } as object)}>
+              Privacy policy
+            </ChakraLink>
+            <ChakraLink variant="subtle" fontSize="sm" {...({ href: '#text' } as object)}>
+              Terms of service
+            </ChakraLink>
+          </Flex>
+        </Box>
+      </Stack>
+      <Box overflowX="auto" mb="5">
+        <Box display="grid" gridTemplateColumns="112px repeat(3, 1fr)" gap="16px 18px" alignItems="center" minW="560px" maxW="760px">
+          <Box />
+          {['Rest', 'Hover', 'Focus'].map(c => (
+            <Text key={c} fontSize="10.5px" fontWeight={600} letterSpacing="0.05em" textTransform="uppercase" color="fg.placeholder" textAlign="center">
+              {c}
+            </Text>
+          ))}
+          {((
+            [
+            {
+              label: 'Inline',
+              states: [
+                { color: forest[600], deco: 'underline', decoColor: forest[600] },
+                { color: forest[700], deco: 'underline', decoColor: forest[700] },
+                { color: forest[800], deco: 'underline', decoColor: forest[800] },
+              ],
+            },
+            {
+              label: 'Standalone',
+              states: [
+                { color: forest[600], deco: 'none', decoColor: forest[600] },
+                { color: forest[700], deco: 'underline', decoColor: forest[700] },
+                { color: forest[800], deco: 'underline', decoColor: forest[800] },
+              ],
+            },
+            {
+              label: 'Subtle',
+              states: [
+                { color: ink[600], deco: 'none', decoColor: ink[600] },
+                { color: forest[700], deco: 'underline', decoColor: forest[700] },
+                { color: forest[800], deco: 'underline', decoColor: forest[800] },
+              ],
+            },
+            ] as Array<{ label: string; states: Array<{ color: string; deco: string; decoColor: string }> }>
+          )).flatMap(row => [
+            <Text key={row.label} fontSize="14px" fontWeight={600} color="fg">
+              {row.label}
+            </Text>,
+            ...row.states.map((s, i) => (
+              <Flex key={`${row.label}-${i}`} justify="center">
+                <Text
+                  as="span"
+                  fontSize="base"
+                  fontWeight={500}
+                  color={s.color}
+                  css={{ textDecorationLine: s.deco, textDecorationColor: s.decoColor, textUnderlineOffset: '2px' }}
+                >
+                  See what changed
+                </Text>
+              </Flex>
+            )),
+          ])}
+        </Box>
+      </Box>
+      <GTable
+        head={['Variant', 'Rest', 'Underline at rest', 'Hover', 'Use for']}
+        rows={[
+          [<Mono strong>inline</Mono>, <><Sw hex={forest[600]} /><Mono>Forest 600 · 500</Mono></>, <Mono>Forest 600</Mono>, <Mono>Forest 700</Mono>, <Text as="span" color="fg.subtle">Links inside sentences — underline so color isn't the only cue</Text>],
+          [<Mono strong>standalone</Mono>, <><Sw hex={forest[600]} /><Mono>Forest 600 · 500</Mono></>, <Mono>none</Mono>, <Mono>Forest 700 + underline</Mono>, <Text as="span" color="fg.subtle">Self-evident links: view-all, card actions, breadcrumbs</Text>],
+          [<Mono strong>subtle</Mono>, <><Sw hex={ink[600]} /><Mono>Ink 600 · 500</Mono></>, <Mono>none</Mono>, <Mono>Forest 700 + underline</Mono>, <Text as="span" color="fg.subtle">Footers, metadata, tertiary nav — quiet until touched</Text>],
+        ]}
+      />
+      <Note>
+        <B>Rules.</B> Links are Manrope 500 at the size of their surrounding text — never bold, never
+        a different size. Inline links must keep their resting underline (color alone fails the
+        non-color-cue bar); standalone and subtle links earn theirs on hover. Focus is ring-free,
+        matching buttons: keyboard focus deepens one step past hover (Forest 800) with a full
+        underline. On dark surfaces links lighten to Forest 300, same rules otherwise. Never use
+        Lime for text links, and never underline non-interactive text.
+      </Note>
 
       <SubHead>Inverse (on dark)</SubHead>
       <GTable

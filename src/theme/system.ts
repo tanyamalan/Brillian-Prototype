@@ -142,6 +142,44 @@ const nativeSelectRecipe = defineRecipe({
   },
 });
 
+// Links — the one deliberate exception to "text only from Ink": color signals
+// interactivity, so links carry Forest. Inline links (inside body copy) keep a
+// softened underline at rest so they don't rely on color alone; standalone
+// links (View all, Back, breadcrumbs) drop the underline until hover.
+const linkRecipe = defineRecipe({
+  base: {
+    color: 'brand.fg',
+    fontWeight: 500,
+    cursor: 'pointer',
+    transition: 'color 0.15s, text-decoration-color 0.15s',
+    _hover: { color: 'brand.emphasized', textDecoration: 'underline', textDecorationColor: 'brand.emphasized' },
+    // Ring-free like buttons: keyboard focus deepens one step past hover.
+    _focusVisible: { color: 'brand.active', textDecoration: 'underline', textDecorationColor: 'brand.active', outline: 'none' },
+  },
+  variants: {
+    variant: {
+      // Inside body copy: underlined at rest, darkens on hover.
+      inline: {
+        textDecoration: 'underline',
+        textUnderlineOffset: '2px',
+      },
+      // Standalone UI links: plain at rest, underline on hover.
+      standalone: {
+        textDecoration: 'none',
+      },
+      // Quiet links (footers, metadata): ink at rest, forest on hover.
+      subtle: {
+        color: 'fg.muted',
+        textDecoration: 'none',
+        _hover: { color: 'brand.emphasized', textDecoration: 'underline', textDecorationColor: 'brand.emphasized' },
+      },
+    },
+  },
+  defaultVariants: {
+    variant: 'inline',
+  },
+});
+
 // Menus & popovers — guide: overlays use radius.card (8px), shadow.raised,
 // and border.subtle (ink.100) separators. Chakra's defaults land on a smaller
 // radius and ink.200 separators, so pin them here.
@@ -254,6 +292,7 @@ const config = defineConfig({
     },
     recipes: {
       button: buttonRecipe,
+      link: linkRecipe,
       badge: badgeRecipe,
       input: inputRecipe,
       textarea: textareaRecipe,
@@ -386,5 +425,8 @@ declare module '@chakra-ui/react' {
   }
   interface BadgeProps {
     intent?: 'danger' | 'warning' | 'moderate' | 'success' | 'brand' | 'accent' | 'neutral';
+  }
+  interface LinkProps {
+    variant?: 'inline' | 'standalone' | 'subtle';
   }
 }

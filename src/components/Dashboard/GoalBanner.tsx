@@ -14,11 +14,11 @@ export function GoalBanner({ onStartOnboarding }: GoalBannerProps) {
         </Text>
         <Text fontSize="15px" color="fg">
           Sell my business by{' '}
-          <Text as="span" color="brand.solid" textDecoration="underline" textDecorationColor="brand.muted">
+          <Text as="span" color="brand.solid" textDecoration="underline">
             2030
           </Text>
           {' '}for{' '}
-          <Text as="span" color="brand.solid" textDecoration="underline" textDecorationColor="brand.muted">
+          <Text as="span" color="brand.solid" textDecoration="underline">
             $3M
           </Text>
         </Text>
