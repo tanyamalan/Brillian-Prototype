@@ -76,7 +76,7 @@ function ClientRow({ client, onClick }: { client: Client; onClick: () => void })
 
         {/* Action items */}
         <Box textAlign="center" minW="80px" flexShrink={0}>
-          <Text fontSize="18px" fontWeight={700} color={client.actionItems > 5 ? 'brl.danger' : 'fg'}>
+          <Text fontSize="lg" fontWeight={700} color={client.actionItems > 5 ? 'brl.danger' : 'fg'}>
             {client.actionItems}
           </Text>
           <Text fontSize="11px" color="fg.subtle" lineHeight="1.2">

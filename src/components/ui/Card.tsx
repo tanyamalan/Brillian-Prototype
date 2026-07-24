@@ -60,7 +60,7 @@ export function CardHeader({
   return (
     <Box display="flex" alignItems="flex-start" justifyContent="space-between" gap="4">
       <Box minW="0">
-        <Box as="h2" fontSize="18px" fontWeight={500} color="fg" lineHeight="1.3">
+        <Box as="h2" fontSize="lg" fontWeight={500} color="fg" lineHeight="1.3">
           {title}
         </Box>
         {description && (

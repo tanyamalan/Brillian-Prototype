@@ -19,7 +19,7 @@ export default function ExitDialog({ open, onClose, onConfirm }: ExitDialogProps
         <Dialog.Positioner>
           <Dialog.Content rounded="card" maxW="420px" p="6" bg="bg" shadow="raised">
             <Dialog.Header pb="2" px="0" pt="0">
-              <Dialog.Title fontSize="18px" fontWeight={600} color="fg">
+              <Dialog.Title fontSize="lg" fontWeight={600} color="fg">
                 Finish later?
               </Dialog.Title>
             </Dialog.Header>

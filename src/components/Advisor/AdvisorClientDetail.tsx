@@ -61,7 +61,7 @@ function PlaceholderLens({ title, body }: { title: string; body: string }) {
   return (
     <Box px={{ base: '4', md: '8' }} py="6">
       <Card size="lg" textAlign="center">
-        <Heading as="h2" fontSize="18px" fontWeight={500} color="fg" mb="2">
+        <Heading as="h2" fontSize="lg" fontWeight={500} color="fg" mb="2">
           {title}
         </Heading>
         <Text fontSize="14px" color="fg.muted" maxW="480px" mx="auto">

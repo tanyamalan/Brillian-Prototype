@@ -1,5 +1,5 @@
 import { createSystem, defaultConfig, defineConfig, defineRecipe, defineSlotRecipe } from '@chakra-ui/react';
-import { colorRamps, fonts, radii, shadows, white } from './tokens';
+import { colorRamps, fontSizes, fonts, radii, shadows, white } from './tokens';
 
 /**
  * Brillian theme — primitives + semantic tokens, mapped to Chakra v3.
@@ -36,7 +36,7 @@ const buttonRecipe = defineRecipe({
     px: '4',
     rounded: 'control',
     fontSize: '13px',
-    fontWeight: 500,
+    fontWeight: 600, // guide: button labels are Manrope 600
   },
   variants: {
     size: {
@@ -142,6 +142,25 @@ const nativeSelectRecipe = defineRecipe({
   },
 });
 
+// Menus & popovers — guide: overlays use radius.card (8px), shadow.raised,
+// and border.subtle (ink.100) separators. Chakra's defaults land on a smaller
+// radius and ink.200 separators, so pin them here.
+const menuRecipe = defineSlotRecipe({
+  slots: ['content', 'item', 'separator'],
+  base: {
+    content: {
+      rounded: 'card',
+      shadow: 'raised',
+    },
+    item: {
+      rounded: 'control',
+    },
+    separator: {
+      borderColor: 'border.subtle',
+    },
+  },
+});
+
 // Checkbox control — default border (ink.200), control radius, brand when checked.
 const checkboxRecipe = defineSlotRecipe({
   slots: ['control'],
@@ -200,6 +219,7 @@ const config = defineConfig({
   theme: {
     tokens: {
       fonts: wrap(fonts),
+      fontSizes: wrap(fontSizes),
       colors: {
         ...wrap(colorRamps),
         white: { value: white },
@@ -241,6 +261,7 @@ const config = defineConfig({
     },
     slotRecipes: {
       checkbox: checkboxRecipe,
+      menu: menuRecipe,
     },
     semanticTokens: {
       radii: {
@@ -318,6 +339,7 @@ const config = defineConfig({
           borderError: { value: '{colors.brick.500}' },
           borderSuccess: { value: '{colors.forest.500}' },
           borderDisabled: { value: '{colors.ink.100}' },
+          bgReadonly: { value: '{colors.ink.50}' }, // read-only fields: fill, no frame
         },
         // ===== Navigation — one scheme for the outer rail AND inner panel =====
         nav: {

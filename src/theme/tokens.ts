@@ -137,16 +137,20 @@ export const shadows = {
 } as const;
 
 // ===== Type scale =====
+// Anchored to the guide's real usage: 18 = card title, 16 = section header,
+// 14 = body / card description, 13 = field label (component-level, not a step).
+// Wired into Chakra via system.ts so fontSize="lg" etc. resolve to these.
 
 export const fontSizes = {
-  xs: '11px',
-  sm: '12px',
-  base: '14px',
-  md: '16px',
-  lg: '20px',
-  xl: '26px',
-  '2xl': '32px',
-  '3xl': '40px',
+  xs: '11px', // eyebrows, fine print
+  sm: '12px', // captions, mono annotations
+  base: '14px', // body, inputs, card descriptions
+  md: '16px', // section headers, body lead
+  lg: '18px', // card titles
+  xl: '20px', // page-section headings
+  '2xl': '26px',
+  '3xl': '32px',
+  '4xl': '40px', // display
 } as const;
 
 // ===== Fonts =====
@@ -227,6 +231,8 @@ export const semanticColors = {
     borderError: { ramp: 'brick', step: 500, name: 'input.border-error' },
     borderSuccess: { ramp: 'forest', step: 500, name: 'input.border-success' },
     borderDisabled: { ramp: 'ink', step: 100, name: 'input.border-disabled' },
+    // Read-only per the guide: value without an editable frame — ink fill, no border.
+    bgReadonly: { ramp: 'ink', step: 50, name: 'input.bg-readonly' },
   },
   accent: {
     solid: { ramp: 'lime', step: 300, name: 'accent.solid' },

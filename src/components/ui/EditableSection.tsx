@@ -98,7 +98,7 @@ export function EditableSection({
 /** Shared field label styling (matches DisplayField's label). */
 function FieldLabel({ children }: { children: React.ReactNode }) {
   return (
-    <Text fontSize="13px" fontWeight={500} color="fg" mb="1.5">
+    <Text fontSize="13px" fontWeight={600} color="fg.muted" mb="1.5">
       {children}
     </Text>
   );

@@ -16,7 +16,7 @@ export function DisplayField({ label, value }: DisplayFieldProps) {
   const isEmpty = value === undefined || value === null || value === '';
   return (
     <Box>
-      <Text fontSize="13px" fontWeight={500} color="fg" mb="1.5">
+      <Text fontSize="13px" fontWeight={600} color="fg.muted" mb="1.5">
         {label}
       </Text>
       <Box
@@ -26,11 +26,9 @@ export function DisplayField({ label, value }: DisplayFieldProps) {
         px="3"
         py="2"
         rounded="control"
-        bg="bg"
-        borderWidth="0.5px"
-        borderColor="border"
-        fontSize="14px"
-        color={isEmpty ? 'fg.subtle' : 'fg.muted'}
+        bg="input.bgReadonly"
+        fontSize="base"
+        color={isEmpty ? 'fg.subtle' : 'fg'}
       >
         {isEmpty ? '—' : value}
       </Box>

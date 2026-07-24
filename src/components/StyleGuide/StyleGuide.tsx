@@ -623,11 +623,12 @@ function RadiusSection() {
 function TypographySection() {
   const def = SECTIONS.find(s => s.id === 'typography')!;
   const samples: Array<{ token: keyof typeof fontSizes; label: string; weight: number }> = [
-    { token: '3xl', label: 'Display', weight: 500 },
-    { token: '2xl', label: 'Heading 1', weight: 500 },
-    { token: 'xl', label: 'Heading 2', weight: 500 },
-    { token: 'lg', label: 'Heading 3', weight: 500 },
-    { token: 'md', label: 'Body lead', weight: 400 },
+    { token: '4xl', label: 'Display', weight: 500 },
+    { token: '3xl', label: 'Heading 1', weight: 500 },
+    { token: '2xl', label: 'Heading 2', weight: 500 },
+    { token: 'xl', label: 'Heading 3', weight: 500 },
+    { token: 'lg', label: 'Card title', weight: 500 },
+    { token: 'md', label: 'Section header', weight: 500 },
     { token: 'base', label: 'Body', weight: 400 },
     { token: 'sm', label: 'Caption', weight: 500 },
     { token: 'xs', label: 'Eyebrow', weight: 600 },
