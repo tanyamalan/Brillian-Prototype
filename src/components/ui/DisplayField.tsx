@@ -27,7 +27,7 @@ export function DisplayField({ label, value }: DisplayFieldProps) {
         py="2"
         rounded="control"
         bg="input.bgReadonly"
-        fontSize="base"
+        fontSize="sm"
         color={isEmpty ? 'fg.subtle' : 'fg'}
       >
         {isEmpty ? '—' : value}

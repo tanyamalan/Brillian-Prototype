@@ -137,20 +137,24 @@ export const shadows = {
 } as const;
 
 // ===== Type scale =====
-// Anchored to the guide's real usage: 18 = card title, 16 = section header,
-// 14 = body / card description, 13 = field label (component-level, not a step).
+// Step names follow Chakra's own scale so the tokens mean the same thing in
+// both systems — xs through xl are identical to Chakra's defaults; only the
+// display sizes (2xl/3xl/4xl) are overridden upward. Anchored to the guide's
+// real usage: 18 = card title, 16 = section header, 14 = body.
+// Component-level sizes that are NOT scale steps: 13px field/button labels,
+// 11px eyebrows — pin those explicitly in the recipe/component.
 // Wired into Chakra via system.ts so fontSize="lg" etc. resolve to these.
 
 export const fontSizes = {
-  xs: '11px', // eyebrows, fine print
-  sm: '12px', // captions, mono annotations
-  base: '14px', // body, inputs, card descriptions
-  md: '16px', // section headers, body lead
-  lg: '18px', // card titles
-  xl: '20px', // page-section headings
-  '2xl': '26px',
-  '3xl': '32px',
-  '4xl': '40px', // display
+  '2xs': '10px', // fine print (Chakra default)
+  xs: '12px', // captions, mono annotations (Chakra default)
+  sm: '14px', // body, inputs, card descriptions (Chakra default)
+  md: '16px', // section headers, body lead (Chakra default)
+  lg: '18px', // card titles (Chakra default)
+  xl: '20px', // page-section headings (Chakra default)
+  '2xl': '26px', // Chakra: 24
+  '3xl': '32px', // Chakra: 30
+  '4xl': '40px', // display · Chakra: 36
 } as const;
 
 // ===== Fonts =====

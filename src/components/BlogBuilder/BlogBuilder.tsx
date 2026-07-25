@@ -173,9 +173,9 @@ function PageHeader({ demoUrl }: { demoUrl: string }) {
           </Heading>
           <Text mt="3" maxW="640px" fontSize="md" color="fg.muted" lineHeight="1.6">
             For the sales team. Fill in each block, hit{' '}
-            <Text as="span" fontFamily="mono" fontSize="sm" color="fg">Copy HTML</Text>, then paste into a
+            <Text as="span" fontFamily="mono" fontSize="xs" color="fg">Copy HTML</Text>, then paste into a
             Webflow{' '}
-            <Text as="span" fontFamily="mono" fontSize="sm" color="fg">HTML Embed</Text> inside your blog
+            <Text as="span" fontFamily="mono" fontSize="xs" color="fg">HTML Embed</Text> inside your blog
             post. The snippets are fully styled — no Webflow classes required.
           </Text>
         </Box>
@@ -219,7 +219,7 @@ function Section({
           {title}
         </Heading>
       </Flex>
-      <Text fontSize="base" color="fg.muted" lineHeight="1.6" maxW="720px" mb="8">
+      <Text fontSize="sm" color="fg.muted" lineHeight="1.6" maxW="720px" mb="8">
         {description}
       </Text>
       <Stack gap="8">{children}</Stack>

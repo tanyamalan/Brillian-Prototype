@@ -538,7 +538,7 @@ function TextSection() {
           <Text fontSize="10.5px" fontWeight={600} letterSpacing="0.05em" textTransform="uppercase" color="fg.placeholder" mb="1.5">
             Inline — inside body copy
           </Text>
-          <Text fontSize="base" color="fg.body" lineHeight="1.6">
+          <Text fontSize="sm" color="fg.body" lineHeight="1.6">
             Your valuation range updated after we imported the latest financials.{' '}
             <ChakraLink variant="inline" {...({ href: '#text' } as object)}>
               See what changed
@@ -551,10 +551,10 @@ function TextSection() {
             Standalone — card actions, view-all, breadcrumbs
           </Text>
           <Flex gap="5">
-            <ChakraLink variant="standalone" fontSize="base" {...({ href: '#text' } as object)}>
+            <ChakraLink variant="standalone" fontSize="sm" {...({ href: '#text' } as object)}>
               View all documents
             </ChakraLink>
-            <ChakraLink variant="standalone" fontSize="base" {...({ href: '#text' } as object)}>
+            <ChakraLink variant="standalone" fontSize="sm" {...({ href: '#text' } as object)}>
               Edit assumptions
             </ChakraLink>
           </Flex>
@@ -564,10 +564,10 @@ function TextSection() {
             Subtle — footers, metadata, tertiary nav
           </Text>
           <Flex gap="5">
-            <ChakraLink variant="subtle" fontSize="sm" {...({ href: '#text' } as object)}>
+            <ChakraLink variant="subtle" fontSize="xs" {...({ href: '#text' } as object)}>
               Privacy policy
             </ChakraLink>
-            <ChakraLink variant="subtle" fontSize="sm" {...({ href: '#text' } as object)}>
+            <ChakraLink variant="subtle" fontSize="xs" {...({ href: '#text' } as object)}>
               Terms of service
             </ChakraLink>
           </Flex>
@@ -616,7 +616,7 @@ function TextSection() {
               <Flex key={`${row.label}-${i}`} justify="center">
                 <Text
                   as="span"
-                  fontSize="base"
+                  fontSize="sm"
                   fontWeight={500}
                   color={s.color}
                   css={{ textDecorationLine: s.deco, textDecorationColor: s.decoColor, textUnderlineOffset: '2px' }}
@@ -747,9 +747,9 @@ function TypographySection() {
     { token: 'xl', label: 'Heading 3', weight: 500 },
     { token: 'lg', label: 'Card title', weight: 500 },
     { token: 'md', label: 'Section header', weight: 500 },
-    { token: 'base', label: 'Body', weight: 400 },
-    { token: 'sm', label: 'Caption', weight: 500 },
-    { token: 'xs', label: 'Eyebrow', weight: 600 },
+    { token: 'sm', label: 'Body', weight: 400 },
+    { token: 'xs', label: 'Caption', weight: 500 },
+    { token: '2xs', label: 'Fine print', weight: 500 },
   ];
 
   return (
@@ -778,8 +778,16 @@ function TypographySection() {
           </Flex>
         ))}
       </Stack>
+      <Note>
+        <B>Naming follows Chakra.</B> Step names are identical to Chakra's own scale — xs 12 through
+        xl 20 match Chakra's defaults exactly; only the display steps are raised (2xl 26, 3xl 32,
+        4xl 40 vs Chakra's 24/30/36). Never re-map a Chakra step name to a different pixel value —
+        Chakra components reference these names internally. Two component-level sizes are
+        deliberately NOT steps: <B>13px</B> field & button labels and <B>11px</B> eyebrows — pin
+        those explicitly in the recipe or component.
+      </Note>
       <SubHead>Mono</SubHead>
-      <Text fontFamily="mono" fontSize="sm" color="fg.muted">
+      <Text fontFamily="mono" fontSize="xs" color="fg.muted">
         {fonts.mono}
       </Text>
     </Section>
