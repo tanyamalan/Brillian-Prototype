@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Drawer, Flex, Portal } from '@chakra-ui/react';
+import { navDarkGradient } from '../../theme/tokens';
 import { OuterRail } from './OuterRail';
 import { InnerPanel, InnerPanelBody } from './InnerPanel';
 import { AppTopbar } from './AppTopbar';
@@ -78,7 +79,7 @@ export default function AppShell({
                 w="280px"
                 h="100dvh"
                 bg={dark ? 'navDark.bg' : 'bg'}
-                backgroundImage={dark ? 'linear-gradient(180deg, var(--chakra-colors-forest-900), var(--chakra-colors-forest-800))' : undefined}
+                backgroundImage={dark ? navDarkGradient : undefined}
               >
                 <InnerPanelBody
                   viewMode={viewMode}

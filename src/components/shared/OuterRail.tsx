@@ -1,4 +1,5 @@
 import { Box, Button, Flex, Image, Stack, Text } from '@chakra-ui/react';
+import { navDarkGradient } from '../../theme/tokens';
 import { getOuterItems, HEADER_HEIGHT, settingsItem } from './navConfig';
 import type { NavItem, ViewMode } from './navConfig';
 
@@ -78,9 +79,9 @@ export function OuterRail({ viewMode, activeId, onSelect, dark = false }: OuterR
       as="nav"
       w={{ base: 'full', md: 'shell.rail' }}
       bg={dark ? 'navDark.bg' : 'bg'}
-      // Subtle forest gradient; identical on rail + panel (both full-height),
-      // so the unified surface reads as one piece.
-      backgroundImage={dark ? 'linear-gradient(180deg, var(--chakra-colors-forest-900), var(--chakra-colors-forest-800))' : undefined}
+      // Forest glow gradient, viewport-fixed so rail + panel share one surface.
+      backgroundImage={dark ? navDarkGradient : undefined}
+      backgroundAttachment={dark ? 'fixed' : undefined}
       borderRightWidth={{ base: 0, md: dark ? 0 : '1px' }}
       borderTopWidth={{ base: '1px', md: 0 }}
       borderColor={dark ? 'navDark.border' : 'border.subtle'}

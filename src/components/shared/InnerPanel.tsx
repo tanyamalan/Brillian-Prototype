@@ -14,6 +14,7 @@ import {
 import { Check, ChevronDown, Search } from 'lucide-react';
 import { Avatar } from '../ui/Avatar';
 import { CoBrand } from '../ui/CoBrand';
+import { navDarkGradient } from '../../theme/tokens';
 import { clients, getClient } from '../Advisor/clientsData';
 import {
   advisorActivitySubNav,
@@ -346,7 +347,8 @@ export function InnerPanel(props: InnerPanelProps) {
       w={{ base: 'full', md: 'shell.panel' }}
       // Dark: continues the rail's forest surface — one nav block, no divider.
       bg={dark ? 'navDark.bg' : 'bg'}
-      backgroundImage={dark ? 'linear-gradient(180deg, var(--chakra-colors-forest-900), var(--chakra-colors-forest-800))' : undefined}
+      backgroundImage={dark ? navDarkGradient : undefined}
+      backgroundAttachment={dark ? 'fixed' : undefined}
       borderRightWidth={{ base: 0, md: dark ? 0 : '1px' }}
       borderColor="border.subtle"
       flexShrink={0}

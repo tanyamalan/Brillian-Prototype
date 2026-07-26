@@ -201,6 +201,18 @@ export const layoutSizes = {
   },
 } as const;
 
+// ===== Dark-nav gradient =====
+// A soft light-from-above glow (Forest 400/500) over a deep vertical ramp
+// (Forest 700 → 900). Painted with `background-attachment: fixed` so the rail
+// and panel — two separate elements — read as one continuous lit surface.
+
+export const navDarkGradient = [
+  // glow anchored at the viewport's top-left corner
+  `radial-gradient(760px 560px at -4% -10%, rgba(111, 161, 145, 0.55) 0%, rgba(63, 117, 104, 0.26) 38%, rgba(63, 117, 104, 0) 68%)`,
+  // vertical base ramp
+  `linear-gradient(180deg, ${colorRamps.forest[700]} 0%, ${colorRamps.forest[800]} 45%, ${colorRamps.forest[900]} 100%)`,
+].join(', ');
+
 // ===== Semantic tokens =====
 // These map descriptive intent to a ramp value. Render swatches by reading
 // from `colorRamps` so changes there flow through automatically.
