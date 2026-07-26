@@ -1057,7 +1057,7 @@ function InputsSection() {
     { tag: 'Filled', label: 'Email address', value: 'tanya@brillian.co', help: 'Value in Ink 900; resting border returns.', helpColor: ink[500], labelColor: ink[600], borderColor: ink[200], bg: 'white' },
     { tag: 'Error', label: 'Email address', required: true, value: 'tanya@brillian', help: 'Enter a valid email address.', helpColor: brick[700], labelColor: ink[600], borderColor: brick[500], bg: 'white' },
     { tag: 'Success', label: 'Email address', value: 'tanya@brillian.co', help: 'Looks good.', helpColor: forest[700], labelColor: ink[600], borderColor: forest[500], bg: 'white' },
-    { tag: 'Disabled', label: 'Email address', placeholder: 'you@company.com', help: 'Not editable right now.', helpColor: ink[300], labelColor: ink[300], borderColor: ink[100], bg: ink[50], valueColor: ink[300] },
+    { tag: 'Disabled', label: 'Email address', placeholder: 'you@company.com', help: 'Not editable right now.', helpColor: ink[300], labelColor: ink[300], borderColor: ink[200], bg: ink[50], valueColor: ink[300] },
     { tag: 'Read-only', label: 'Email address', value: 'tanya@brillian.co', help: 'Displays a value without an editable frame.', helpColor: ink[500], labelColor: ink[600], borderColor: 'transparent', bg: ink[50] },
   ];
   return (
@@ -1099,7 +1099,7 @@ function InputsSection() {
           [<B>Focus</B>, <><Sw hex={forest[600]} /><Mono>Forest 600 + ring</Mono></>, <Mono>#FFFFFF</Mono>, <Mono>Forest 700</Mono>, <Mono>Ink 500</Mono>],
           [<B>Error</B>, <><Sw hex={brick[500]} /><Mono>Brick 500</Mono></>, <Mono>#FFFFFF / Brick 50</Mono>, <Mono>Ink 600</Mono>, <Mono>Brick 700</Mono>],
           [<B>Success</B>, <><Sw hex={forest[500]} /><Mono>Forest 500</Mono></>, <Mono>#FFFFFF</Mono>, <Mono>Ink 600</Mono>, <Mono>Forest 700</Mono>],
-          [<B>Disabled</B>, <><Sw hex={ink[100]} /><Mono>Ink 100</Mono></>, <Mono>Ink 50</Mono>, <Mono>Ink 300</Mono>, <Mono>Ink 300</Mono>],
+          [<B>Disabled</B>, <><Sw hex={ink[200]} /><Mono>Ink 200</Mono></>, <Mono>Ink 50</Mono>, <Mono>Ink 300</Mono>, <Mono>Ink 300</Mono>],
         ]}
       />
       <Note>

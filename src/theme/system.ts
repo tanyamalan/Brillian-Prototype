@@ -153,7 +153,7 @@ const fieldBase = {
 // cards.
 const fieldVariantFix = {
   variant: {
-    outline: { bg: 'input.bg', borderColor: 'input.borderRest' },
+    outline: { bg: 'input.bg', borderWidth: '1.5px', borderColor: 'input.borderRest' },
   },
 } as const;
 
@@ -183,7 +183,7 @@ const nativeSelectSlotRecipe = defineSlotRecipe({
   variants: {
     variant: {
       outline: {
-        field: { bg: 'input.bg', borderColor: 'input.borderRest' },
+        field: { bg: 'input.bg', borderWidth: '1.5px', borderColor: 'input.borderRest' },
       },
     },
   },
@@ -426,7 +426,7 @@ const config = defineConfig({
           borderFocus: { value: '{colors.forest.600}' },
           borderError: { value: '{colors.brick.500}' },
           borderSuccess: { value: '{colors.forest.500}' },
-          borderDisabled: { value: '{colors.ink.100}' },
+          borderDisabled: { value: '{colors.ink.200}' }, // visible edge on tinted cards
           bgReadonly: { value: '{colors.ink.50}' }, // read-only fields: fill, no frame
         },
         // ===== Navigation — one scheme for the outer rail AND inner panel =====

@@ -253,7 +253,8 @@ export const semanticColors = {
     borderFocus: { ramp: 'forest', step: 600, name: 'input.border-focus' },
     borderError: { ramp: 'brick', step: 500, name: 'input.border-error' },
     borderSuccess: { ramp: 'forest', step: 500, name: 'input.border-success' },
-    borderDisabled: { ramp: 'ink', step: 100, name: 'input.border-disabled' },
+    // 200 (not 100): disabled fields keep a visible edge on tinted cards.
+    borderDisabled: { ramp: 'ink', step: 200, name: 'input.border-disabled' },
     // Read-only per the guide: value without an editable frame — ink fill, no border.
     bgReadonly: { ramp: 'ink', step: 50, name: 'input.bg-readonly' },
   },
