@@ -74,7 +74,12 @@ export default function AppShell({
           <Portal>
             <Drawer.Backdrop />
             <Drawer.Positioner>
-              <Drawer.Content w="280px" h="100dvh" bg={dark ? 'navDark.bg' : 'bg'}>
+              <Drawer.Content
+                w="280px"
+                h="100dvh"
+                bg={dark ? 'navDark.bg' : 'bg'}
+                backgroundImage={dark ? 'linear-gradient(180deg, var(--chakra-colors-forest-900), var(--chakra-colors-forest-800))' : undefined}
+              >
                 <InnerPanelBody
                   viewMode={viewMode}
                   outerSection={outerSection}

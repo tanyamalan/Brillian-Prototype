@@ -346,6 +346,7 @@ export function InnerPanel(props: InnerPanelProps) {
       w={{ base: 'full', md: 'shell.panel' }}
       // Dark: continues the rail's forest surface — one nav block, no divider.
       bg={dark ? 'navDark.bg' : 'bg'}
+      backgroundImage={dark ? 'linear-gradient(180deg, var(--chakra-colors-forest-900), var(--chakra-colors-forest-800))' : undefined}
       borderRightWidth={{ base: 0, md: dark ? 0 : '1px' }}
       borderColor="border.subtle"
       flexShrink={0}
