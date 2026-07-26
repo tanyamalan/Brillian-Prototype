@@ -180,11 +180,19 @@ const nativeSelectRecipe = defineRecipe({
 // variant would otherwise leave the field transparent).
 const nativeSelectSlotRecipe = defineSlotRecipe({
   slots: ['root', 'field'],
+  base: {
+    // Radius comes from the size variant in Chakra's own recipe, so pin the
+    // control radius at both levels — selects must match text inputs exactly.
+    field: { rounded: 'control' },
+  },
   variants: {
     variant: {
       outline: {
-        field: { bg: 'input.bg', borderWidth: '1px', borderColor: 'input.borderRest' },
+        field: { bg: 'input.bg', borderWidth: '1px', borderColor: 'input.borderRest', rounded: 'control' },
       },
+    },
+    size: {
+      md: { field: { rounded: 'control' } },
     },
   },
 });
