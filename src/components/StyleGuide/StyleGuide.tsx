@@ -701,7 +701,7 @@ function RadiusSection() {
     <Section def={def} lede="Radii ride the same 4px base grid as spacing. Two tokens do almost all the work — controls at 4px, cards at 8px — and both map directly onto Chakra's built-in base and lg steps.">
       <Flex gap="4" flexWrap="wrap" mb="6">
         {chips.map(c => (
-          <Flex key={c.r} align="center" justify="center" w="180px" h="72px" bg="forest.50" borderWidth="1.5px" borderColor="forest.300" rounded={c.r} fontSize="13px" fontWeight={600} color="forest.700">
+          <Flex key={c.r} align="center" justify="center" w="180px" h="72px" bg="forest.50" borderWidth="1px" borderColor="forest.300" rounded={c.r} fontSize="13px" fontWeight={600} color="forest.700">
             {c.label}
           </Flex>
         ))}
@@ -1032,7 +1032,7 @@ function FieldDemo({ s }: { s: FieldState }) {
         h="40px"
         px="13px"
         rounded="control"
-        borderWidth={s.borderW ?? '1.5px'}
+        borderWidth={s.borderW ?? '1px'}
         borderColor={s.borderColor}
         bg={s.bg}
         fontSize="15px"
@@ -1059,7 +1059,7 @@ function InputsSection() {
     { tag: 'Error', label: 'Email address', required: true, value: 'tanya@brillian', help: 'Enter a valid email address.', helpColor: brick[700], labelColor: ink[600], borderColor: brick[500], bg: 'white' },
     { tag: 'Success', label: 'Email address', value: 'tanya@brillian.co', help: 'Looks good.', helpColor: forest[700], labelColor: ink[600], borderColor: forest[500], bg: 'white' },
     { tag: 'Disabled', label: 'Email address', placeholder: 'you@company.com', help: 'Not editable right now.', helpColor: ink[300], labelColor: ink[300], borderColor: ink[200], bg: ink[50], valueColor: ink[300] },
-    { tag: 'Read-only', label: 'Email address', value: 'tanya@brillian.co', help: 'Quiet fill + 1px hairline — lighter than the 1.5px editable frame.', helpColor: ink[500], labelColor: ink[600], borderColor: ink[200], borderW: '1px', bg: ink[50] },
+    { tag: 'Read-only', label: 'Email address', value: 'tanya@brillian.co', help: 'Quiet fill + hairline — the ink fill marks it as not editable.', helpColor: ink[500], labelColor: ink[600], borderColor: ink[200], bg: ink[50] },
   ];
   return (
     <Section def={def} lede="Two independent tracks: text (label, value, placeholder, helper, message) from Ink, and the container (border, fill) that carries state — Forest for focus, Brick for error, Forest for success.">
@@ -1073,7 +1073,7 @@ function InputsSection() {
       <SubHead>Live component</SubHead>
       <Text fontSize="13.5px" color="fg.subtle" maxW="760px" mb="4" lineHeight="1.6">
         The real Chakra input, select, and textarea recipes — 40px tall, <Mono strong>radii.control</Mono>{' '}
-        corners, 1.5px <Mono strong>input.borderRest</Mono> border. Tab into a field to see the live
+        corners, 1px <Mono strong>input.borderRest</Mono> border. Tab into a field to see the live
         focus treatment.
       </Text>
       <SimpleGrid columns={{ base: 1, md: 3 }} gap="4" maxW="860px">
@@ -1137,7 +1137,7 @@ function DemoBtn({ s, children }: { s: BtnStyle; children: React.ReactNode }) {
       px="4"
       h="control"
       rounded="control"
-      borderWidth={s.borderW ?? '1.5px'}
+      borderWidth={s.borderW ?? '1px'}
       borderColor={s.border ?? 'transparent'}
       bg={s.bg}
       color={s.color}
@@ -1600,7 +1600,7 @@ function DarkFieldDemo({ tag, label, value, placeholder, help, helpColor, border
         h="40px"
         px="13px"
         rounded="control"
-        borderWidth="1.5px"
+        borderWidth="1px"
         borderColor={borderColor}
         bg={forest[800]}
         fontSize="15px"

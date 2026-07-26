@@ -128,7 +128,7 @@ const fieldBase = {
   px: '4',
   fontSize: '14px',
   bg: 'input.bg',
-  borderWidth: '1.5px',
+  borderWidth: '1px',
   borderColor: 'input.borderRest',
   color: 'fg',
   transition: 'border-color 0.15s, box-shadow 0.15s',
@@ -153,7 +153,7 @@ const fieldBase = {
 // cards.
 const fieldVariantFix = {
   variant: {
-    outline: { bg: 'input.bg', borderWidth: '1.5px', borderColor: 'input.borderRest' },
+    outline: { bg: 'input.bg', borderWidth: '1px', borderColor: 'input.borderRest' },
   },
 } as const;
 
@@ -183,7 +183,7 @@ const nativeSelectSlotRecipe = defineSlotRecipe({
   variants: {
     variant: {
       outline: {
-        field: { bg: 'input.bg', borderWidth: '1.5px', borderColor: 'input.borderRest' },
+        field: { bg: 'input.bg', borderWidth: '1px', borderColor: 'input.borderRest' },
       },
     },
   },
