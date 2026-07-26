@@ -1290,7 +1290,7 @@ function CardDemo({ variant }: { variant?: 'elevated' | 'raised' | 'outline' | '
         <Text fontSize="13px" fontWeight={500} color="fg" mb="1.5">
           Email Address
         </Text>
-        <Input placeholder="Email address" bg="white" />
+        <Input placeholder="Email address" />
       </Box>
     </Card>
   );

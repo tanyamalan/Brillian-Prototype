@@ -147,12 +147,24 @@ const fieldBase = {
   },
 } as const;
 
+// Chakra's default `outline` variant sets bg: transparent AFTER base styles
+// (same layering as the button textStyle issue), so the surface must be
+// re-pinned at the variant level — fields are always white, even on tinted
+// cards.
+const fieldVariantFix = {
+  variant: {
+    outline: { bg: 'input.bg', borderColor: 'input.borderRest' },
+  },
+} as const;
+
 const inputRecipe = defineRecipe({
   base: { h: 'control', ...fieldBase },
+  variants: fieldVariantFix,
 });
 
 const textareaRecipe = defineRecipe({
   base: { py: '2', minH: '20', ...fieldBase },
+  variants: fieldVariantFix,
 });
 
 const nativeSelectRecipe = defineRecipe({
@@ -160,6 +172,20 @@ const nativeSelectRecipe = defineRecipe({
   base: {
     h: 'control',
     '& select': { h: 'control', ...fieldBase },
+  },
+});
+
+// NativeSelect renders via Chakra's slot recipe — pin the white surface there
+// too (the plain recipe above styles the frame, but the slot recipe's outline
+// variant would otherwise leave the field transparent).
+const nativeSelectSlotRecipe = defineSlotRecipe({
+  slots: ['root', 'field'],
+  variants: {
+    variant: {
+      outline: {
+        field: { bg: 'input.bg', borderColor: 'input.borderRest' },
+      },
+    },
   },
 });
 
@@ -323,6 +349,7 @@ const config = defineConfig({
     slotRecipes: {
       checkbox: checkboxRecipe,
       menu: menuRecipe,
+      nativeSelect: nativeSelectSlotRecipe,
     },
     semanticTokens: {
       radii: {
