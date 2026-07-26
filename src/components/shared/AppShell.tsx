@@ -32,10 +32,10 @@ export default function AppShell({
   onSelectClient,
 }: AppShellProps) {
   const [innerDrawerOpen, setInnerDrawerOpen] = useState(false);
-  // Demo toggle: dark unified nav (Sprout-style, one forest surface) vs the
-  // light two-column nav. Advisor view only; flipped from the topbar.
+  // Demo toggle: dark forest nav vs the light nav — both views, flipped from
+  // the topbar. Advisor gets the unified rail+panel surface; owner the rail.
   const [darkNav, setDarkNav] = useState(true);
-  const dark = viewMode === 'advisor' && darkNav;
+  const dark = darkNav;
 
   // When the user picks a lens or client from inside the mobile drawer, close it.
   const handleInnerSelectAndClose = (id: string) => {
@@ -104,8 +104,8 @@ export default function AppShell({
           onViewModeChange={onViewModeChange}
           onSignOut={onSignOut}
           onOpenMenu={hasInnerPanel ? () => setInnerDrawerOpen(true) : undefined}
-          navDark={viewMode === 'advisor' ? darkNav : undefined}
-          onToggleNavDark={viewMode === 'advisor' ? () => setDarkNav(v => !v) : undefined}
+          navDark={darkNav}
+          onToggleNavDark={() => setDarkNav(v => !v)}
         />
         {children}
       </Flex>
