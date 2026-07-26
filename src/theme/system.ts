@@ -443,6 +443,16 @@ const config = defineConfig({
           activeBg: { value: '{colors.forest.100}' },
           activeFg: { value: '{colors.forest.600}' },
         },
+        // Dark nav (advisor view): rail + panel share one deep-Forest surface,
+        // per the Dark Mode spec — base 900, hover 800, active 700, Ink text.
+        navDark: {
+          bg: { value: '{colors.forest.900}' },
+          hoverBg: { value: '{colors.forest.800}' },
+          activeBg: { value: '{colors.forest.700}' },
+          fg: { value: '{colors.ink.50}' },
+          muted: { value: '{colors.ink.300}' },
+          border: { value: 'rgba(255, 255, 255, 0.1)' },
+        },
         // ===== Accent =====
         accent: {
           solid: { value: '{colors.lime.300}' },

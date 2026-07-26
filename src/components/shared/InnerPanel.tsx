@@ -34,6 +34,8 @@ export interface InnerPanelProps {
   onSelectItem: (id: string) => void;
   selectedClientId: string | null;
   onSelectClient: (id: string | null) => void;
+  /** Dark unified nav (advisor demo toggle) — panel continues the rail's forest surface. */
+  dark?: boolean;
 }
 
 const ownerCompany = {
@@ -72,9 +74,11 @@ function CompanyChip({ name, initials, color }: { name: string; initials: string
 function ClientSwitcher({
   selectedClientId,
   onSelectClient,
+  dark,
 }: {
   selectedClientId: string | null;
   onSelectClient: (id: string | null) => void;
+  dark: boolean;
 }) {
   const selected = selectedClientId ? getClient(selectedClientId) : null;
   const label = selected ? selected.name : 'All clients';
@@ -106,13 +110,13 @@ function ClientSwitcher({
           gap="2"
           rounded="md"
           justifyContent="flex-start"
-          _hover={{ bg: 'nav.hoverBg' }}
+          _hover={{ bg: dark ? 'navDark.hoverBg' : 'nav.hoverBg' }}
         >
           <Avatar size="md" color={color} textColor={textColor} label={initials} />
-          <Text fontSize="14px" fontWeight={600} color="fg" flex="1" textAlign="left" truncate>
+          <Text fontSize="14px" fontWeight={600} color={dark ? 'navDark.fg' : 'fg'} flex="1" textAlign="left" truncate>
             {label}
           </Text>
-          <Box as={ChevronDown} color="fg.subtle" w="14px" h="14px" />
+          <Box as={ChevronDown} color={dark ? 'navDark.muted' : 'fg.subtle'} w="14px" h="14px" />
         </Button>
       </Menu.Trigger>
       <Portal>
@@ -190,13 +194,17 @@ function ClientSwitcher({
   );
 }
 
+// Light mode: forest tints on white. Dark mode (unified nav): the navDark
+// scheme — active = Forest 700 pill, rest = Ink 300 on Forest 900.
 function PanelItem({
   item,
   active,
+  dark,
   onClick,
 }: {
   item: NavItem;
   active: boolean;
+  dark: boolean;
   onClick: () => void;
 }) {
   const { Icon } = item;
@@ -209,13 +217,17 @@ function PanelItem({
       gap="2"
       justifyContent="flex-start"
       rounded="md"
-      bg={active ? 'nav.activeBg' : 'transparent'}
-      color={active ? 'nav.activeFg' : 'fg.muted'}
+      bg={active ? (dark ? 'navDark.activeBg' : 'nav.activeBg') : 'transparent'}
+      color={
+        active
+          ? (dark ? 'navDark.fg' : 'nav.activeFg')
+          : (dark ? 'navDark.muted' : 'fg.muted')
+      }
       fontWeight={active ? 600 : 500}
       fontSize="14px"
       _hover={active
-        ? { bg: 'nav.activeBg', color: 'nav.activeFg' }
-        : { bg: 'nav.hoverBg', color: 'fg' }}
+        ? { bg: dark ? 'navDark.activeBg' : 'nav.activeBg', color: dark ? 'navDark.fg' : 'nav.activeFg' }
+        : { bg: dark ? 'navDark.hoverBg' : 'nav.hoverBg', color: dark ? 'navDark.fg' : 'fg' }}
       onClick={onClick}
     >
       <Icon size={18} />
@@ -234,7 +246,8 @@ function getPanelConfig({
   outerSection,
   selectedClientId,
   onSelectClient,
-}: Pick<InnerPanelProps, 'viewMode' | 'outerSection' | 'selectedClientId' | 'onSelectClient'>): PanelConfig {
+  dark,
+}: Pick<InnerPanelProps, 'viewMode' | 'outerSection' | 'selectedClientId' | 'onSelectClient'> & { dark: boolean }): PanelConfig {
   // Owner view
   if (viewMode === 'owner') {
     if (outerSection === 'home') {
@@ -244,40 +257,40 @@ function getPanelConfig({
       };
     }
     if (outerSection === 'documents') {
-      return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600}>Documents</Text>, items: documentsSubNav };
+      return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600} color="inherit">Documents</Text>, items: documentsSubNav };
     }
     if (outerSection === 'reports') {
-      return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600}>Reports</Text>, items: reportsSubNav };
+      return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600} color="inherit">Reports</Text>, items: reportsSubNav };
     }
-    return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600}>Settings</Text>, items: settingsSubNav };
+    return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600} color="inherit">Settings</Text>, items: settingsSubNav };
   }
 
   // Advisor view
   if (outerSection === 'home') {
-    return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600}>Home</Text>, items: advisorHomeSubNav };
+    return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600} color="inherit">Home</Text>, items: advisorHomeSubNav };
   }
   if (outerSection === 'clients') {
     if (selectedClientId) {
       return {
-        header: <ClientSwitcher selectedClientId={selectedClientId} onSelectClient={onSelectClient} />,
+        header: <ClientSwitcher selectedClientId={selectedClientId} onSelectClient={onSelectClient} dark={dark} />,
         items: companyLenses.filter(l => l.id !== 'onboarding'),
       };
     }
     return {
-      header: <ClientSwitcher selectedClientId={null} onSelectClient={onSelectClient} />,
+      header: <ClientSwitcher selectedClientId={null} onSelectClient={onSelectClient} dark={dark} />,
       items: advisorClientsSubNav,
     };
   }
   if (outerSection === 'activity') {
-    return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600}>Activity</Text>, items: advisorActivitySubNav };
+    return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600} color="inherit">Activity</Text>, items: advisorActivitySubNav };
   }
   if (outerSection === 'documents') {
-    return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600}>Documents</Text>, items: documentsSubNav };
+    return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600} color="inherit">Documents</Text>, items: documentsSubNav };
   }
   if (outerSection === 'reports') {
-    return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600}>Reports</Text>, items: reportsSubNav };
+    return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600} color="inherit">Reports</Text>, items: reportsSubNav };
   }
-  return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600}>Settings</Text>, items: settingsSubNav };
+  return { header: <Text px="2" py="2" fontSize="14px" fontWeight={600} color="inherit">Settings</Text>, items: settingsSubNav };
 }
 
 /**
@@ -291,11 +304,20 @@ export function InnerPanelBody({
   onSelectItem,
   selectedClientId,
   onSelectClient,
+  dark = false,
 }: InnerPanelProps) {
-  const { header, items } = getPanelConfig({ viewMode, outerSection, selectedClientId, onSelectClient });
+  const { header, items } = getPanelConfig({ viewMode, outerSection, selectedClientId, onSelectClient, dark });
 
   return (
-    <Box w="full" display="flex" flexDir="column" overflowY="auto" flex="1">
+    <Box
+      w="full"
+      display="flex"
+      flexDir="column"
+      overflowY="auto"
+      flex="1"
+      // Section-header texts use color="inherit" so one switch flips them all.
+      color={dark ? 'navDark.fg' : 'fg'}
+    >
       <PanelHeader>{header}</PanelHeader>
       <Stack gap="0.5" p="2">
         {items.map(item => (
@@ -303,25 +325,28 @@ export function InnerPanelBody({
             key={item.id}
             item={item}
             active={activeItemId === item.id}
+            dark={dark}
             onClick={() => onSelectItem(item.id)}
           />
         ))}
       </Stack>
       {/* Co-brand footer — the advisory firm's mark anchors the workspace */}
-      <Box mt="auto" pt="4" pb="4" px="2" borderTopWidth="1px" borderColor="border.subtle">
-        <CoBrand variant="partnership" />
+      <Box mt="auto" pt="4" pb="4" px="2" borderTopWidth="1px" borderColor={dark ? 'navDark.border' : 'border.subtle'}>
+        <CoBrand variant="partnership" onDark={dark} />
       </Box>
     </Box>
   );
 }
 
 export function InnerPanel(props: InnerPanelProps) {
+  const dark = props.dark ?? false;
   return (
     <Box
       as="aside"
       w={{ base: 'full', md: 'shell.panel' }}
-      bg="bg"
-      borderRightWidth={{ base: 0, md: '1px' }}
+      // Dark: continues the rail's forest surface — one nav block, no divider.
+      bg={dark ? 'navDark.bg' : 'bg'}
+      borderRightWidth={{ base: 0, md: dark ? 0 : '1px' }}
       borderColor="border.subtle"
       flexShrink={0}
       display={{ base: 'none', md: 'flex' }}

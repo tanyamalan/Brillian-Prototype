@@ -11,7 +11,7 @@ import {
   Portal,
   Text,
 } from '@chakra-ui/react';
-import { ArrowLeftRight, Bell, BookOpen, ChevronDown, LogOut, Menu as MenuIcon, Search, Settings, User } from 'lucide-react';
+import { ArrowLeftRight, Bell, BookOpen, ChevronDown, LogOut, Menu as MenuIcon, Moon, Search, Settings, Sun, User } from 'lucide-react';
 import { Avatar } from '../ui/Avatar';
 import { firmBrand } from '../../config/firmBrand';
 import { HEADER_HEIGHT } from './navConfig';
@@ -22,6 +22,34 @@ interface AppTopbarProps {
   onViewModeChange: (mode: ViewMode) => void;
   /** Mobile-only callback to open the inner panel as a drawer. */
   onOpenMenu?: () => void;
+  /** Demo toggle state: dark unified nav vs light two-column nav (advisor only). */
+  navDark?: boolean;
+  onToggleNavDark?: () => void;
+}
+
+/** Sun/Moon segmented toggle for demoing the light vs dark advisor nav. */
+function NavStyleToggle({ navDark, onToggle }: { navDark: boolean; onToggle: () => void }) {
+  const segment = (active: boolean) => ({
+    'aria-pressed': active,
+    h: '7',
+    minW: '7',
+    px: '0',
+    rounded: 'pill',
+    bg: active ? 'bg' : 'transparent',
+    shadow: active ? 'xs' : undefined,
+    color: active ? 'fg' : 'fg.subtle',
+    _hover: { color: 'fg' },
+  });
+  return (
+    <HStack gap="0.5" bg="bg.dim" rounded="pill" p="0.5" display={{ base: 'none', md: 'flex' }}>
+      <IconButton variant="ghost" aria-label="Light nav" {...segment(!navDark)} onClick={() => navDark && onToggle()}>
+        <Sun size={14} />
+      </IconButton>
+      <IconButton variant="ghost" aria-label="Dark nav" {...segment(navDark)} onClick={() => !navDark && onToggle()}>
+        <Moon size={14} />
+      </IconButton>
+    </HStack>
+  );
 }
 
 function UserMenu({ viewMode, onViewModeChange }: Pick<AppTopbarProps, 'viewMode' | 'onViewModeChange'>) {
@@ -112,7 +140,7 @@ function UserMenu({ viewMode, onViewModeChange }: Pick<AppTopbarProps, 'viewMode
   );
 }
 
-export function AppTopbar({ viewMode, onViewModeChange, onOpenMenu }: AppTopbarProps) {
+export function AppTopbar({ viewMode, onViewModeChange, onOpenMenu, navDark, onToggleNavDark }: AppTopbarProps) {
   return (
     <Flex
       align="center"
@@ -150,6 +178,9 @@ export function AppTopbar({ viewMode, onViewModeChange, onOpenMenu }: AppTopbarP
       </HStack>
 
       <HStack gap="4">
+        {onToggleNavDark && navDark !== undefined && (
+          <NavStyleToggle navDark={navDark} onToggle={onToggleNavDark} />
+        )}
         <Box position="relative">
           <IconButton variant="ghost" aria-label="Notifications" color="fg.muted">
             <Bell size={22} />

@@ -29,6 +29,10 @@ export default function AppShell({
   onSelectClient,
 }: AppShellProps) {
   const [innerDrawerOpen, setInnerDrawerOpen] = useState(false);
+  // Demo toggle: dark unified nav (Sprout-style, one forest surface) vs the
+  // light two-column nav. Advisor view only; flipped from the topbar.
+  const [darkNav, setDarkNav] = useState(true);
+  const dark = viewMode === 'advisor' && darkNav;
 
   // When the user picks a lens or client from inside the mobile drawer, close it.
   const handleInnerSelectAndClose = (id: string) => {
@@ -46,7 +50,7 @@ export default function AppShell({
 
   return (
     <Flex minH="100vh" w="full" flexDir={{ base: 'column', md: 'row' }}>
-      <OuterRail viewMode={viewMode} activeId={outerSection} onSelect={onOuterSectionChange} />
+      <OuterRail viewMode={viewMode} activeId={outerSection} onSelect={onOuterSectionChange} dark={dark} />
       {hasInnerPanel && (
         <InnerPanel
           viewMode={viewMode}
@@ -55,6 +59,7 @@ export default function AppShell({
           onSelectItem={onInnerSelect}
           selectedClientId={selectedClientId}
           onSelectClient={onSelectClient}
+          dark={dark}
         />
       )}
 
@@ -69,7 +74,7 @@ export default function AppShell({
           <Portal>
             <Drawer.Backdrop />
             <Drawer.Positioner>
-              <Drawer.Content w="280px" h="100dvh">
+              <Drawer.Content w="280px" h="100dvh" bg={dark ? 'navDark.bg' : 'bg'}>
                 <InnerPanelBody
                   viewMode={viewMode}
                   outerSection={outerSection}
@@ -77,6 +82,7 @@ export default function AppShell({
                   onSelectItem={handleInnerSelectAndClose}
                   selectedClientId={selectedClientId}
                   onSelectClient={handleClientSelectAndClose}
+                  dark={dark}
                 />
               </Drawer.Content>
             </Drawer.Positioner>
@@ -89,6 +95,8 @@ export default function AppShell({
           viewMode={viewMode}
           onViewModeChange={onViewModeChange}
           onOpenMenu={hasInnerPanel ? () => setInnerDrawerOpen(true) : undefined}
+          navDark={viewMode === 'advisor' ? darkNav : undefined}
+          onToggleNavDark={viewMode === 'advisor' ? () => setDarkNav(v => !v) : undefined}
         />
         {children}
       </Flex>

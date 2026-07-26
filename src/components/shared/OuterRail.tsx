@@ -6,15 +6,19 @@ interface OuterRailProps {
   viewMode: ViewMode;
   activeId: string;
   onSelect: (id: string) => void;
+  /** Dark unified nav (advisor demo toggle) — rail + panel share one forest surface. */
+  dark?: boolean;
 }
 
 function RailItem({
   item,
   active,
+  dark,
   onClick,
 }: {
   item: NavItem;
   active: boolean;
+  dark: boolean;
   onClick: () => void;
 }) {
   const { Icon } = item;
@@ -30,12 +34,20 @@ function RailItem({
       gap="1"
       rounded="lg"
       bg="transparent"
-      color={active ? 'nav.activeFg' : 'fg.muted'}
+      color={
+        active
+          ? (dark ? 'navDark.fg' : 'nav.activeFg')
+          : (dark ? 'navDark.muted' : 'fg.muted')
+      }
       fontWeight={active ? 600 : 500}
       // Pill-style hover/active highlight wraps just the icon, not the label.
       _hover={{
-        '& .rail-icon': { bg: active ? 'nav.activeBg' : 'nav.hoverBg' },
-        color: active ? 'nav.activeFg' : 'fg',
+        '& .rail-icon': {
+          bg: active
+            ? (dark ? 'navDark.activeBg' : 'nav.activeBg')
+            : (dark ? 'navDark.hoverBg' : 'nav.hoverBg'),
+        },
+        color: active ? (dark ? 'navDark.fg' : 'nav.activeFg') : (dark ? 'navDark.fg' : 'fg'),
       }}
       onClick={onClick}
     >
@@ -43,7 +55,7 @@ function RailItem({
         className="rail-icon"
         boxSize="40px"
         rounded="lg"
-        bg={active ? 'nav.activeBg' : 'transparent'}
+        bg={active ? (dark ? 'navDark.activeBg' : 'nav.activeBg') : 'transparent'}
         display="flex"
         alignItems="center"
         justifyContent="center"
@@ -58,17 +70,17 @@ function RailItem({
   );
 }
 
-export function OuterRail({ viewMode, activeId, onSelect }: OuterRailProps) {
+export function OuterRail({ viewMode, activeId, onSelect, dark = false }: OuterRailProps) {
   const items = getOuterItems(viewMode);
 
   return (
     <Box
       as="nav"
       w={{ base: 'full', md: 'shell.rail' }}
-      bg="bg"
-      borderRightWidth={{ base: 0, md: '1px' }}
+      bg={dark ? 'navDark.bg' : 'bg'}
+      borderRightWidth={{ base: 0, md: dark ? 0 : '1px' }}
       borderTopWidth={{ base: '1px', md: 0 }}
-      borderColor="border.subtle"
+      borderColor={dark ? 'navDark.border' : 'border.subtle'}
       flexShrink={0}
       display="flex"
       flexDir={{ base: 'row', md: 'column' }}
@@ -84,7 +96,8 @@ export function OuterRail({ viewMode, activeId, onSelect }: OuterRailProps) {
       zIndex={{ base: 100, md: 'auto' }}
       justifyContent={{ base: 'space-around', md: 'flex-start' }}
     >
-      {/* Brand logo — header band, lines up with the topbar */}
+      {/* Brand logo — header band, lines up with the topbar. On dark, the
+          lime tile pops against the forest surface (accent takes dark marks). */}
       <Flex
         display={{ base: 'none', md: 'flex' }}
         h={HEADER_HEIGHT}
@@ -99,9 +112,14 @@ export function OuterRail({ viewMode, activeId, onSelect }: OuterRailProps) {
           justifyContent="center"
           boxSize="36px"
           rounded="lg"
-          bg="brand.solid"
+          bg={dark ? 'accent.solid' : 'brand.solid'}
         >
-          <Image src="/brillian-logo-white.svg" alt="Brillian" h="18px" w="auto" />
+          <Image
+            src={dark ? '/brillian-logo.svg' : '/brillian-logo-white.svg'}
+            alt="Brillian"
+            h="18px"
+            w="auto"
+          />
         </Box>
       </Flex>
 
@@ -120,6 +138,7 @@ export function OuterRail({ viewMode, activeId, onSelect }: OuterRailProps) {
             key={item.id}
             item={item}
             active={activeId === item.id}
+            dark={dark}
             onClick={() => onSelect(item.id)}
           />
         ))}
@@ -131,6 +150,7 @@ export function OuterRail({ viewMode, activeId, onSelect }: OuterRailProps) {
         <RailItem
           item={settingsItem}
           active={activeId === settingsItem.id}
+          dark={dark}
           onClick={() => onSelect(settingsItem.id)}
         />
       </Box>
