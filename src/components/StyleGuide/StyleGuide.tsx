@@ -480,7 +480,7 @@ function PaletteSection() {
       </SimpleGrid>
       <Note>
         <B>Accent.</B> Lime is the accent family — highlights and CTAs on dark surfaces.{' '}
-        <Mono strong>accent.solid</Mono> ({lime[400]}) takes dark text only, never white.
+        <Mono strong>accent.solid</Mono> ({lime[300]}) takes dark text only, never white.
       </Note>
     </Section>
   );
@@ -753,7 +753,7 @@ function TypographySection() {
   ];
 
   return (
-    <Section def={def} lede="Manrope across all surfaces. Two weights — 500 medium for emphasis, 400 regular for body. Headings stay in medium, never bold or semibold.">
+    <Section def={def} lede="Manrope across all surfaces. Body text uses two weights — 500 medium for emphasis, 400 regular for copy — and headings stay in medium, never bold. 600 semibold is reserved for small functional text only: button labels, field labels, and eyebrows.">
       <Stack gap="3" maxW="860px">
         {samples.map(s => (
           <Flex key={s.token} align="baseline" gap="6" pb="3" borderBottomWidth="1px" borderColor="border.subtle" _last={{ borderBottomWidth: 0 }}>
@@ -929,7 +929,7 @@ function FieldDemo({ s }: { s: FieldState }) {
 
 function InputsSection() {
   const def = SECTIONS.find(s => s.id === 'inputs')!;
-  const focusRing = `0 0 0 3px rgba(63,117,104,.28)`;
+  const focusRing = shadows.focus;
   const states: FieldState[] = [
     { tag: 'Rest / empty', label: 'Email address', placeholder: 'you@company.com', help: "We'll never share it.", helpColor: ink[500], labelColor: ink[600], borderColor: ink[200], bg: 'white' },
     { tag: 'Hover', label: 'Email address', placeholder: 'you@company.com', help: 'Border darkens to signal interactivity.', helpColor: ink[500], labelColor: ink[600], borderColor: ink[400], bg: 'white' },
@@ -1610,7 +1610,7 @@ function DarkSection() {
 function TokensSection() {
   const def = SECTIONS.find(s => s.id === 'tokens')!;
   return (
-    <Section def={def} lede="The whole system is 70 primitives + semantic tokens on top. Components reference semantic tokens, semantic tokens reference primitives — so retuning any step updates everything downstream without touching component code.">
+    <Section def={def} lede="The whole system is 71 primitives (7 ramps × 10 steps + white) with semantic tokens on top. Components reference semantic tokens, semantic tokens reference primitives — so retuning any step updates everything downstream without touching component code.">
       <GTable
         head={['Group', 'Examples']}
         rows={[
