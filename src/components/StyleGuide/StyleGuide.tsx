@@ -1006,6 +1006,7 @@ interface FieldState {
   helpColor: string;
   labelColor: string;
   borderColor: string;
+  borderW?: string;
   bg: string;
   ring?: string;
   valueColor?: string;
@@ -1031,7 +1032,7 @@ function FieldDemo({ s }: { s: FieldState }) {
         h="40px"
         px="13px"
         rounded="control"
-        borderWidth="1.5px"
+        borderWidth={s.borderW ?? '1.5px'}
         borderColor={s.borderColor}
         bg={s.bg}
         fontSize="15px"
@@ -1058,7 +1059,7 @@ function InputsSection() {
     { tag: 'Error', label: 'Email address', required: true, value: 'tanya@brillian', help: 'Enter a valid email address.', helpColor: brick[700], labelColor: ink[600], borderColor: brick[500], bg: 'white' },
     { tag: 'Success', label: 'Email address', value: 'tanya@brillian.co', help: 'Looks good.', helpColor: forest[700], labelColor: ink[600], borderColor: forest[500], bg: 'white' },
     { tag: 'Disabled', label: 'Email address', placeholder: 'you@company.com', help: 'Not editable right now.', helpColor: ink[300], labelColor: ink[300], borderColor: ink[200], bg: ink[50], valueColor: ink[300] },
-    { tag: 'Read-only', label: 'Email address', value: 'tanya@brillian.co', help: 'Displays a value without an editable frame.', helpColor: ink[500], labelColor: ink[600], borderColor: 'transparent', bg: ink[50] },
+    { tag: 'Read-only', label: 'Email address', value: 'tanya@brillian.co', help: 'Quiet fill + 1px hairline — lighter than the 1.5px editable frame.', helpColor: ink[500], labelColor: ink[600], borderColor: ink[200], borderW: '1px', bg: ink[50] },
   ];
   return (
     <Section def={def} lede="Two independent tracks: text (label, value, placeholder, helper, message) from Ink, and the container (border, fill) that carries state — Forest for focus, Brick for error, Forest for success.">
