@@ -10,6 +10,7 @@ interface AppShellProps {
   children: React.ReactNode;
   viewMode: ViewMode;
   onViewModeChange: (mode: ViewMode) => void;
+  onSignOut?: () => void;
   outerSection: string;
   onOuterSectionChange: (id: string) => void;
   innerActiveId: string;
@@ -22,6 +23,7 @@ export default function AppShell({
   children,
   viewMode,
   onViewModeChange,
+  onSignOut,
   outerSection,
   onOuterSectionChange,
   innerActiveId,
@@ -100,6 +102,7 @@ export default function AppShell({
         <AppTopbar
           viewMode={viewMode}
           onViewModeChange={onViewModeChange}
+          onSignOut={onSignOut}
           onOpenMenu={hasInnerPanel ? () => setInnerDrawerOpen(true) : undefined}
           navDark={viewMode === 'advisor' ? darkNav : undefined}
           onToggleNavDark={viewMode === 'advisor' ? () => setDarkNav(v => !v) : undefined}

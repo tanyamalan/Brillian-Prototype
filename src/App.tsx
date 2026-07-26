@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Box, Drawer, Heading, Portal, Text } from '@chakra-ui/react';
 import AppShell from './components/shared/AppShell';
+import { Login } from './components/Auth/Login';
 import Dashboard from './components/Dashboard/Dashboard';
 import OnboardingPage from './components/OnboardingPage/OnboardingPage';
 import Onboarding from './components/Onboarding/Onboarding';
@@ -45,6 +46,7 @@ function PlaceholderPage({ title, body }: { title: string; body: string }) {
 }
 
 function App() {
+  const [signedIn, setSignedIn] = useState(false);
   const [viewMode, setViewMode] = useState<ViewMode>('owner');
   const [outerSection, setOuterSection] = useState<string>('home');
   const [innerActiveId, setInnerActiveId] = useState<string>('dashboard');
@@ -140,11 +142,16 @@ function App() {
     return <PlaceholderPage title={titleFor(outerSection)} body="Section placeholder. Build this out next." />;
   };
 
+  if (!signedIn) {
+    return <Login onSignIn={() => setSignedIn(true)} />;
+  }
+
   return (
     <>
       <AppShell
         viewMode={viewMode}
         onViewModeChange={handleViewModeChange}
+        onSignOut={() => setSignedIn(false)}
         outerSection={outerSection}
         onOuterSectionChange={handleOuterSectionChange}
         innerActiveId={innerActiveId}

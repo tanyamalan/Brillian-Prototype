@@ -25,6 +25,7 @@ interface AppTopbarProps {
   /** Demo toggle state: dark unified nav vs light two-column nav (advisor only). */
   navDark?: boolean;
   onToggleNavDark?: () => void;
+  onSignOut?: () => void;
 }
 
 /** Sun/Moon segmented toggle for demoing the light vs dark advisor nav. */
@@ -52,7 +53,7 @@ function NavStyleToggle({ navDark, onToggle }: { navDark: boolean; onToggle: () 
   );
 }
 
-function UserMenu({ viewMode, onViewModeChange }: Pick<AppTopbarProps, 'viewMode' | 'onViewModeChange'>) {
+function UserMenu({ viewMode, onViewModeChange, onSignOut }: Pick<AppTopbarProps, 'viewMode' | 'onViewModeChange' | 'onSignOut'>) {
   // Advisor mode: avatar is the firm logo (EJ, yellow); text is name / company / role.
   // Owner mode: avatar is the user; text is name / role.
   const isAdvisor = viewMode === 'advisor';
@@ -129,7 +130,7 @@ function UserMenu({ viewMode, onViewModeChange }: Pick<AppTopbarProps, 'viewMode
               <Box flex="1">Open style guide</Box>
             </Menu.Item>
             <Menu.Separator />
-            <Menu.Item value="signout" gap="2" fontSize="13px" color="brl.danger">
+            <Menu.Item value="signout" gap="2" fontSize="13px" color="brl.danger" onClick={onSignOut}>
               <LogOut size={14} />
               <Box flex="1">Sign out</Box>
             </Menu.Item>
@@ -140,7 +141,7 @@ function UserMenu({ viewMode, onViewModeChange }: Pick<AppTopbarProps, 'viewMode
   );
 }
 
-export function AppTopbar({ viewMode, onViewModeChange, onOpenMenu, navDark, onToggleNavDark }: AppTopbarProps) {
+export function AppTopbar({ viewMode, onViewModeChange, onOpenMenu, navDark, onToggleNavDark, onSignOut }: AppTopbarProps) {
   return (
     <Flex
       align="center"
@@ -206,7 +207,7 @@ export function AppTopbar({ viewMode, onViewModeChange, onOpenMenu, navDark, onT
             6
           </Badge>
         </Box>
-        <UserMenu viewMode={viewMode} onViewModeChange={onViewModeChange} />
+        <UserMenu viewMode={viewMode} onViewModeChange={onViewModeChange} onSignOut={onSignOut} />
       </HStack>
     </Flex>
   );
