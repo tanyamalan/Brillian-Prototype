@@ -23,6 +23,12 @@ export function Login({ onSignIn }: LoginProps) {
       position="relative"
     >
       <Box w="full" maxW="400px" pb="24">
+        {/* Brand mark above the heading */}
+        <Flex justify="center" mb="8">
+          <Flex boxSize="56px" rounded="xl" bg="accent.solid" align="center" justify="center">
+            <Image src="/brillian-logo.svg" alt="Brillian" h="26px" w="auto" />
+          </Flex>
+        </Flex>
         <Heading as="h1" fontSize="4xl" fontWeight={500} color="accent.solid" textAlign="center" mb="12" letterSpacing="-0.02em">
           Login
         </Heading>
@@ -30,10 +36,10 @@ export function Login({ onSignIn }: LoginProps) {
         <Text fontSize="sm" fontWeight={600} color="ink.100" mb="1.5">
           Email Address
         </Text>
+        {/* No autofocus — the focus ring on load read as a heavy border */}
         <Input
           placeholder="Email address"
           type="email"
-          autoFocus
           mb="5"
           onKeyDown={e => {
             if (e.key === 'Enter') onSignIn();
