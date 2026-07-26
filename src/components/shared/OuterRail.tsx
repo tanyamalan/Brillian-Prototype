@@ -64,7 +64,7 @@ export function OuterRail({ viewMode, activeId, onSelect }: OuterRailProps) {
   return (
     <Box
       as="nav"
-      w={{ base: 'full', md: '72px' }}
+      w={{ base: 'full', md: 'shell.rail' }}
       bg="bg"
       borderRightWidth={{ base: 0, md: '1px' }}
       borderTopWidth={{ base: '1px', md: 0 }}

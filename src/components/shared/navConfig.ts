@@ -26,8 +26,9 @@ export type ViewMode = 'owner' | 'advisor';
 /**
  * Shared height for the top band of every column (outer rail logo, inner panel
  * header, topbar). Keeps the header row aligned across the whole shell.
+ * Resolves to the `shell.header` size token (60px) — see theme/tokens.ts.
  */
-export const HEADER_HEIGHT = '60px';
+export const HEADER_HEIGHT = 'shell.header';
 
 // ===== Outer rail (app-wide sections) =====
 

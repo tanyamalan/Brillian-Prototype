@@ -17,7 +17,7 @@ export default function ExitDialog({ open, onClose, onConfirm }: ExitDialogProps
       <Portal>
         <Dialog.Backdrop bg="bg.scrim" />
         <Dialog.Positioner>
-          <Dialog.Content rounded="card" maxW="420px" p="6" bg="bg" shadow="raised">
+          <Dialog.Content rounded="card" maxW="container.dialog" p="6" bg="bg" shadow="raised">
             <Dialog.Header pb="2" px="0" pt="0">
               <Dialog.Title fontSize="lg" fontWeight={600} color="fg">
                 Finish later?

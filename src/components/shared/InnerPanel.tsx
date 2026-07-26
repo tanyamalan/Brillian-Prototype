@@ -319,7 +319,7 @@ export function InnerPanel(props: InnerPanelProps) {
   return (
     <Box
       as="aside"
-      w={{ base: 'full', md: '220px' }}
+      w={{ base: 'full', md: 'shell.panel' }}
       bg="bg"
       borderRightWidth={{ base: 0, md: '1px' }}
       borderColor="border.subtle"

@@ -9,7 +9,7 @@ interface CardProps extends BoxProps {
    * elevated (default) — shadow.elevated, no border.
    * raised — shadow.raised, for overlays / popovers / menus.
    * outline — 1px border.subtle, no shadow.
-   * filled — canvas background + border.subtle, no shadow.
+   * filled — canvas background only; no border, no shadow.
    */
   variant?: CardVariant;
   /** Padding preset: sm 16px · md 20px · lg 32px. */
@@ -20,7 +20,7 @@ const VARIANT_STYLES: Record<CardVariant, BoxProps> = {
   elevated: { bg: 'bg', shadow: 'elevated' },
   raised: { bg: 'bg', shadow: 'raised' },
   outline: { bg: 'bg', borderWidth: '1px', borderColor: 'border.subtle' },
-  filled: { bg: 'bg.dim', borderWidth: '1px', borderColor: 'border.subtle' },
+  filled: { bg: 'bg.dim' },
 };
 
 const SIZE_PAD: Record<CardSize, string> = { sm: '4', md: '5', lg: '8' };

@@ -64,7 +64,7 @@ const steps: Step[] = [
 
 export default function OnboardingPage({ onStartForm }: OnboardingPageProps) {
   return (
-    <Box px={{ base: '4', md: '8' }} py="6" maxW="800px">
+    <Box px={{ base: '4', md: '8' }} py="6" maxW="container.flow">
       <Flex
         align={{ base: 'flex-start', md: 'center' }}
         justify="space-between"

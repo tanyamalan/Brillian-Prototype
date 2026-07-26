@@ -14,6 +14,7 @@ import {
   colorRamps,
   fontSizes,
   fonts,
+  layoutSizes,
   motion,
   radii,
   semanticColors,
@@ -48,6 +49,7 @@ const SECTIONS: SectionDef[] = [
   { id: 'radius', title: 'Radius', group: 'Foundations' },
   { id: 'typography', title: 'Typography', group: 'Foundations' },
   { id: 'spacing', title: 'Spacing', group: 'Foundations' },
+  { id: 'layout', title: 'Layout', group: 'Foundations' },
   { id: 'elevation', title: 'Elevation', group: 'Foundations' },
   { id: 'motion', title: 'Motion', group: 'Foundations' },
   { id: 'inputs', title: 'Inputs & States', group: 'Components' },
@@ -820,8 +822,126 @@ function SpacingSection() {
 }
 
 // ============================================================================
-// 07 · Elevation
+// 07 · Layout
 // ============================================================================
+
+function ShellBlock({ label, w, bg, children }: { label?: string; w?: string; bg?: string; children?: React.ReactNode }) {
+  return (
+    <Flex
+      w={w}
+      flexShrink={0}
+      align="center"
+      justify="center"
+      bg={bg ?? 'forest.50'}
+      borderWidth="1px"
+      borderColor="forest.200"
+      fontSize="11px"
+      fontWeight={600}
+      color="forest.700"
+      textAlign="center"
+      lineHeight="1.3"
+      p="1"
+    >
+      {label ?? children}
+    </Flex>
+  );
+}
+
+function LayoutSection() {
+  const def = SECTIONS.find(s => s.id === 'layout')!;
+  return (
+    <Section def={def} lede="Layout is built entirely from Chakra's primitives on their default breakpoints — no custom grid system. Structure comes from flex and grid with gap; spacing between siblings is never margin. Fixed chrome (rail, panel, topbar) has exact widths; content is fluid inside a max-width container.">
+      <SubHead>App shell anatomy</SubHead>
+      <Flex h="180px" mb="4" maxW="860px" borderWidth="1px" borderColor="border.subtle" rounded="card" overflow="hidden">
+        <ShellBlock label="Rail 72" w="40px" bg="forest.100" />
+        <ShellBlock w="90px">
+          Panel 220
+          <br />
+          (advisor)
+        </ShellBlock>
+        <Flex flex="1" flexDir="column">
+          <ShellBlock label="Topbar 60" w="full" bg="forest.100" />
+          <Flex flex="1" align="center" justify="center" bg="bg.dim" fontSize="11px" fontWeight={600} color="fg.subtle">
+            Content — fluid, px 16→32
+          </Flex>
+        </Flex>
+      </Flex>
+      <GTable
+        head={['Region', 'Token', 'Value', 'Behavior']}
+        rows={[
+          [<B>Outer rail</B>, <Mono strong>shell.rail</Mono>, <Mono>{layoutSizes.shell.rail}</Mono>, <Text as="span" color="fg.subtle">Sticky full-height; owner view's only nav. Mobile: becomes a fixed bottom bar.</Text>],
+          [<B>Inner panel</B>, <Mono strong>shell.panel</Mono>, <Mono>{layoutSizes.shell.panel}</Mono>, <Text as="span" color="fg.subtle">Advisor view only. Sticky full-height; mobile: a drawer from the topbar hamburger.</Text>],
+          [<B>Topbar</B>, <Mono strong>shell.header</Mono>, <Mono>{layoutSizes.shell.header}</Mono>, <Text as="span" color="fg.subtle">One shared band height — the rail logo band and panel header align to it.</Text>],
+          [<B>Content</B>, <Mono>—</Mono>, <Mono>fluid</Mono>, <Text as="span" color="fg.subtle">Scrolls as the page; chrome stays put. One scroll container — never nested page scrolls.</Text>],
+        ]}
+      />
+
+      <SubHead>Breakpoints</SubHead>
+      <Text fontSize="13.5px" color="fg.subtle" maxW="760px" mb="4" lineHeight="1.6">
+        Chakra's default breakpoints, unchanged. Write mobile-first (<Mono strong>base</Mono>) and
+        step up. In practice two matter: <Mono strong>md</Mono> is THE mobile / desktop switch
+        (chrome collapses, columns stack below it), and <Mono strong>xl</Mono> widens dense grids.
+        Avoid sm and lg unless a layout genuinely breaks between the standard steps.
+      </Text>
+      <GTable
+        head={['Token', 'Min width', 'Role here']}
+        rows={[
+          [<Mono strong>base</Mono>, <Mono>0</Mono>, <Text as="span" color="fg.subtle">Mobile defaults — single column, bottom-bar nav</Text>],
+          [<Mono strong>sm</Mono>, <Mono>480px</Mono>, <Text as="span" color="fg.subtle">Rarely used — only for tightening small-phone edge cases</Text>],
+          [<Mono strong>md</Mono>, <Mono>768px</Mono>, <Text as="span" color="fg.subtle">The switch: side nav appears, grids go 2-col, px 16 → 32</Text>],
+          [<Mono strong>lg</Mono>, <Mono>992px</Mono>, <Text as="span" color="fg.subtle">Rarely used</Text>],
+          [<Mono strong>xl</Mono>, <Mono>1280px</Mono>, <Text as="span" color="fg.subtle">Dense grids widen (2 → 4/5 col), side-by-side form + aside</Text>],
+        ]}
+      />
+
+      <SubHead>Page container</SubHead>
+      <GTable
+        head={['Page type', 'Padding', 'Max-width token', 'Value']}
+        rows={[
+          [<B>Standard page</B>, <Mono>px 4 → md:8 · py 6</Mono>, <Mono>—</Mono>, <Mono>fluid</Mono>],
+          [<B>Detail page (tabs + cards)</B>, <Mono>px 4 → md:8 · py 6</Mono>, <Mono strong>container.detail</Mono>, <Mono>{layoutSizes.container.detail}</Mono>],
+          [<B>Focused flow (onboarding page)</B>, <Mono>px 4 → md:8 · py 6</Mono>, <Mono strong>container.flow</Mono>, <Mono>{layoutSizes.container.flow}</Mono>],
+          [<B>Dialog</B>, <Mono>p 6</Mono>, <Mono strong>container.dialog</Mono>, <Mono>{layoutSizes.container.dialog}</Mono>],
+          [<B>Prose / notes</B>, <Mono>—</Mono>, <Mono strong>container.prose</Mono>, <Mono>{layoutSizes.container.prose}</Mono>],
+        ]}
+      />
+
+      <SubHead>Primitives — reach in this order</SubHead>
+      <GTable
+        head={['Component', 'Use for', 'Not for']}
+        rows={[
+          [<Mono strong>Stack</Mono>, <Text as="span" color="fg.subtle">Vertical rhythm — any list of siblings with one gap</Text>, <Text as="span" color="fg.subtle">Anything needing alignment control</Text>],
+          [<Mono strong>Flex / HStack</Mono>, <Text as="span" color="fg.subtle">Rows: toolbars, header + action, label + value</Text>, <Text as="span" color="fg.subtle">Equal-width column layouts</Text>],
+          [<Mono strong>SimpleGrid</Mono>, <Text as="span" color="fg.subtle">Equal columns that respond: field grids, card grids, stat tiles</Text>, <Text as="span" color="fg.subtle">Irregular spans</Text>],
+          [<Mono strong>Grid</Mono>, <Text as="span" color="fg.subtle">Irregular tracks (the buttons state matrix, 2fr/1fr splits)</Text>, <Text as="span" color="fg.subtle">Anything SimpleGrid can express</Text>],
+          [<Mono strong>Box</Mono>, <Text as="span" color="fg.subtle">A single element that needs styling — the fallback, not the default</Text>, <Text as="span" color="fg.subtle">Faking rows/columns with margins</Text>],
+        ]}
+      />
+
+      <SubHead>Gap rhythm</SubHead>
+      <GTable
+        head={['Gap', 'Value', 'Between']}
+        rows={[
+          [<Mono strong>gap 2</Mono>, <Mono>8px</Mono>, <Text as="span" color="fg.subtle">Icon + label, chips in a row, label → field</Text>],
+          [<Mono strong>gap 3</Mono>, <Mono>12px</Mono>, <Text as="span" color="fg.subtle">Content inside a card body; dense tile grids</Text>],
+          [<Mono strong>gap 4</Mono>, <Mono>16px</Mono>, <Text as="span" color="fg.subtle">The workhorse: field grids, card grids, header / divider / body</Text>],
+          [<Mono strong>gap 6</Mono>, <Mono>24px</Mono>, <Text as="span" color="fg.subtle">Major page regions; form column ↔ aside</Text>],
+        ]}
+      />
+
+      <Note>
+        <B>Rules.</B> Spacing between siblings comes from the parent's <Mono strong>gap</Mono> —
+        never from margins on children, so components stay drop-in reusable. Multi-column layouts
+        collapse to one column below <Mono strong>md</Mono> (form + aside pairs may hold until{' '}
+        <Mono strong>xl</Mono>). The page is the only scroll container; chrome is sticky, and
+        pinned-bottom items (Settings, co-brand) use <Mono strong>mt="auto"</Mono> inside the sticky
+        column. Don't invent widths — chrome and container dimensions are size tokens (
+        <Mono strong>w="shell.rail"</Mono>, <Mono strong>maxW="container.detail"</Mono>), everything
+        else is fluid on the 4px grid.
+      </Note>
+    </Section>
+  );
+}
 
 function ElevationSection() {
   const def = SECTIONS.find(s => s.id === 'elevation')!;
@@ -1211,8 +1331,8 @@ function CardsSection() {
         rows={[
           [<Mono strong>elevated</Mono>, <Mono>white</Mono>, <Mono>none</Mono>, <Mono>shadow/sm</Mono>, <Text as="span" color="fg.subtle">The everyday card. Standalone cards on a tinted canvas.</Text>],
           [<Mono strong>raised</Mono>, <Mono>white</Mono>, <Mono>none</Mono>, <Mono>shadow/lg</Mono>, <Text as="span" color="fg.subtle">Genuinely lifted — overlays, popovers, menus, emphasized or dragged cards.</Text>],
-          [<Mono strong>outline</Mono>, <Mono>white</Mono>, <Mono>1px border/subtle</Mono>, <Mono>none</Mono>, <Text as="span" color="fg.subtle">Cards on white pages, dense layouts, nested cards.</Text>],
-          [<Mono strong>filled</Mono>, <Mono>bg-canvas</Mono>, <Mono>1px border/subtle</Mono>, <Mono>none</Mono>, <Text as="span" color="fg.subtle">Secondary / supporting cards, quiet grouping.</Text>],
+          [<Mono strong>outline</Mono>, <Mono>white</Mono>, <Mono>1px border/subtle</Mono>, <Mono>none</Mono>, <Text as="span" color="fg.subtle">Cards on white pages, dense layouts.</Text>],
+          [<Mono strong>filled</Mono>, <Mono>bg-canvas</Mono>, <Mono>none</Mono>, <Mono>none</Mono>, <Text as="span" color="fg.subtle">Secondary / supporting cards, quiet grouping, cards nested in cards.</Text>],
         ]}
       />
 
@@ -1243,9 +1363,10 @@ function CardsSection() {
         the subtle variant so they don't compete with the page's primary action. Use{' '}
         <Mono strong>size</Mono> for padding — never hardcode it. Card radius stays at 8px, inner
         controls at 4px; don't unify them. <Mono strong>elevated</Mono> is the default; reach for{' '}
-        <Mono strong>raised</Mono> only when a card genuinely floats. Don't nest an elevated card
-        inside another elevated card (shadow soup) — switch the inner one to{' '}
-        <Mono strong>outline</Mono>. All card text is left-aligned. The recipe lives in{' '}
+        <Mono strong>raised</Mono> only when a card genuinely floats. Never nest an elevated card
+        inside another elevated card (shadow soup) — a card inside a card is always{' '}
+        <Mono strong>filled</Mono> (muted), e.g. the owner panels on Company Details. All card text
+        is left-aligned. The recipe lives in{' '}
         <Mono strong>src/components/ui/Card.tsx</Mono>.
       </Note>
     </Section>
@@ -1673,6 +1794,7 @@ export default function StyleGuide() {
         <RadiusSection />
         <TypographySection />
         <SpacingSection />
+        <LayoutSection />
         <ElevationSection />
         <MotionSection />
         <InputsSection />

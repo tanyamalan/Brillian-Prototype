@@ -1,5 +1,5 @@
 import { createSystem, defaultConfig, defineConfig, defineRecipe, defineSlotRecipe } from '@chakra-ui/react';
-import { colorRamps, fontSizes, fonts, radii, shadows, white } from './tokens';
+import { colorRamps, fontSizes, fonts, layoutSizes, radii, shadows, white } from './tokens';
 
 /**
  * Brillian theme — primitives + semantic tokens, mapped to Chakra v3.
@@ -308,6 +308,7 @@ const config = defineConfig({
       radii: wrap(radii),
       sizes: {
         control: { value: '40px' },
+        ...wrap(layoutSizes),
       },
       shadows: wrap(shadows),
     },

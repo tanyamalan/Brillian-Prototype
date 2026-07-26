@@ -182,6 +182,25 @@ export const spacing = {
   '16': '64px',
 } as const;
 
+// ===== Layout sizes =====
+// Fixed chrome dimensions and page max-widths. Wired into Chakra `sizes` so
+// components reference tokens (w="shell.rail", maxW="container.detail")
+// instead of magic numbers.
+
+export const layoutSizes = {
+  shell: {
+    header: '60px', // topbar / rail logo band / panel header — one shared band
+    rail: '72px', // outer icon rail
+    panel: '220px', // advisor inner panel
+  },
+  container: {
+    detail: '1200px', // detail pages (tabs + cards)
+    flow: '800px', // focused flows (onboarding page)
+    dialog: '420px', // modal dialogs
+    prose: '820px', // long-form text
+  },
+} as const;
+
 // ===== Semantic tokens =====
 // These map descriptive intent to a ramp value. Render swatches by reading
 // from `colorRamps` so changes there flow through automatically.

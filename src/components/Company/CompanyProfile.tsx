@@ -70,7 +70,8 @@ const ownershipValues: Record<string, string> = {
 /** One owner as an inset panel: name + type tag header, divider, fields. */
 function OwnerPanel({ i, name, tag }: { i: number; name: string; tag: string }) {
   return (
-    <Card>
+    // Nested inside the section card → muted per the guide's nesting rule.
+    <Card variant="filled">
       <Flex align="baseline" justify="space-between" gap="4" mb="1">
         <Text fontSize="15px" fontWeight={500} color="fg">
           {name}
@@ -401,7 +402,7 @@ export function CompanyProfile({
   const Content = TAB_CONTENT[tab]!;
 
   return (
-    <Box flex="1" px={{ base: '4', md: '8' }} py="6" maxW="1200px">
+    <Box flex="1" px={{ base: '4', md: '8' }} py="6" maxW="container.detail">
       <Heading as="h1" fontSize={{ base: '24px', md: '32px' }} fontWeight={500} color="fg" mb="4">
         {companyName}
       </Heading>
