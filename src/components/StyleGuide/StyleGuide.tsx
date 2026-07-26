@@ -1413,8 +1413,9 @@ function LibrarySection() {
 
       <SubHead>Tabs</SubHead>
       <Text fontSize="13.5px" color="fg.subtle" mb="3" maxW="760px" lineHeight="1.6">
-        In-page section switcher (see Company Details). Active tab is a filled brand pill; the row
-        scrolls horizontally when it overflows on small screens.
+        In-page section switcher (see Company Details). Tabs sit on{' '}
+        <Mono strong>radii.control</Mono> (4px) like buttons and inputs; the active tab is a filled
+        brand chip, and the row scrolls horizontally when it overflows on small screens.
       </Text>
       <TabNavDemo />
 

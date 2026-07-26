@@ -12,9 +12,9 @@ interface TabNavProps {
 }
 
 /**
- * TabNav — in-page section switcher. Pill tabs in a single row that scrolls
- * horizontally when they overflow (e.g. on mobile), with the scrollbar hidden
- * so it stays clean.
+ * TabNav — in-page section switcher. Tabs sit on radii.control (4px), matching
+ * buttons and inputs, in a single row that scrolls horizontally when it
+ * overflows (e.g. on mobile), with the scrollbar hidden so it stays clean.
  */
 export function TabNav({ tabs, activeId, onSelect }: TabNavProps) {
   return (
@@ -37,7 +37,7 @@ export function TabNav({ tabs, activeId, onSelect }: TabNavProps) {
               flexShrink={0}
               h="9"
               px="4"
-              rounded="lg"
+              rounded="control"
               fontSize="13px"
               fontWeight={active ? 600 : 500}
               bg={active ? 'brand.solid' : 'transparent'}
