@@ -931,15 +931,66 @@ function LayoutSection() {
         ]}
       />
 
+      <SubHead>Content composition</SubHead>
+      <Text fontSize="13.5px" color="fg.subtle" maxW="760px" mb="4" lineHeight="1.6">
+        How cards arrange inside the container. Pick the pattern by what the cards ARE — KPIs, a
+        scannable list, independent content, or fields — and its columns and gap come with it.
+        Never mix gaps within one grid.
+      </Text>
+      <Box maxW="860px" mb="5" p="4" borderWidth="1px" borderColor="border.subtle" rounded="card" bg="bg.dim">
+        <Box h="14px" w="180px" bg="sand.300" rounded="sm" mb="1.5" />
+        <Box h="8px" w="260px" bg="sand.200" rounded="sm" mb="4" />
+        <SimpleGrid columns={4} gap="4" mb="5">
+          {[0, 1, 2, 3].map(i => (
+            <Box key={i} h="52px" bg="bg" rounded="card" shadow="elevated" />
+          ))}
+        </SimpleGrid>
+        <SimpleGrid columns={2} gap="6" mb="5">
+          <Box h="72px" bg="bg" rounded="card" shadow="elevated" />
+          <Box h="72px" bg="bg" rounded="card" shadow="elevated" />
+        </SimpleGrid>
+        <Stack gap="2">
+          <Box h="28px" bg="bg" rounded="card" shadow="elevated" />
+          <Box h="28px" bg="bg" rounded="card" shadow="elevated" />
+        </Stack>
+        <Flex mt="3" gap="4" fontSize="10.5px" fontWeight={600} letterSpacing="0.05em" textTransform="uppercase" color="fg.placeholder">
+          <Text>Stat tiles · gap 4</Text>
+          <Text>Content cards · gap 6</Text>
+          <Text>List rows · gap 2</Text>
+        </Flex>
+      </Box>
+      <GTable
+        head={['Pattern', 'Columns', 'Gap', 'Use for']}
+        rows={[
+          [<B>Stat tiles</B>, <Mono>2 → md:4</Mono>, <Mono>gap 4 · 16px</Mono>, <Text as="span" color="fg.subtle">KPI row at the top of a list or dashboard page</Text>],
+          [<B>Content cards</B>, <Mono>1 → xl:2</Mono>, <Mono>gap 6 · 24px</Mono>, <Text as="span" color="fg.subtle">Independent cards side-by-side (form + aside, dashboard modules)</Text>],
+          [<B>Section cards, stacked</B>, <Mono>1 (Stack)</Mono>, <Mono>gap 4 · 16px</Mono>, <Text as="span" color="fg.subtle">Related cards in sequence — owner panels, detail sections</Text>],
+          [<B>List rows</B>, <Mono>1 (Stack)</Mono>, <Mono>gap 2 · 8px</Mono>, <Text as="span" color="fg.subtle">Dense scannable rows — clients list, setup steps</Text>],
+          [<B>Field grid (in a card)</B>, <Mono>1 → md:2 (→ xl:5 dense)</Mono>, <Mono>gap 4 · 16px</Mono>, <Text as="span" color="fg.subtle">Form fields; xl:5 only for short scannable values</Text>],
+        ]}
+      />
+
+      <SubHead>Vertical rhythm</SubHead>
+      <GTable
+        head={['Boundary', 'Space', 'Token']}
+        rows={[
+          [<Text as="span" color="fg.subtle">Page title block → first region</Text>, <Mono>24px</Mono>, <Mono>mb 6</Mono>],
+          [<Text as="span" color="fg.subtle">Between major page regions</Text>, <Mono>32px</Mono>, <Mono>mt 8</Mono>],
+          [<Text as="span" color="fg.subtle">Section header → its content</Text>, <Mono>12px</Mono>, <Mono>mb 3</Mono>],
+          [<Text as="span" color="fg.subtle">Stat row → content below</Text>, <Mono>24px</Mono>, <Mono>mb 6</Mono>],
+        ]}
+      />
+
       <Note>
         <B>Rules.</B> Spacing between siblings comes from the parent's <Mono strong>gap</Mono> —
-        never from margins on children, so components stay drop-in reusable. Multi-column layouts
-        collapse to one column below <Mono strong>md</Mono> (form + aside pairs may hold until{' '}
-        <Mono strong>xl</Mono>). The page is the only scroll container; chrome is sticky, and
-        pinned-bottom items (Settings, co-brand) use <Mono strong>mt="auto"</Mono> inside the sticky
-        column. Don't invent widths — chrome and container dimensions are size tokens (
-        <Mono strong>w="shell.rail"</Mono>, <Mono strong>maxW="container.detail"</Mono>), everything
-        else is fluid on the 4px grid.
+        never from margins on children, so components stay drop-in reusable. Cards never share
+        edges — the minimum separation between any two cards is 8px (list rows), and unrelated
+        cards get 24px. Multi-column layouts collapse to one column below <Mono strong>md</Mono>{' '}
+        (form + aside pairs may hold until <Mono strong>xl</Mono>). The page is the only scroll
+        container; chrome is sticky, and pinned-bottom items (Settings, co-brand) use{' '}
+        <Mono strong>mt="auto"</Mono> inside the sticky column. Don't invent widths — chrome and
+        container dimensions are size tokens (<Mono strong>w="shell.rail"</Mono>,{' '}
+        <Mono strong>maxW="container.detail"</Mono>), everything else is fluid on the 4px grid.
       </Note>
     </Section>
   );
