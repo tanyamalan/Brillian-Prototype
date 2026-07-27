@@ -323,8 +323,8 @@ const config = defineConfig({
           primaryLight: { value: colorRamps.forest[50] },
           primaryMuted: { value: colorRamps.forest[200] },
           primaryDark: { value: colorRamps.forest[800] },
-          success: { value: colorRamps.forest[600] },
-          successLight: { value: colorRamps.forest[100] },
+          success: { value: colorRamps.lime[600] },
+          successLight: { value: colorRamps.lime[100] },
           warning: { value: colorRamps.coral[500] },
           warningLight: { value: colorRamps.coral[100] },
           danger: { value: colorRamps.brick[500] },
@@ -386,7 +386,7 @@ const config = defineConfig({
           placeholder: { value: '{colors.ink.400}' },
           disabled: { value: '{colors.ink.400}' },
           error: { value: '{colors.brick.700}' },
-          success: { value: '{colors.forest.700}' },
+          success: { value: '{colors.lime.800}' }, // 4.5:1 on white
           inverse: { value: '{colors.ink.50}' },
           inverseSecondary: { value: '{colors.ink.200}' },
           inverseSubtle: { value: '{colors.ink.300}' },
@@ -433,7 +433,7 @@ const config = defineConfig({
           borderHover: { value: '{colors.ink.400}' },
           borderFocus: { value: '{colors.forest.600}' },
           borderError: { value: '{colors.brick.500}' },
-          borderSuccess: { value: '{colors.forest.500}' },
+          borderSuccess: { value: '{colors.lime.700}' }, // 3:1 state border on white
           borderDisabled: { value: '{colors.ink.200}' }, // visible edge on tinted cards
           bgReadonly: { value: '{colors.ink.50}' }, // read-only fields: fill, no frame
         },
@@ -464,9 +464,9 @@ const config = defineConfig({
         // ===== Status — paired tint + text for legibility =====
         // Health scale, healthiest first: success → moderate → warning → danger
         status: {
-          success: { value: '{colors.forest.600}' },
-          'success.tint': { value: '{colors.forest.100}' },
-          'success.text': { value: '{colors.forest.700}' },
+          success: { value: '{colors.lime.600}' },
+          'success.tint': { value: '{colors.lime.100}' },
+          'success.text': { value: '{colors.lime.800}' },
           moderate: { value: '{colors.citron.400}' },
           'moderate.tint': { value: '{colors.citron.100}' },
           'moderate.text': { value: '{colors.citron.800}' },

@@ -227,7 +227,8 @@ export const semanticColors = {
     placeholder: { ramp: 'ink', step: 400, name: 'text.placeholder' },
     disabled: { ramp: 'ink', step: 400, name: 'text.disabled' },
     error: { ramp: 'brick', step: 700, name: 'text.error' },
-    success: { ramp: 'forest', step: 700, name: 'text.success' },
+    // Lime 800 (not lighter): success text must clear 4.5:1 on white.
+    success: { ramp: 'lime', step: 800, name: 'text.success' },
     inverse: { ramp: 'ink', step: 50, name: 'text.inverse-primary' },
     inverseSecondary: { ramp: 'ink', step: 200, name: 'text.inverse-secondary' },
     inverseSubtle: { ramp: 'ink', step: 300, name: 'text.inverse-subtle' },
@@ -264,7 +265,8 @@ export const semanticColors = {
     borderHover: { ramp: 'ink', step: 400, name: 'input.border-hover' },
     borderFocus: { ramp: 'forest', step: 600, name: 'input.border-focus' },
     borderError: { ramp: 'brick', step: 500, name: 'input.border-error' },
-    borderSuccess: { ramp: 'forest', step: 500, name: 'input.border-success' },
+    // Lime 700 (not lighter): state-bearing borders must clear 3:1 on white.
+    borderSuccess: { ramp: 'lime', step: 700, name: 'input.border-success' },
     // 200 (not 100): disabled fields keep a visible edge on tinted cards.
     borderDisabled: { ramp: 'ink', step: 200, name: 'input.border-disabled' },
     // Read-only per the guide: value without an editable frame — ink fill, no border.
@@ -283,10 +285,10 @@ export const semanticColors = {
     success: {
       label: 'Success',
       use: 'Healthy metrics, above target',
-      ramp: 'forest',
+      ramp: 'lime',
       tint: { step: 100, name: 'status.success.tint' },
       base: { step: 600, name: 'status.success' },
-      text: { step: 700, name: 'status.success.text' },
+      text: { step: 800, name: 'status.success.text' },
     },
     moderate: {
       label: 'Moderate',

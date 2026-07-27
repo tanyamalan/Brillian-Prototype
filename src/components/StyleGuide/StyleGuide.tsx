@@ -367,7 +367,7 @@ function Overview() {
       </Text>
       <Rule>
         <B>The one rule.</B> Pull text and borders only from Ink. Use Forest / Sand / Brick / Coral /
-        Citron / Lime for fills, surfaces, and accents — never for body text. Status uses Forest
+        Citron / Lime for fills, surfaces, and accents — never for body text. Status uses Lime
         (success), Brick (error), and lightened steps in dark mode.
       </Rule>
     </Box>
@@ -1110,12 +1110,12 @@ function InputsSection() {
     { tag: 'Focus', label: 'Email address', value: 'tanya@brillian.co', help: 'Forest border + ring; label shifts to Forest.', helpColor: ink[500], labelColor: forest[700], borderColor: forest[600], bg: 'white', ring: focusRing },
     { tag: 'Filled', label: 'Email address', value: 'tanya@brillian.co', help: 'Value in Ink 900; resting border returns.', helpColor: ink[500], labelColor: ink[600], borderColor: ink[200], bg: 'white' },
     { tag: 'Error', label: 'Email address', required: true, value: 'tanya@brillian', help: 'Enter a valid email address.', helpColor: brick[700], labelColor: ink[600], borderColor: brick[500], bg: 'white' },
-    { tag: 'Success', label: 'Email address', value: 'tanya@brillian.co', help: 'Looks good.', helpColor: forest[700], labelColor: ink[600], borderColor: forest[500], bg: 'white' },
+    { tag: 'Success', label: 'Email address', value: 'tanya@brillian.co', help: 'Looks good.', helpColor: lime[800], labelColor: ink[600], borderColor: lime[700], bg: 'white' },
     { tag: 'Disabled', label: 'Email address', placeholder: 'you@company.com', help: 'Not editable right now.', helpColor: ink[300], labelColor: ink[300], borderColor: ink[200], bg: ink[50], valueColor: ink[300] },
     { tag: 'Read-only', label: 'Email address', value: 'tanya@brillian.co', help: 'Quiet fill + hairline — the ink fill marks it as not editable.', helpColor: ink[500], labelColor: ink[600], borderColor: ink[200], bg: ink[50] },
   ];
   return (
-    <Section def={def} lede="Two independent tracks: text (label, value, placeholder, helper, message) from Ink, and the container (border, fill) that carries state — Forest for focus, Brick for error, Forest for success.">
+    <Section def={def} lede="Two independent tracks: text (label, value, placeholder, helper, message) from Ink, and the container (border, fill) that carries state — Forest for focus, Brick for error, Lime for success.">
       <SubHead>Anatomy & states</SubHead>
       <SimpleGrid columns={{ base: 1, md: 2 }} gap="26px 36px" maxW="860px">
         {states.map(s => (
@@ -1152,7 +1152,7 @@ function InputsSection() {
           [<B>Hover</B>, <><Sw hex={ink[400]} /><Mono>Ink 400</Mono></>, <Mono>#FFFFFF</Mono>, <Mono>Ink 600</Mono>, <Mono>Ink 500</Mono>],
           [<B>Focus</B>, <><Sw hex={forest[600]} /><Mono>Forest 600 + ring</Mono></>, <Mono>#FFFFFF</Mono>, <Mono>Forest 700</Mono>, <Mono>Ink 500</Mono>],
           [<B>Error</B>, <><Sw hex={brick[500]} /><Mono>Brick 500</Mono></>, <Mono>#FFFFFF / Brick 50</Mono>, <Mono>Ink 600</Mono>, <Mono>Brick 700</Mono>],
-          [<B>Success</B>, <><Sw hex={forest[500]} /><Mono>Forest 500</Mono></>, <Mono>#FFFFFF</Mono>, <Mono>Ink 600</Mono>, <Mono>Forest 700</Mono>],
+          [<B>Success</B>, <><Sw hex={lime[700]} /><Mono>Lime 700</Mono></>, <Mono>#FFFFFF</Mono>, <Mono>Ink 600</Mono>, <Mono>Lime 800</Mono>],
           [<B>Disabled</B>, <><Sw hex={ink[200]} /><Mono>Ink 200</Mono></>, <Mono>Ink 50</Mono>, <Mono>Ink 300</Mono>, <Mono>Ink 300</Mono>],
         ]}
       />
@@ -1678,7 +1678,7 @@ function DarkSection() {
   const shiftRows: Array<[string, string, string, string]> = [
     ['Focus border', 'Forest 600', 'Forest 400', 'dark forest vanishes on a dark field'],
     ['Error', 'Brick 500 / 700', 'Brick 400 / 300', 'lighten to read on dark'],
-    ['Success', 'Forest 500 / 700', 'Forest 400 / Lime 300', 'lighten; Lime pops for the message'],
+    ['Success', 'Lime 700 / 800', 'Lime 400 / 300', 'lighten to read on dark'],
     ['Primary button', 'Forest 600 + Ink 50', 'Forest 400 + Ink 900', 'inverts: light fill, dark label'],
     ['Input border', 'Ink 200', 'Ink 700', 'field reads by fill, not border'],
   ];
@@ -1728,7 +1728,7 @@ function DarkSection() {
           <DarkFieldDemo tag="Rest" label="Email address" placeholder="you@company.com" help="Identified by its raised fill." helpColor={ink[300]} borderColor={ink[700]} />
           <DarkFieldDemo tag="Focus" label="Email address" value="tanya@brillian.co" help="Forest 400 border + ring." helpColor={ink[300]} borderColor={forest[400]} ring="0 0 0 3px rgba(111,161,145,.4)" />
           <DarkFieldDemo tag="Error" label="Email address" required value="tanya@brillian" help="Enter a valid email address." helpColor={brick[300]} borderColor={brick[400]} />
-          <DarkFieldDemo tag="Success" label="Email address" value="tanya@brillian.co" help="Looks good." helpColor={lime[300]} borderColor={forest[400]} />
+          <DarkFieldDemo tag="Success" label="Email address" value="tanya@brillian.co" help="Looks good." helpColor={lime[300]} borderColor={lime[400]} />
         </SimpleGrid>
 
         <Text as="h3" fontSize="12px" fontWeight={600} letterSpacing="0.07em" textTransform="uppercase" color={ink[200]} mt="8" mb="4" pb="9px" borderBottomWidth="1px" borderColor={hairline}>
