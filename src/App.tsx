@@ -184,7 +184,7 @@ function App() {
         </Portal>
       </Drawer.Root>
 
-      <BrandFloat />
+      <BrandFloat scheme="brand" />
     </>
   );
 }
