@@ -1,6 +1,6 @@
 import { Badge, Box, Button, Flex, Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react';
 import { ArrowUpRight, Coins, FileText, MessageSquare, Repeat, TrendingUp, Users } from 'lucide-react';
-import { Card, CardDivider, CardHeader } from '../ui/Card';
+import { Card, CardHeader } from '../ui/Card';
 import { ListRow, RowActions, RowList } from '../ui/ListRow';
 import { StatTile } from '../ui/StatTile';
 
@@ -57,7 +57,6 @@ function ValuationCard({ onStartOnboarding }: { onStartOnboarding: () => void })
           </Button>
         }
       />
-      <CardDivider />
       <Box>
         <Flex align="baseline" gap="2" mb="4">
           <Text fontSize="3xl" fontWeight={500} color="fg" lineHeight="1">
@@ -98,7 +97,6 @@ function OpportunitiesCard() {
           </Button>
         }
       />
-      <CardDivider />
       {/* In-card rows joined by hairline dividers — the RowList pattern */}
       <RowList>
         {OPPORTUNITIES.map(o => (
