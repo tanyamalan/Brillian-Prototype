@@ -1492,7 +1492,9 @@ function LibrarySection() {
         icon tile, title + subtitle, optional middle meta, right-aligned value or badge. Use when
         the rows are one dataset read together (transactions, opportunities, line items). When each
         row is an independent clickable destination, use the other pattern — separate{' '}
-        <Mono strong>size="sm"</Mono> cards in a Stack at gap 2.
+        <Mono strong>size="sm"</Mono> cards in a Stack at gap 2. Reach for a real{' '}
+        <Mono strong>Table</Mono> only when columns need headers, sorting, or scanning down a
+        column — entity-first rows like these stay a list.
       </Text>
       <Card maxW="640px" display="flex" flexDir="column" gap="4">
         <CardHeader

@@ -10,20 +10,15 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 
 export function RowList({ children }: { children: React.ReactNode }) {
   return (
-    // Rows carry px 3 and bleed 12px past the content edge (mx -3), so the
-    // hover fill reads as an inset pill; the divider is drawn as an inset
-    // pseudo-border to stay aligned with the card's content width.
+    // Rows span the card's content width exactly — the hover fill and the
+    // dividers both line up with the card header. Row content is padded
+    // inside the fill (px 3 on ListRow).
     <Box
-      mx="-3"
       css={{
-        '& > * + *': { position: 'relative' },
-        '& > * + *::before': {
-          content: '""',
-          position: 'absolute',
-          top: 0,
-          left: '12px',
-          right: '12px',
-          borderTop: '1px solid var(--chakra-colors-border-subtle)',
+        '& > * + *': {
+          borderTopWidth: '1px',
+          borderTopStyle: 'solid',
+          borderTopColor: 'var(--chakra-colors-border-subtle)',
         },
       }}
     >
