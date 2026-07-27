@@ -28,11 +28,11 @@ function RailItem({
       variant="ghost"
       h="auto"
       px="0"
-      py="1"
+      py={{ base: '0.5', md: '1' }}
       w={{ base: 'auto', md: 'full' }}
       minW={{ base: '14', md: 'auto' }}
       flexDir="column"
-      gap="1"
+      gap={{ base: '0.5', md: '1' }}
       rounded="lg"
       bg="transparent"
       color={
@@ -54,7 +54,7 @@ function RailItem({
     >
       <Box
         className="rail-icon"
-        boxSize="40px"
+        boxSize={{ base: '30px', md: '40px' }}
         rounded="lg"
         bg={active ? (dark ? 'navDark.activeBg' : 'nav.activeBg') : 'transparent'}
         display="flex"
@@ -64,7 +64,7 @@ function RailItem({
       >
         <Icon size={20} strokeWidth={active ? 2.25 : 2} />
       </Box>
-      <Text fontSize="11px" lineHeight="1.1">
+      <Text fontSize={{ base: '10px', md: '11px' }} lineHeight="1.1">
         {item.label}
       </Text>
     </Button>
@@ -89,7 +89,7 @@ export function OuterRail({ viewMode, activeId, onSelect, dark = false }: OuterR
       display="flex"
       flexDir={{ base: 'row', md: 'column' }}
       alignItems="center"
-      py={{ base: '2', md: '0' }}
+      py={{ base: '1', md: '0' }}
       px={{ base: '2', md: '0' }}
       gap="0"
       position={{ base: 'fixed', md: 'sticky' }}
