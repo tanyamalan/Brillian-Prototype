@@ -10,12 +10,20 @@ import { Box, Flex, Text } from '@chakra-ui/react';
 
 export function RowList({ children }: { children: React.ReactNode }) {
   return (
+    // Rows carry px 3 and bleed 12px past the content edge (mx -3), so the
+    // hover fill reads as an inset pill; the divider is drawn as an inset
+    // pseudo-border to stay aligned with the card's content width.
     <Box
+      mx="-3"
       css={{
-        '& > * + *': {
-          borderTopWidth: '1px',
-          borderTopStyle: 'solid',
-          borderTopColor: 'var(--chakra-colors-border-subtle)',
+        '& > * + *': { position: 'relative' },
+        '& > * + *::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: '12px',
+          right: '12px',
+          borderTop: '1px solid var(--chakra-colors-border-subtle)',
         },
       }}
     >
@@ -42,13 +50,16 @@ export function ListRow({ icon, title, subtitle, meta, right, onClick }: ListRow
       align="center"
       gap="4"
       py="3"
+      px="3"
+      rounded="lg"
       cursor={onClick ? 'pointer' : undefined}
       onClick={onClick}
       _hover={onClick ? { bg: 'bg.dim' } : undefined}
       transition="background-color 0.15s"
     >
       {icon && (
-        <Flex boxSize="40px" rounded="lg" bg="bg.dim" color="fg" align="center" justify="center" flexShrink={0}>
+        // bg.subtle (not bg.dim): the tile must stay visible on the hover fill
+        <Flex boxSize="40px" rounded="lg" bg="bg.subtle" color="fg" align="center" justify="center" flexShrink={0}>
           {icon}
         </Flex>
       )}

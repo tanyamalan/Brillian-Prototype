@@ -1,5 +1,5 @@
-import { Badge, Box, Button, Flex, Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react';
-import { ArrowUpRight, Coins, FileText, MessageSquare, Repeat, TrendingUp, Users } from 'lucide-react';
+import { Badge, Box, Button, Flex, Heading, IconButton, SimpleGrid, Stack, Text } from '@chakra-ui/react';
+import { ArrowUpRight, Coins, FileText, MessageSquare, MoreHorizontal, Repeat, TrendingUp, Users } from 'lucide-react';
 import { Card, CardDivider, CardHeader } from '../ui/Card';
 import { ListRow, RowList } from '../ui/ListRow';
 import { StatTile } from '../ui/StatTile';
@@ -93,7 +93,7 @@ function OpportunitiesCard() {
         title="Top opportunities"
         description="The moves with the biggest impact on your valuation."
         action={
-          <Button intent="ghost" size="sm" h="9">
+          <Button intent="secondary" size="sm" h="9">
             View all
           </Button>
         }
@@ -108,13 +108,25 @@ function OpportunitiesCard() {
             title={o.title}
             subtitle={o.detail}
             right={
-              o.impact ? (
-                <Text fontSize="14px" fontWeight={600} color="fg.success">
-                  {o.impact}
-                </Text>
-              ) : (
-                <Badge intent="moderate">Risk</Badge>
-              )
+              <Flex align="center" gap="2">
+                {o.impact ? (
+                  <Text fontSize="14px" fontWeight={600} color="fg.success">
+                    {o.impact}
+                  </Text>
+                ) : (
+                  <Badge intent="moderate">Risk</Badge>
+                )}
+                <IconButton
+                  variant="ghost"
+                  size="xs"
+                  aria-label="Row actions"
+                  color="fg.subtle"
+                  rounded="control"
+                  onClick={e => e.stopPropagation()}
+                >
+                  <MoreHorizontal size={16} />
+                </IconButton>
+              </Flex>
             }
             onClick={() => {}}
           />

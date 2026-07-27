@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Badge, Box, Button, Flex, Heading, Input, Link as ChakraLink, NativeSelect, SimpleGrid, Stack, Text } from '@chakra-ui/react';
-import { ArrowLeft, BookOpen, Coffee, FileCode, Lightbulb, ShoppingCart, Wallet } from 'lucide-react';
+import { Badge, Box, Button, Flex, Heading, IconButton, Input, Link as ChakraLink, NativeSelect, SimpleGrid, Stack, Text } from '@chakra-ui/react';
+import { ArrowLeft, BookOpen, Coffee, FileCode, Lightbulb, MoreHorizontal, ShoppingCart, Wallet } from 'lucide-react';
 import { Alert } from '../ui/Alert';
 import { Avatar } from '../ui/Avatar';
 import { Card, CardDivider, CardHeader } from '../ui/Card';
@@ -1506,9 +1506,30 @@ function LibrarySection() {
         />
         <CardDivider />
         <RowList>
-          <ListRow icon={<Coffee size={18} />} title="Blue Bottle Coffee" subtitle="Food & Drink" meta="Today, 10:24 AM" right={<Text fontSize="14px" fontWeight={600} color="fg">-$6.50</Text>} onClick={() => {}} />
-          <ListRow icon={<ShoppingCart size={18} />} title="Whole Foods Market" subtitle="Groceries" meta="Yesterday" right={<Text fontSize="14px" fontWeight={600} color="fg">-$142.30</Text>} onClick={() => {}} />
-          <ListRow icon={<Wallet size={18} />} title="Stripe Payout" subtitle="Income" meta="Oct 12" right={<Text fontSize="14px" fontWeight={600} color="fg.success">+$4,200.00</Text>} onClick={() => {}} />
+          {([
+            { Icon: Coffee, title: 'Blue Bottle Coffee', subtitle: 'Food & Drink', meta: 'Today, 10:24 AM', value: '-$6.50', success: false },
+            { Icon: ShoppingCart, title: 'Whole Foods Market', subtitle: 'Groceries', meta: 'Yesterday', value: '-$142.30', success: false },
+            { Icon: Wallet, title: 'Stripe Payout', subtitle: 'Income', meta: 'Oct 12', value: '+$4,200.00', success: true },
+          ] as const).map(r => (
+            <ListRow
+              key={r.title}
+              icon={<r.Icon size={18} />}
+              title={r.title}
+              subtitle={r.subtitle}
+              meta={r.meta}
+              right={
+                <Flex align="center" gap="2">
+                  <Text fontSize="14px" fontWeight={600} color={r.success ? 'fg.success' : 'fg'}>
+                    {r.value}
+                  </Text>
+                  <IconButton variant="ghost" size="xs" aria-label="Row actions" color="fg.subtle" rounded="control" onClick={e => e.stopPropagation()}>
+                    <MoreHorizontal size={16} />
+                  </IconButton>
+                </Flex>
+              }
+              onClick={() => {}}
+            />
+          ))}
         </RowList>
       </Card>
 
