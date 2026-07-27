@@ -14,6 +14,7 @@ export function Login({ onSignIn }: LoginProps) {
     <Flex
       minH="100vh"
       w="full"
+      flex="1"
       direction="column"
       align="center"
       justify="center"
@@ -22,7 +23,7 @@ export function Login({ onSignIn }: LoginProps) {
       backgroundImage={navDarkGradient}
       position="relative"
     >
-      <Box w="full" maxW="400px" pb="24">
+      <Box w="full" maxW="400px" mx="auto" pb="24">
         {/* Brand mark above the heading */}
         <Flex justify="center" mb="8">
           <Flex boxSize="56px" rounded="xl" bg="accent.solid" align="center" justify="center">
