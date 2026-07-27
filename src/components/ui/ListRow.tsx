@@ -12,13 +12,19 @@ export function RowList({ children }: { children: React.ReactNode }) {
   return (
     // Rows span the card's content width exactly — the hover fill and the
     // dividers both line up with the card header. Row content is padded
-    // inside the fill (px 3 on ListRow).
+    // inside the fill (px 3 on ListRow). The divider is a pseudo-element,
+    // not a border, so the row's hover radius can't curve it.
     <Box
       css={{
-        '& > * + *': {
-          borderTopWidth: '1px',
-          borderTopStyle: 'solid',
-          borderTopColor: 'var(--chakra-colors-border-subtle)',
+        '& > * + *': { position: 'relative' },
+        '& > * + *::before': {
+          content: '""',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '1px',
+          background: 'var(--chakra-colors-border-subtle)',
         },
       }}
     >
