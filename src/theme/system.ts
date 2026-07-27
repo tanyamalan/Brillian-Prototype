@@ -69,9 +69,10 @@ const buttonRecipe = defineRecipe({
         color: 'fg.muted',
         borderWidth: '1px',
         borderColor: 'border',
-        _hover: { bg: 'bg.subtle' },
-        _active: { bg: 'sand.200' },
-        _focusVisible: { bg: 'sand.200', outline: 'none', boxShadow: 'none' },
+        // Hover is the canvas tone (sand.50) — one quiet step, not a jump.
+        _hover: { bg: 'bg.dim' },
+        _active: { bg: 'sand.100' },
+        _focusVisible: { bg: 'sand.100', outline: 'none', boxShadow: 'none' },
         _disabled: { color: 'fg.disabled', borderColor: 'border.subtle', bg: 'bg', cursor: 'not-allowed' },
       },
       ghost: {

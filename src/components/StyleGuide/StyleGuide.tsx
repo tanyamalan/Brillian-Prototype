@@ -1235,8 +1235,8 @@ function ButtonsSection() {
       text: 'Save changes',
       states: [
         { bg: 'white', color: ink[600], border: ink[200], borderW: '1px' },
+        { bg: sand[50], color: ink[600], border: ink[200], borderW: '1px' },
         { bg: sand[100], color: ink[600], border: ink[200], borderW: '1px' },
-        { bg: sand[200], color: ink[600], border: ink[200], borderW: '1px' },
         { bg: 'white', color: ink[400], border: ink[100], borderW: '1px' },
       ],
     },
@@ -1307,7 +1307,7 @@ function ButtonsSection() {
         rows={[
           [<Mono strong>primary</Mono>, <><Sw hex={forest[600]} /><Mono>Forest 600</Mono></>, <Mono>Ink 50</Mono>, <Mono>Forest 700 → 800</Mono>, <Text as="span" color="fg.subtle">The page's main action — one per view</Text>],
           [<Mono strong>accent</Mono>, <><Sw hex={lime[300]} /><Mono>Lime 300</Mono></>, <Mono>Ink 900</Mono>, <Mono>Lime 400 → 500</Mono>, <Text as="span" color="fg.subtle">High-energy CTAs — onboarding, marketing moments</Text>],
-          [<Mono strong>secondary</Mono>, <><Sw hex="#FFFFFF" /><Mono>white + Ink 200 border</Mono></>, <Mono>Ink 600</Mono>, <Mono>Sand 100 → 200</Mono>, <Text as="span" color="fg.subtle">Supporting actions, card-header buttons</Text>],
+          [<Mono strong>secondary</Mono>, <><Sw hex="#FFFFFF" /><Mono>white + Ink 200 border</Mono></>, <Mono>Ink 600</Mono>, <Mono>Sand 50 → 100</Mono>, <Text as="span" color="fg.subtle">Supporting actions, card-header buttons</Text>],
           [<Mono strong>ghost</Mono>, <Mono>transparent</Mono>, <Mono>Forest 600</Mono>, <Mono>Forest 50 → 100</Mono>, <Text as="span" color="fg.subtle">Low-emphasis and icon actions, nav</Text>],
           [<Mono strong>destructive</Mono>, <><Sw hex={brick[600]} /><Mono>Brick 600</Mono></>, <Mono>Ink 50</Mono>, <Mono>Brick 700 → 800</Mono>, <Text as="span" color="fg.subtle">Irreversible actions — delete, remove, revoke</Text>],
         ]}
