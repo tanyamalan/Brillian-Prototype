@@ -39,6 +39,134 @@ const OPPORTUNITIES = [
   },
 ];
 
+// Benchmark rows are ordered best → worst; bar length scales to the best
+// performer. Peer bars stay neutral Ink — only "You" carries the metric's
+// status color, so the eye lands on your position.
+interface BenchmarkRow {
+  label: string;
+  display: string;
+  pct: number; // bar length, 0–100
+  you?: boolean;
+}
+
+interface Benchmark {
+  title: string;
+  value: string;
+  status: { label: string; intent: 'success' | 'moderate' | 'warning' };
+  youColor: string;
+  rows: BenchmarkRow[];
+  note: React.ReactNode;
+}
+
+const BENCHMARKS: Benchmark[] = [
+  {
+    title: 'Net income margin',
+    value: '31.8%',
+    status: { label: 'Below top quartile', intent: 'moderate' },
+    youColor: 'status.moderate',
+    rows: [
+      { label: 'Top 25%', display: '46%', pct: 100 },
+      { label: 'Median', display: '36%', pct: 78 },
+      { label: 'You', display: '31.8%', pct: 69, you: true },
+      { label: 'Bottom 25%', display: '20%', pct: 43 },
+    ],
+    note: (
+      <>
+        <Text as="span" fontWeight={600} color="fg">14.2pts</Text> below top-quartile peers. Closing
+        half that gap adds ~$80K/yr to SDE.
+      </>
+    ),
+  },
+  {
+    title: 'AR days outstanding',
+    value: '47 days',
+    status: { label: 'Needs attention', intent: 'warning' },
+    youColor: 'status.warning',
+    rows: [
+      { label: 'Top 25%', display: '18 days', pct: 35 },
+      { label: 'Median', display: '27 days', pct: 52 },
+      { label: 'You', display: '47 days', pct: 90, you: true },
+      { label: 'Bottom 25%', display: '52 days', pct: 100 },
+    ],
+    note: (
+      <>
+        Collecting in <Text as="span" fontWeight={600} color="fg">27 days instead of 47</Text> would
+        free up ~$38K in working capital immediately.
+      </>
+    ),
+  },
+  {
+    title: 'Revenue growth rate',
+    value: '8% YoY',
+    status: { label: 'Above median', intent: 'success' },
+    youColor: 'status.success',
+    rows: [
+      { label: 'Top 25%', display: '18%', pct: 100 },
+      { label: 'You', display: '8%', pct: 44, you: true },
+      { label: 'Median', display: '5%', pct: 28 },
+      { label: 'Bottom 25%', display: '1%', pct: 6 },
+    ],
+    note: (
+      <>
+        Growing faster than <Text as="span" fontWeight={600} color="fg">63% of peers</Text>. Buyers
+        pay a premium for consistent growth above 10%.
+      </>
+    ),
+  },
+];
+
+function BenchmarkCard({ b }: { b: Benchmark }) {
+  return (
+    <Card display="flex" flexDir="column" gap="4">
+      <Box>
+        <Text fontSize="15px" fontWeight={500} color="fg" mb="2">
+          {b.title}
+        </Text>
+        <Flex align="center" gap="2" flexWrap="wrap">
+          <Text fontSize="2xl" fontWeight={700} color="fg" lineHeight="1">
+            {b.value}
+          </Text>
+          <Badge intent={b.status.intent}>{b.status.label}</Badge>
+        </Flex>
+      </Box>
+
+      <Stack gap="2">
+        {b.rows.map(row => (
+          <Flex key={row.label} align="center" gap="3">
+            <Text
+              w="72px"
+              flexShrink={0}
+              textAlign="right"
+              fontSize="12px"
+              fontWeight={row.you ? 600 : 400}
+              color={row.you ? 'fg' : 'fg.subtle'}
+            >
+              {row.label}
+            </Text>
+            <Box flex="1" h="6px" rounded="pill" bg="bg.subtle">
+              <Box h="full" rounded="pill" w={`${row.pct}%`} bg={row.you ? b.youColor : 'ink.300'} />
+            </Box>
+            <Text
+              w="56px"
+              flexShrink={0}
+              fontSize="12px"
+              fontFamily="mono"
+              fontWeight={row.you ? 600 : 400}
+              color={row.you ? 'fg' : 'fg.subtle'}
+            >
+              {row.display}
+            </Text>
+          </Flex>
+        ))}
+      </Stack>
+
+      <Text fontSize="13px" color="fg.muted" lineHeight="1.5" mt="auto">
+        {b.note}
+      </Text>
+    </Card>
+  );
+}
+
 const ACTIVITY = [
   { Icon: FileText, text: '2023 tax return uploaded and parsed', time: '2h ago' },
   { Icon: TrendingUp, text: 'Industry benchmarks refreshed for NAICS 541430', time: 'Yesterday' },
@@ -156,6 +284,20 @@ export default function Dashboard({ onStartOnboarding }: DashboardProps) {
         <ValuationCard onStartOnboarding={onStartOnboarding} />
         <OpportunitiesCard />
       </SimpleGrid>
+
+      {/* New major region: 32px */}
+      <Box mt="8">
+        {/* Section header → content: 12px */}
+        <Text fontSize="md" fontWeight={500} color="fg" mb="3">
+          How you rank against 400K similar businesses
+        </Text>
+        {/* One dataset read together → related cards at gap 4 */}
+        <SimpleGrid columns={{ base: 1, md: 3 }} gap="4" alignItems="stretch">
+          {BENCHMARKS.map(b => (
+            <BenchmarkCard key={b.title} b={b} />
+          ))}
+        </SimpleGrid>
+      </Box>
 
       {/* New major region: 32px */}
       <Box mt="8">
