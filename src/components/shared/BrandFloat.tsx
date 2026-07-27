@@ -26,17 +26,18 @@ const Mark = forwardRef<HTMLDivElement, { scheme: 'accent' | 'brand'; interactiv
       as={interactive ? 'button' : 'div'}
       {...rest}
       position="fixed"
-      bottom="6"
-      right="6"
-      boxSize="48px"
+      // Mobile: lifted above the 56px bottom tab bar; desktop: corner.
+      bottom={{ base: '70px', md: '6' }}
+      right={{ base: '4', md: '6' }}
+      boxSize={{ base: '40px', md: '48px' }}
       rounded="full"
       bg={brand ? 'brand.solid' : 'accent.solid'}
       align="center"
       justify="center"
-      zIndex={50}
+      zIndex={110}
       cursor={interactive ? 'pointer' : undefined}
       pointerEvents={interactive ? 'auto' : 'none'}
-      display={{ base: 'none', md: 'flex' }}
+      display="flex"
       transition="transform 0.15s ease, box-shadow 0.15s ease"
       _hover={interactive ? { transform: 'scale(1.06)', shadow: 'raised' } : undefined}
     >
