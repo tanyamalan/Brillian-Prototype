@@ -29,8 +29,8 @@ export function Login({ onSignIn }: LoginProps) {
       </Box>
 
       <Box w="full" maxW="400px" mx="auto" pb="24">
-        <Heading as="h1" fontSize="4xl" fontWeight={500} color="accent.solid" textAlign="center" mb="12" letterSpacing="-0.02em">
-          Login
+        <Heading as="h1" fontSize="4xl" fontWeight={500} color="accent.solid" mb="12" letterSpacing="-0.02em">
+          Welcome back
         </Heading>
 
         <Text fontSize="sm" fontWeight={600} color="ink.100" mb="1.5">
