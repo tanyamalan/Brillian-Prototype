@@ -79,9 +79,18 @@ export function OuterRail({ viewMode, activeId, onSelect, dark = false }: OuterR
       as="nav"
       w={{ base: 'full', md: 'shell.rail' }}
       bg={dark ? 'navDark.bg' : 'bg'}
-      // Forest glow gradient, viewport-fixed so rail + panel share one surface.
-      backgroundImage={dark ? navDarkGradient : undefined}
-      backgroundAttachment={dark ? 'fixed' : undefined}
+      // Desktop: the shared viewport-fixed glow gradient (rail + panel read as
+      // one surface). Mobile bottom bar: its own local ramp — the fixed
+      // gradient's bottom slice is flat forest.900 and reads as black.
+      backgroundImage={
+        dark
+          ? {
+              base: 'linear-gradient(180deg, var(--chakra-colors-forest-700), var(--chakra-colors-forest-900))',
+              md: navDarkGradient,
+            }
+          : undefined
+      }
+      backgroundAttachment={dark ? { base: 'scroll', md: 'fixed' } : undefined}
       borderRightWidth={{ base: 0, md: dark ? 0 : '1px' }}
       borderTopWidth={{ base: '1px', md: 0 }}
       borderColor={dark ? 'navDark.border' : 'border.subtle'}
