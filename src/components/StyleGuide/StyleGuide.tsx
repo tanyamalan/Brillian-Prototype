@@ -1568,13 +1568,15 @@ function LibrarySection() {
       <SubHead>Stat tile</SubHead>
       <Text fontSize="13.5px" color="fg.subtle" mb="4" maxW="760px" lineHeight="1.6">
         Labeled KPI card. Two sizes — default (28px value) for headline metrics and{' '}
-        <Mono strong>size="sm"</Mono> (22px) for dense dashboards.
+        <Mono strong>size="sm"</Mono> (22px) for dense dashboards. The optional{' '}
+        <Mono strong>trend</Mono> badge shows period-over-period change — up defaults to success,
+        down to danger; pass an intent override for inverse metrics where down is good.
       </Text>
       <SimpleGrid columns={{ base: 2, md: 4 }} gap="3" mb="4">
-        <StatTile label="Portfolio value" value="$26.8M" sublabel="across active clients" />
-        <StatTile label="Total clients" value="8" sublabel="2 added this month" />
+        <StatTile label="Portfolio value" value="$26.8M" trend={{ value: '+12%', direction: 'up' }} sublabel="across active clients" />
+        <StatTile label="Total clients" value="8" trend={{ value: '+2', direction: 'up' }} sublabel="added this month" />
         <StatTile label="Open actions" value="34" sublabel="across all clients" />
-        <StatTile label="At risk" value="1" sublabel="needs attention" />
+        <StatTile label="At risk" value="1" trend={{ value: '-1', direction: 'down', intent: 'success' }} sublabel="improving" />
       </SimpleGrid>
       <SimpleGrid columns={{ base: 2, md: 4 }} gap="3">
         <StatTile size="sm" label="Total" value="142" sublabel="all docs" />

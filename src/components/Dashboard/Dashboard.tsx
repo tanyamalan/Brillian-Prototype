@@ -145,10 +145,10 @@ export default function Dashboard({ onStartOnboarding }: DashboardProps) {
 
       {/* Stat tiles: 2 → md:4, gap 4 · row → content below: 24px */}
       <SimpleGrid columns={{ base: 2, md: 4 }} gap="4" mb="6">
-        <StatTile label="Estimated value" value="$2.4M" sublabel="range $2.1M – $2.8M" />
-        <StatTile label="Revenue (TTM)" value="$3.1M" sublabel="+9% year over year" />
-        <StatTile label="Owner earnings (SDE)" value="$610K" sublabel="19.7% of revenue" />
-        <StatTile label="Business health" value="72" sublabel="of 100 · above peers" />
+        <StatTile label="Estimated value" value="$2.4M" trend={{ value: '+6%', direction: 'up' }} sublabel="range $2.1M – $2.8M" />
+        <StatTile label="Revenue (TTM)" value="$3.1M" trend={{ value: '+3%', direction: 'up' }} sublabel="+9% year over year" />
+        <StatTile label="Owner earnings (SDE)" value="$610K" trend={{ value: '+2%', direction: 'up' }} sublabel="19.7% of revenue" />
+        <StatTile label="Business health" value="72" trend={{ value: '-3', direction: 'down' }} sublabel="of 100 · above peers" />
       </SimpleGrid>
 
       {/* Content cards: 1 → xl:2, gap 6 */}
