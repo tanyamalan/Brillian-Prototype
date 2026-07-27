@@ -1,6 +1,7 @@
 import { Badge, Box, Button, Flex, Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react';
-import { ArrowUpRight, FileText, MessageSquare, TrendingUp } from 'lucide-react';
+import { ArrowUpRight, Coins, FileText, MessageSquare, Repeat, TrendingUp, Users } from 'lucide-react';
 import { Card, CardDivider, CardHeader } from '../ui/Card';
+import { ListRow, RowList } from '../ui/ListRow';
 import { StatTile } from '../ui/StatTile';
 
 interface DashboardProps {
@@ -19,22 +20,22 @@ interface DashboardProps {
 
 const OPPORTUNITIES = [
   {
+    Icon: Coins,
     title: 'Normalize owner add-backs',
     detail: 'Reclassify personal expenses to lift reported SDE.',
     impact: '+$180K',
-    intent: 'success' as const,
   },
   {
+    Icon: Repeat,
     title: 'Grow recurring revenue share',
     detail: 'Recurring contracts are 12% of revenue; peers run 30%+.',
     impact: '+$120K',
-    intent: 'success' as const,
   },
   {
+    Icon: Users,
     title: 'Reduce owner dependence',
     detail: 'Document processes so the business runs without you.',
-    impact: 'Risk',
-    intent: 'moderate' as const,
+    impact: null, // risk item — badge instead of a value
   },
 ];
 
@@ -98,23 +99,27 @@ function OpportunitiesCard() {
         }
       />
       <CardDivider />
-      <Stack gap="3">
+      {/* In-card rows joined by hairline dividers — the RowList pattern */}
+      <RowList>
         {OPPORTUNITIES.map(o => (
-          <Flex key={o.title} align="start" justify="space-between" gap="4">
-            <Box minW="0">
-              <Text fontSize="14px" fontWeight={500} color="fg" mb="0.5">
-                {o.title}
-              </Text>
-              <Text fontSize="13px" color="fg.muted" lineHeight="1.5">
-                {o.detail}
-              </Text>
-            </Box>
-            <Badge intent={o.intent} flexShrink={0}>
-              {o.impact}
-            </Badge>
-          </Flex>
+          <ListRow
+            key={o.title}
+            icon={<o.Icon size={18} />}
+            title={o.title}
+            subtitle={o.detail}
+            right={
+              o.impact ? (
+                <Text fontSize="14px" fontWeight={600} color="fg.success">
+                  {o.impact}
+                </Text>
+              ) : (
+                <Badge intent="moderate">Risk</Badge>
+              )
+            }
+            onClick={() => {}}
+          />
         ))}
-      </Stack>
+      </RowList>
     </Card>
   );
 }

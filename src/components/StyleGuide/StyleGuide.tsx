@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Badge, Box, Button, Flex, Heading, Input, Link as ChakraLink, NativeSelect, SimpleGrid, Stack, Text } from '@chakra-ui/react';
-import { ArrowLeft, BookOpen, FileCode, Lightbulb } from 'lucide-react';
+import { ArrowLeft, BookOpen, Coffee, FileCode, Lightbulb, ShoppingCart, Wallet } from 'lucide-react';
 import { Alert } from '../ui/Alert';
 import { Avatar } from '../ui/Avatar';
 import { Card, CardDivider, CardHeader } from '../ui/Card';
 import { DisplayField } from '../ui/DisplayField';
 import { InlineRadio, yesNoOptions } from '../ui/InlineRadio';
+import { ListRow, RowList } from '../ui/ListRow';
 import { StatTile } from '../ui/StatTile';
 import { TabNav } from '../ui/TabNav';
 import { FormCard, FormField, Question } from '../ui/StepLayout';
@@ -1484,6 +1485,32 @@ function LibrarySection() {
         <DisplayField label="Ownership %" value="10.0%" />
         <DisplayField label="Website (optional)" value="" />
       </SimpleGrid>
+
+      <SubHead>List rows (in-card)</SubHead>
+      <Text fontSize="13.5px" color="fg.subtle" mb="3" maxW="760px" lineHeight="1.6">
+        <Mono strong>RowList + ListRow</Mono> — rows inside one card, joined by hairline dividers:
+        icon tile, title + subtitle, optional middle meta, right-aligned value or badge. Use when
+        the rows are one dataset read together (transactions, opportunities, line items). When each
+        row is an independent clickable destination, use the other pattern — separate{' '}
+        <Mono strong>size="sm"</Mono> cards in a Stack at gap 2.
+      </Text>
+      <Card maxW="640px" display="flex" flexDir="column" gap="4">
+        <CardHeader
+          title="Recent transactions"
+          description="Your latest account activity."
+          action={
+            <Button intent="secondary" size="sm" h="9">
+              View all
+            </Button>
+          }
+        />
+        <CardDivider />
+        <RowList>
+          <ListRow icon={<Coffee size={18} />} title="Blue Bottle Coffee" subtitle="Food & Drink" meta="Today, 10:24 AM" right={<Text fontSize="14px" fontWeight={600} color="fg">-$6.50</Text>} onClick={() => {}} />
+          <ListRow icon={<ShoppingCart size={18} />} title="Whole Foods Market" subtitle="Groceries" meta="Yesterday" right={<Text fontSize="14px" fontWeight={600} color="fg">-$142.30</Text>} onClick={() => {}} />
+          <ListRow icon={<Wallet size={18} />} title="Stripe Payout" subtitle="Income" meta="Oct 12" right={<Text fontSize="14px" fontWeight={600} color="fg.success">+$4,200.00</Text>} onClick={() => {}} />
+        </RowList>
+      </Card>
 
       <SubHead>Avatar</SubHead>
       <Text fontSize="13.5px" color="fg.subtle" mb="4" maxW="760px" lineHeight="1.6">
