@@ -121,7 +121,7 @@ function OpportunitiesCard() {
 
 export default function Dashboard({ onStartOnboarding }: DashboardProps) {
   return (
-    <Box flex="1" px={{ base: '4', md: '8' }} py="6" maxW="container.detail">
+    <Box flex="1" px={{ base: '4', md: '8' }} py="6" maxW="container.detail" w="full" mx="auto">
       {/* Title block → first region: 24px */}
       <Heading as="h1" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={500} color="fg" mb="1">
         Welcome back, John

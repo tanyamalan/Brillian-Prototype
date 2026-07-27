@@ -988,8 +988,10 @@ function LayoutSection() {
         cards get 24px. Multi-column layouts collapse to one column below <Mono strong>md</Mono>{' '}
         (form + aside pairs may hold until <Mono strong>xl</Mono>). The page is the only scroll
         container; chrome is sticky, and pinned-bottom items (Settings, co-brand) use{' '}
-        <Mono strong>mt="auto"</Mono> inside the sticky column. Don't invent widths — chrome and
-        container dimensions are size tokens (<Mono strong>w="shell.rail"</Mono>,{' '}
+        <Mono strong>mt="auto"</Mono> inside the sticky column. Capped containers center once the
+        viewport exceeds their max-width (<Mono strong>maxW + w="full" + mx="auto"</Mono>) — content
+        never hugs the nav on wide screens. Don't invent widths — chrome and container dimensions
+        are size tokens (<Mono strong>w="shell.rail"</Mono>,{' '}
         <Mono strong>maxW="container.detail"</Mono>), everything else is fluid on the 4px grid.
       </Note>
     </Section>
