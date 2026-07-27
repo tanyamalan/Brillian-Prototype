@@ -54,7 +54,7 @@ function RailItem({
     >
       <Box
         className="rail-icon"
-        boxSize={{ base: '30px', md: '40px' }}
+        boxSize={{ base: '28px', md: '40px' }}
         rounded="lg"
         bg={active ? (dark ? 'navDark.activeBg' : 'nav.activeBg') : 'transparent'}
         display="flex"
@@ -98,7 +98,7 @@ export function OuterRail({ viewMode, activeId, onSelect, dark = false }: OuterR
       display="flex"
       flexDir={{ base: 'row', md: 'column' }}
       alignItems="center"
-      py={{ base: '1', md: '0' }}
+      py={{ base: '0.5', md: '0' }}
       px={{ base: '2', md: '0' }}
       gap="0"
       position={{ base: 'fixed', md: 'sticky' }}
