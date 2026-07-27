@@ -23,13 +23,12 @@ export function Login({ onSignIn }: LoginProps) {
       backgroundImage={navDarkGradient}
       position="relative"
     >
+      {/* Full wordmark, top-left (lime on the dark surface) */}
+      <Box position="absolute" top="8" left="8">
+        <Image src="/brillian-wordmark-lime.svg" alt="Brillian" h="28px" w="auto" />
+      </Box>
+
       <Box w="full" maxW="400px" mx="auto" pb="24">
-        {/* Brand mark above the heading */}
-        <Flex justify="center" mb="8">
-          <Flex boxSize="56px" rounded="xl" bg="accent.solid" align="center" justify="center">
-            <Image src="/brillian-logo.svg" alt="Brillian" h="26px" w="auto" />
-          </Flex>
-        </Flex>
         <Heading as="h1" fontSize="4xl" fontWeight={500} color="accent.solid" textAlign="center" mb="12" letterSpacing="-0.02em">
           Login
         </Heading>
