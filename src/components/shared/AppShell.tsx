@@ -9,8 +9,9 @@ import type { ViewMode } from './navConfig';
 interface AppShellProps {
   children: React.ReactNode;
   viewMode: ViewMode;
-  onViewModeChange: (mode: ViewMode) => void;
   onSignOut?: () => void;
+  /** Demo toggle state, owned by App (flipped from the BrandFloat menu). */
+  darkNav: boolean;
   outerSection: string;
   onOuterSectionChange: (id: string) => void;
   innerActiveId: string;
@@ -22,8 +23,8 @@ interface AppShellProps {
 export default function AppShell({
   children,
   viewMode,
-  onViewModeChange,
   onSignOut,
+  darkNav,
   outerSection,
   onOuterSectionChange,
   innerActiveId,
@@ -32,9 +33,6 @@ export default function AppShell({
   onSelectClient,
 }: AppShellProps) {
   const [innerDrawerOpen, setInnerDrawerOpen] = useState(false);
-  // Demo toggle: dark forest nav vs the light nav — both views, flipped from
-  // the topbar. Advisor gets the unified rail+panel surface; owner the rail.
-  const [darkNav, setDarkNav] = useState(true);
   const dark = darkNav;
 
   // When the user picks a lens or client from inside the mobile drawer, close it.
@@ -101,11 +99,8 @@ export default function AppShell({
       <Flex flex="1" minW="0" flexDir="column" pb={{ base: '20', md: '0' }}>
         <AppTopbar
           viewMode={viewMode}
-          onViewModeChange={onViewModeChange}
           onSignOut={onSignOut}
           onOpenMenu={hasInnerPanel ? () => setInnerDrawerOpen(true) : undefined}
-          navDark={darkNav}
-          onToggleNavDark={() => setDarkNav(v => !v)}
         />
         {children}
       </Flex>

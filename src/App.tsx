@@ -49,6 +49,8 @@ function PlaceholderPage({ title, body }: { title: string; body: string }) {
 function App() {
   const [signedIn, setSignedIn] = useState(false);
   const [viewMode, setViewMode] = useState<ViewMode>('owner');
+  // Demo toggle: dark forest nav vs light nav — flipped from the BrandFloat menu.
+  const [darkNav, setDarkNav] = useState(true);
   const [outerSection, setOuterSection] = useState<string>('home');
   const [innerActiveId, setInnerActiveId] = useState<string>('dashboard');
   const [selectedClientId, setSelectedClientId] = useState<string | null>(null);
@@ -156,8 +158,8 @@ function App() {
     <>
       <AppShell
         viewMode={viewMode}
-        onViewModeChange={handleViewModeChange}
         onSignOut={() => setSignedIn(false)}
+        darkNav={darkNav}
         outerSection={outerSection}
         onOuterSectionChange={handleOuterSectionChange}
         innerActiveId={innerActiveId}
@@ -184,7 +186,13 @@ function App() {
         </Portal>
       </Drawer.Root>
 
-      <BrandFloat scheme="brand" />
+      <BrandFloat
+        scheme="brand"
+        viewMode={viewMode}
+        onViewModeChange={handleViewModeChange}
+        navDark={darkNav}
+        onToggleNavDark={() => setDarkNav(v => !v)}
+      />
     </>
   );
 }

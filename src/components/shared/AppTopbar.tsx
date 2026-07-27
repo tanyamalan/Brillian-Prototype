@@ -11,7 +11,7 @@ import {
   Portal,
   Text,
 } from '@chakra-ui/react';
-import { ArrowLeftRight, Bell, BookOpen, ChevronDown, LogOut, Menu as MenuIcon, Moon, Search, Settings, Sun, User } from 'lucide-react';
+import { Bell, ChevronDown, LogOut, Menu as MenuIcon, Search, Settings, User } from 'lucide-react';
 import { Avatar } from '../ui/Avatar';
 import { firmBrand } from '../../config/firmBrand';
 import { HEADER_HEIGHT } from './navConfig';
@@ -19,41 +19,12 @@ import type { ViewMode } from './navConfig';
 
 interface AppTopbarProps {
   viewMode: ViewMode;
-  onViewModeChange: (mode: ViewMode) => void;
   /** Mobile-only callback to open the inner panel as a drawer. */
   onOpenMenu?: () => void;
-  /** Demo toggle state: dark unified nav vs light two-column nav (advisor only). */
-  navDark?: boolean;
-  onToggleNavDark?: () => void;
   onSignOut?: () => void;
 }
 
-/** Sun/Moon segmented toggle for demoing the light vs dark advisor nav. */
-function NavStyleToggle({ navDark, onToggle }: { navDark: boolean; onToggle: () => void }) {
-  const segment = (active: boolean) => ({
-    'aria-pressed': active,
-    h: '7',
-    minW: '7',
-    px: '0',
-    rounded: 'pill',
-    bg: active ? 'bg' : 'transparent',
-    shadow: active ? 'xs' : undefined,
-    color: active ? 'fg' : 'fg.subtle',
-    _hover: { color: 'fg' },
-  });
-  return (
-    <HStack gap="0.5" bg="bg.dim" rounded="pill" p="0.5" display={{ base: 'none', md: 'flex' }}>
-      <IconButton variant="ghost" aria-label="Light nav" {...segment(!navDark)} onClick={() => navDark && onToggle()}>
-        <Sun size={14} />
-      </IconButton>
-      <IconButton variant="ghost" aria-label="Dark nav" {...segment(navDark)} onClick={() => !navDark && onToggle()}>
-        <Moon size={14} />
-      </IconButton>
-    </HStack>
-  );
-}
-
-function UserMenu({ viewMode, onViewModeChange, onSignOut }: Pick<AppTopbarProps, 'viewMode' | 'onViewModeChange' | 'onSignOut'>) {
+function UserMenu({ viewMode, onSignOut }: Pick<AppTopbarProps, 'viewMode' | 'onSignOut'>) {
   // Advisor mode: avatar is the firm logo (EJ, yellow); text is name / company / role.
   // Owner mode: avatar is the user; text is name / role.
   const isAdvisor = viewMode === 'advisor';
@@ -106,30 +77,6 @@ function UserMenu({ viewMode, onViewModeChange, onSignOut }: Pick<AppTopbarProps
               <Box flex="1">Settings</Box>
             </Menu.Item>
             <Menu.Separator />
-            <Menu.Item
-              value="switch-view"
-              gap="2"
-              fontSize="13px"
-              fontWeight={500}
-              color="brand.solid"
-              onClick={() => onViewModeChange(viewMode === 'owner' ? 'advisor' : 'owner')}
-            >
-              <ArrowLeftRight size={14} />
-              <Box flex="1">
-                Switch to {viewMode === 'owner' ? 'Advisor' : 'Owner'} view
-              </Box>
-            </Menu.Item>
-            <Menu.Separator />
-            <Menu.Item
-              value="style-guide"
-              gap="2"
-              fontSize="13px"
-              onClick={() => { window.location.href = '/style-guide.html'; }}
-            >
-              <BookOpen size={14} />
-              <Box flex="1">Open style guide</Box>
-            </Menu.Item>
-            <Menu.Separator />
             <Menu.Item value="signout" gap="2" fontSize="13px" color="brl.danger" onClick={onSignOut}>
               <LogOut size={14} />
               <Box flex="1">Sign out</Box>
@@ -141,7 +88,7 @@ function UserMenu({ viewMode, onViewModeChange, onSignOut }: Pick<AppTopbarProps
   );
 }
 
-export function AppTopbar({ viewMode, onViewModeChange, onOpenMenu, navDark, onToggleNavDark, onSignOut }: AppTopbarProps) {
+export function AppTopbar({ viewMode, onOpenMenu, onSignOut }: AppTopbarProps) {
   return (
     <Flex
       align="center"
@@ -179,9 +126,6 @@ export function AppTopbar({ viewMode, onViewModeChange, onOpenMenu, navDark, onT
       </HStack>
 
       <HStack gap="4">
-        {onToggleNavDark && navDark !== undefined && (
-          <NavStyleToggle navDark={navDark} onToggle={onToggleNavDark} />
-        )}
         <Box position="relative">
           <IconButton variant="ghost" aria-label="Notifications" color="fg.muted">
             <Bell size={22} />
@@ -207,7 +151,7 @@ export function AppTopbar({ viewMode, onViewModeChange, onOpenMenu, navDark, onT
             6
           </Badge>
         </Box>
-        <UserMenu viewMode={viewMode} onViewModeChange={onViewModeChange} onSignOut={onSignOut} />
+        <UserMenu viewMode={viewMode} onSignOut={onSignOut} />
       </HStack>
     </Flex>
   );
