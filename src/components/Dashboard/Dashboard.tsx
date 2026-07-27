@@ -1,7 +1,7 @@
-import { Badge, Box, Button, Flex, Heading, IconButton, SimpleGrid, Stack, Text } from '@chakra-ui/react';
-import { ArrowUpRight, Coins, FileText, MessageSquare, MoreHorizontal, Repeat, TrendingUp, Users } from 'lucide-react';
+import { Badge, Box, Button, Flex, Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react';
+import { ArrowUpRight, Coins, FileText, MessageSquare, Repeat, TrendingUp, Users } from 'lucide-react';
 import { Card, CardDivider, CardHeader } from '../ui/Card';
-import { ListRow, RowList } from '../ui/ListRow';
+import { ListRow, RowActions, RowList } from '../ui/ListRow';
 import { StatTile } from '../ui/StatTile';
 
 interface DashboardProps {
@@ -116,16 +116,14 @@ function OpportunitiesCard() {
                 ) : (
                   <Badge intent="moderate">Risk</Badge>
                 )}
-                <IconButton
-                  variant="ghost"
-                  size="xs"
-                  aria-label="Row actions"
-                  color="fg.subtle"
-                  rounded="control"
-                  onClick={e => e.stopPropagation()}
-                >
-                  <MoreHorizontal size={16} />
-                </IconButton>
+                <RowActions
+                  items={[
+                    { label: 'View details' },
+                    { label: 'Add to plan' },
+                    'separator',
+                    { label: 'Dismiss', danger: true },
+                  ]}
+                />
               </Flex>
             }
             onClick={() => {}}

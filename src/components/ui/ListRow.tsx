@@ -1,4 +1,5 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, IconButton, Menu, Portal, Text } from '@chakra-ui/react';
+import { MoreHorizontal } from 'lucide-react';
 
 /**
  * RowList + ListRow — rows *inside one card*, separated by hairline dividers
@@ -30,6 +31,56 @@ export function RowList({ children }: { children: React.ReactNode }) {
     >
       {children}
     </Box>
+  );
+}
+
+export type RowActionItem = { label: string; danger?: boolean; onSelect?: () => void } | 'separator';
+
+/**
+ * RowActions — the ⋯ overflow menu for a ListRow's right slot. Click is
+ * isolated from the row, and the menu follows the overlay recipe (radius.card,
+ * shadow.raised, border.subtle separators).
+ */
+export function RowActions({ items, ariaLabel = 'Row actions' }: { items: RowActionItem[]; ariaLabel?: string }) {
+  return (
+    <Menu.Root>
+      <Menu.Trigger asChild>
+        <IconButton
+          variant="ghost"
+          size="xs"
+          aria-label={ariaLabel}
+          color="fg.subtle"
+          rounded="control"
+          onClick={e => e.stopPropagation()}
+        >
+          <MoreHorizontal size={16} />
+        </IconButton>
+      </Menu.Trigger>
+      <Portal>
+        <Menu.Positioner>
+          <Menu.Content minW="180px">
+            {items.map((item, i) =>
+              item === 'separator' ? (
+                <Menu.Separator key={`sep-${i}`} />
+              ) : (
+                <Menu.Item
+                  key={item.label}
+                  value={item.label}
+                  fontSize="13px"
+                  color={item.danger ? 'brl.danger' : undefined}
+                  onClick={e => {
+                    e.stopPropagation();
+                    item.onSelect?.();
+                  }}
+                >
+                  {item.label}
+                </Menu.Item>
+              )
+            )}
+          </Menu.Content>
+        </Menu.Positioner>
+      </Portal>
+    </Menu.Root>
   );
 }
 

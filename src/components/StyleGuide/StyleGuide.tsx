@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { Badge, Box, Button, Flex, Heading, IconButton, Input, Link as ChakraLink, NativeSelect, SimpleGrid, Stack, Text } from '@chakra-ui/react';
-import { ArrowLeft, BookOpen, Coffee, FileCode, Lightbulb, MoreHorizontal, ShoppingCart, Wallet } from 'lucide-react';
+import { Badge, Box, Button, Flex, Heading, Input, Link as ChakraLink, NativeSelect, SimpleGrid, Stack, Text } from '@chakra-ui/react';
+import { ArrowLeft, BookOpen, Coffee, FileCode, Lightbulb, ShoppingCart, Wallet } from 'lucide-react';
 import { Alert } from '../ui/Alert';
 import { Avatar } from '../ui/Avatar';
 import { Card, CardDivider, CardHeader } from '../ui/Card';
 import { DisplayField } from '../ui/DisplayField';
 import { InlineRadio, yesNoOptions } from '../ui/InlineRadio';
-import { ListRow, RowList } from '../ui/ListRow';
+import { ListRow, RowActions, RowList } from '../ui/ListRow';
 import { StatTile } from '../ui/StatTile';
 import { TabNav } from '../ui/TabNav';
 import { FormCard, FormField, Question } from '../ui/StepLayout';
@@ -1524,9 +1524,15 @@ function LibrarySection() {
                   <Text fontSize="14px" fontWeight={600} color={r.success ? 'fg.success' : 'fg'}>
                     {r.value}
                   </Text>
-                  <IconButton variant="ghost" size="xs" aria-label="Row actions" color="fg.subtle" rounded="control" onClick={e => e.stopPropagation()}>
-                    <MoreHorizontal size={16} />
-                  </IconButton>
+                  <RowActions
+                    items={[
+                      { label: 'View details' },
+                      { label: 'Add note' },
+                      { label: 'Categorize' },
+                      'separator',
+                      { label: 'Dispute', danger: true },
+                    ]}
+                  />
                 </Flex>
               }
               onClick={() => {}}
