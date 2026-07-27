@@ -193,7 +193,7 @@ export function AppTopbar({ viewMode, onViewModeChange, onOpenMenu, navDark, onT
             minW="4"
             h="4"
             rounded="full"
-            bg="brl.danger"
+            bg="brand.solid"
             color="fg.onBrand"
             fontSize="9px"
             fontWeight={700}
