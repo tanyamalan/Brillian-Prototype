@@ -75,8 +75,8 @@ export default function OnboardingPage({ onStartForm }: OnboardingPageProps) {
         <Box>
           <Heading
             as="h1"
-            fontSize={{ base: '22px', md: '28px' }}
-            fontWeight={400}
+            fontSize={{ base: '2xl', md: '3xl' }}
+            fontWeight={500}
             color="fg"
             mb="1"
           >

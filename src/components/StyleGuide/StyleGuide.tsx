@@ -786,7 +786,9 @@ function TypographySection() {
         4xl 40 vs Chakra's 24/30/36). Never re-map a Chakra step name to a different pixel value —
         Chakra components reference these names internally. Two component-level sizes are
         deliberately NOT steps: <B>13px</B> field & button labels and <B>11px</B> eyebrows — pin
-        those explicitly in the recipe or component.
+        those explicitly in the recipe or component. <B>Page titles</B> (the h1 on every page) are{' '}
+        <Mono strong>3xl</Mono> (32) on desktop stepping down to <Mono strong>2xl</Mono> (26) on
+        mobile — always Medium 500, never an off-scale size like 24.
       </Note>
       <SubHead>Mono</SubHead>
       <Text fontFamily="mono" fontSize="xs" color="fg.muted">

@@ -8,7 +8,7 @@ interface DashboardProps {
 export default function Dashboard({ onStartOnboarding }: DashboardProps) {
   return (
     <Box flex="1" px={{ base: '4', md: '8' }} py="6">
-      <Heading as="h1" fontSize={{ base: '20px', md: '24px' }} fontWeight={500} color="fg" mb="4">
+      <Heading as="h1" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={500} color="fg" mb="4">
         Welcome Back, John
       </Heading>
 

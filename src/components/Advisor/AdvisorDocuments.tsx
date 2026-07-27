@@ -299,7 +299,7 @@ export function AdvisorDocuments({ typeFilter = 'all', clientId }: AdvisorDocume
           {!isClientScoped && (
             <Flex align="center" justify="space-between" mb="4" flexWrap="wrap" gap="3">
               <Box>
-                <Heading as="h1" fontSize={{ base: '20px', md: '24px' }} fontWeight={500} color="fg" mb="1">
+                <Heading as="h1" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={500} color="fg" mb="1">
                   Documents
                 </Heading>
                 <Text fontSize="14px" color="fg.muted">

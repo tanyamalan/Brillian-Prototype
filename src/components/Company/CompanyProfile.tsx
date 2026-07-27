@@ -403,7 +403,7 @@ export function CompanyProfile({
 
   return (
     <Box flex="1" px={{ base: '4', md: '8' }} py="6" maxW="container.detail">
-      <Heading as="h1" fontSize={{ base: '24px', md: '32px' }} fontWeight={500} color="fg" mb="4">
+      <Heading as="h1" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={500} color="fg" mb="4">
         {companyName}
       </Heading>
 
