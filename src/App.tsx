@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Box, Drawer, Heading, Portal, Text } from '@chakra-ui/react';
 import AppShell from './components/shared/AppShell';
+import { BrandFloat } from './components/shared/BrandFloat';
 import { Login } from './components/Auth/Login';
 import Dashboard from './components/Dashboard/Dashboard';
 import OnboardingPage from './components/OnboardingPage/OnboardingPage';
@@ -143,7 +144,12 @@ function App() {
   };
 
   if (!signedIn) {
-    return <Login onSignIn={() => setSignedIn(true)} />;
+    return (
+      <>
+        <Login onSignIn={() => setSignedIn(true)} />
+        <BrandFloat />
+      </>
+    );
   }
 
   return (
@@ -177,6 +183,8 @@ function App() {
           </Drawer.Positioner>
         </Portal>
       </Drawer.Root>
+
+      <BrandFloat />
     </>
   );
 }

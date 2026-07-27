@@ -77,19 +77,7 @@ export function Login({ onSignIn }: LoginProps) {
         </Text>
       </Box>
 
-      {/* Brillian mark, bottom-right */}
-      <Flex
-        position="absolute"
-        bottom="8"
-        right="8"
-        boxSize="64px"
-        rounded="full"
-        bg="accent.solid"
-        align="center"
-        justify="center"
-      >
-        <Image src="/brillian-logo.svg" alt="Brillian" h="28px" w="auto" />
-      </Flex>
+      {/* Floating Brillian mark comes from BrandFloat, rendered app-wide */}
     </Flex>
   );
 }
