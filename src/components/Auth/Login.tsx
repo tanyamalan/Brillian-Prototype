@@ -81,13 +81,13 @@ export function Login({ onSignIn }: LoginProps) {
         position="absolute"
         bottom="8"
         right="8"
-        boxSize="72px"
+        boxSize="64px"
         rounded="full"
         bg="accent.solid"
         align="center"
         justify="center"
       >
-        <Image src="/brillian-logo.svg" alt="Brillian" h="32px" w="auto" />
+        <Image src="/brillian-logo.svg" alt="Brillian" h="28px" w="auto" />
       </Flex>
     </Flex>
   );
