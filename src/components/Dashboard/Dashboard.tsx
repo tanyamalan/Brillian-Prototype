@@ -179,24 +179,33 @@ function ReviewBanner() {
       rounded="card"
       shadow="elevated"
       bg="bg.inverse"
-      backgroundImage="radial-gradient(480px 240px at 0% 0%, rgba(111, 161, 145, 0.35), transparent 65%), linear-gradient(135deg, var(--chakra-colors-forest-700), var(--chakra-colors-forest-800))"
-      px={{ base: '5', md: '6' }}
-      py="5"
-      gap={{ base: '4', xl: '6' }}
+      backgroundImage="linear-gradient(135deg, var(--chakra-colors-forest-700), var(--chakra-colors-forest-900))"
+      px={{ base: '6', md: '8' }}
+      py={{ base: '6', md: '7' }}
+      gap={{ base: '6', xl: '8' }}
       align={{ base: 'stretch', xl: 'center' }}
       flexDir={{ base: 'column', xl: 'row' }}
     >
       <Box flex="1" minW="0">
-        <Badge intent="accent" mb="2.5">
-          <BadgeCheck size={12} />
-          IRS-compliant · signed by a credentialed appraiser
-        </Badge>
-        <Text fontSize="md" fontWeight={500} color="fg.inverse" lineHeight="1.4">
+        <Flex align="center" gap="1.5" mb="2" color="accent.solid">
+          <BadgeCheck size={15} />
+          <Text fontSize="12px" fontWeight={600} letterSpacing="0.04em" textTransform="uppercase">
+            IRS-compliant · credentialed appraiser
+          </Text>
+        </Flex>
+        <Text fontSize="lg" fontWeight={500} color="fg.inverse" lineHeight="1.4" maxW="480px">
           Your report has been reviewed — you're ready to schedule your call.
         </Text>
       </Box>
 
-      <Flex align="center" gap="3" flexShrink={0}>
+      <Flex
+        align="center"
+        gap="3"
+        flexShrink={0}
+        pl={{ base: '0', xl: '8' }}
+        borderLeftWidth={{ base: 0, xl: '1px' }}
+        borderColor="navDark.border"
+      >
         <Avatar size="lg" label="SC" color="citron.300" textColor="fg" shape="circle" />
         <Box>
           <Text fontSize="14px" fontWeight={600} color="fg.inverse" lineHeight="1.3">
