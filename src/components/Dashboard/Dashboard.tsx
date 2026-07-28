@@ -1,5 +1,6 @@
 import { Badge, Box, Button, Flex, Heading, SimpleGrid, Stack, Text } from '@chakra-ui/react';
-import { ArrowUpRight, Coins, FileText, MessageSquare, Repeat, TrendingUp, Users } from 'lucide-react';
+import { ArrowUpRight, BadgeCheck, Coins, FileText, MessageSquare, Repeat, TrendingUp, Users } from 'lucide-react';
+import { Avatar } from '../ui/Avatar';
 import { Card, CardHeader } from '../ui/Card';
 import { ListRow, RowActions, RowList } from '../ui/ListRow';
 import { StatTile } from '../ui/StatTile';
@@ -167,6 +168,56 @@ function BenchmarkCard({ b }: { b: Benchmark }) {
   );
 }
 
+/**
+ * ReviewBanner — milestone callout on the dark Forest surface (per the Dark
+ * Mode spec): inverse Ink text, lime accent CTA, credential pill as an accent
+ * badge, appraiser identity with an initials avatar.
+ */
+function ReviewBanner() {
+  return (
+    <Flex
+      rounded="card"
+      shadow="elevated"
+      bg="bg.inverse"
+      backgroundImage="radial-gradient(480px 240px at 0% 0%, rgba(111, 161, 145, 0.35), transparent 65%), linear-gradient(135deg, var(--chakra-colors-forest-700), var(--chakra-colors-forest-800))"
+      px={{ base: '5', md: '6' }}
+      py="5"
+      gap={{ base: '4', xl: '6' }}
+      align={{ base: 'stretch', xl: 'center' }}
+      flexDir={{ base: 'column', xl: 'row' }}
+    >
+      <Box flex="1" minW="0">
+        <Badge intent="accent" mb="2.5">
+          <BadgeCheck size={12} />
+          IRS-compliant · signed by a credentialed appraiser
+        </Badge>
+        <Text fontSize="md" fontWeight={500} color="fg.inverse" lineHeight="1.4">
+          Your report has been reviewed — you're ready to schedule your call.
+        </Text>
+      </Box>
+
+      <Flex align="center" gap="3" flexShrink={0}>
+        <Avatar size="lg" label="SC" color="citron.300" textColor="fg" shape="circle" />
+        <Box>
+          <Text fontSize="14px" fontWeight={600} color="fg.inverse" lineHeight="1.3">
+            Sarah Chen
+          </Text>
+          <Text fontSize="13px" color="fg.inverseSecondary" lineHeight="1.3">
+            Certified Business Appraiser
+          </Text>
+          <Text fontSize="12px" color="fg.inverseSubtle" lineHeight="1.3" mt="0.5">
+            Brillian Advisory · 14 yrs valuation & M&A
+          </Text>
+        </Box>
+      </Flex>
+
+      <Button intent="accent" flexShrink={0} w={{ base: 'full', xl: 'auto' }}>
+        Schedule review
+      </Button>
+    </Flex>
+  );
+}
+
 const ACTIVITY = [
   { Icon: FileText, text: '2023 tax return uploaded and parsed', time: '2h ago' },
   { Icon: TrendingUp, text: 'Industry benchmarks refreshed for NAICS 541430', time: 'Yesterday' },
@@ -297,6 +348,11 @@ export default function Dashboard({ onStartOnboarding }: DashboardProps) {
             <BenchmarkCard key={b.title} b={b} />
           ))}
         </SimpleGrid>
+      </Box>
+
+      {/* Milestone banner — its own region */}
+      <Box mt="8">
+        <ReviewBanner />
       </Box>
 
       {/* New major region: 32px */}
