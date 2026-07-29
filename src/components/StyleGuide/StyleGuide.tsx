@@ -986,7 +986,9 @@ function LayoutSection() {
         <B>Rules.</B> Spacing between siblings comes from the parent's <Mono strong>gap</Mono> —
         never from margins on children, so components stay drop-in reusable. Cards never share
         edges — the minimum separation between any two cards is 8px (list rows), and unrelated
-        cards get 24px. Multi-column layouts collapse to one column below <Mono strong>md</Mono>{' '}
+        cards get 24px. Cards sharing a grid row match heights via the grid's default stretch —
+        never opt out with <Mono strong>alignItems="start"</Mono>; instead anchor each card's
+        footer line with <Mono strong>mt="auto"</Mono> so stretched cards don't leave bottom gaps. Multi-column layouts collapse to one column below <Mono strong>md</Mono>{' '}
         (form + aside pairs may hold until <Mono strong>xl</Mono>). The page is the only scroll
         container; chrome is sticky, and pinned-bottom items (Settings, co-brand) use{' '}
         <Mono strong>mt="auto"</Mono> inside the sticky column. Capped containers center once the

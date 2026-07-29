@@ -245,7 +245,7 @@ function ValuationCard({ onStartOnboarding }: { onStartOnboarding: () => void })
           </Button>
         }
       />
-      <Box>
+      <Box display="flex" flexDir="column" flex="1">
         <Flex align="baseline" gap="2" mb="4">
           <Text fontSize="3xl" fontWeight={500} color="fg" lineHeight="1">
             $2.4M
@@ -260,11 +260,12 @@ function ValuationCard({ onStartOnboarding }: { onStartOnboarding: () => void })
           <Box position="absolute" left="18%" right="22%" top="0" bottom="0" rounded="pill" bg="forest.400" />
           <Box position="absolute" left="46%" top="-3px" boxSize="14px" rounded="full" bg="forest.600" borderWidth="2px" borderColor="white" />
         </Box>
-        <Flex justify="space-between" fontSize="12px" color="fg.subtle" fontFamily="mono" mb="4">
+        <Flex justify="space-between" fontSize="12px" color="fg.subtle" fontFamily="mono">
           <Text>Low $2.1M</Text>
           <Text>High $2.8M</Text>
         </Flex>
-        <Text fontSize="13px" color="fg.muted" lineHeight="1.5">
+        {/* Footer anchors to the card bottom when the grid stretches heights */}
+        <Text fontSize="13px" color="fg.muted" lineHeight="1.5" mt="auto" pt="4">
           You're <Text as="span" fontWeight={600} color="fg">80% of the way</Text> to your $3M goal.
           Connecting your accounting software narrows the range.
         </Text>
@@ -339,8 +340,8 @@ export default function Dashboard({ onStartOnboarding }: DashboardProps) {
         <StatTile label="Business health" value="72" trend={{ value: '-3', direction: 'down' }} sublabel="of 100 · above peers" />
       </SimpleGrid>
 
-      {/* Content cards: 1 → xl:2, gap 6 */}
-      <SimpleGrid columns={{ base: 1, xl: 2 }} gap="6" alignItems="start">
+      {/* Content cards: 1 → xl:2, gap 6 — grid stretch keeps heights equal */}
+      <SimpleGrid columns={{ base: 1, xl: 2 }} gap="6">
         <ValuationCard onStartOnboarding={onStartOnboarding} />
         <OpportunitiesCard />
       </SimpleGrid>
