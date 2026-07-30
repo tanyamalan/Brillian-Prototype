@@ -21,18 +21,31 @@ interface StatTileProps {
   };
   /** Compact spacing for dense dashboards. */
   size?: 'sm' | 'md';
+  /**
+   * Makes the tile a drill-in entry point: pointer cursor, hover lift, and an
+   * explicit "View details" affordance (visible, not hover-only — older users
+   * shouldn't have to discover it).
+   */
+  onClick?: () => void;
 }
 
 /**
  * StatTile — labeled KPI card. Use in dashboards and list-page headers to
  * surface key metrics in a consistent block.
  */
-export function StatTile({ label, value, sublabel, trend, size = 'md' }: StatTileProps) {
+export function StatTile({ label, value, sublabel, trend, size = 'md', onClick }: StatTileProps) {
   const isSm = size === 'sm';
   const TrendIcon = trend?.direction === 'down' ? ArrowDownRight : ArrowUpRight;
   const trendIntent = trend?.intent ?? (trend?.direction === 'down' ? 'danger' : 'success');
   return (
-    <Card size={isSm ? 'sm' : 'md'}>
+    <Card
+      size={isSm ? 'sm' : 'md'}
+      onClick={onClick}
+      cursor={onClick ? 'pointer' : undefined}
+      role={onClick ? 'button' : undefined}
+      transition="box-shadow 0.15s ease"
+      _hover={onClick ? { shadow: 'md' } : undefined}
+    >
       <Text
         fontSize={isSm ? '11px' : '12px'}
         fontWeight={600}
@@ -63,6 +76,11 @@ export function StatTile({ label, value, sublabel, trend, size = 'md' }: StatTil
       {sublabel && (
         <Text fontSize={isSm ? '11px' : '12px'} color="fg.subtle" mt="1">
           {sublabel}
+        </Text>
+      )}
+      {onClick && (
+        <Text fontSize="12px" fontWeight={500} color="brand.fg" mt="2">
+          View details →
         </Text>
       )}
     </Card>
