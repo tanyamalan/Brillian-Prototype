@@ -255,6 +255,70 @@ const menuRecipe = defineSlotRecipe({
   },
 });
 
+// Cards — the same spec as src/components/ui/Card.tsx, wired into Chakra's
+// own <Card.*> components so vanilla Chakra composition renders on-system.
+// Padding lives on the root (by size); parts are reset to p 0 — including in
+// the size variants, where Chakra's defaults would otherwise re-add part
+// padding through the merge.
+const cardSlotRecipe = defineSlotRecipe({
+  slots: ['root', 'header', 'body', 'footer', 'title', 'description'],
+  base: {
+    root: { rounded: 'card', bg: 'bg', gap: '4', display: 'flex', flexDirection: 'column' },
+    header: { p: '0', gap: '0' },
+    body: { p: '0', gap: '0' },
+    footer: { p: '0' },
+    title: { fontSize: 'lg', fontWeight: 500, color: 'fg', lineHeight: 1.3, textStyle: 'none' },
+    description: { fontSize: 'sm', fontWeight: 500, color: 'fg.muted', mt: '1', textStyle: 'none' },
+  },
+  variants: {
+    variant: {
+      elevated: { root: { shadow: 'elevated', borderWidth: '0' } },
+      raised: { root: { shadow: 'raised', borderWidth: '0' } },
+      outline: { root: { borderWidth: '1px', borderColor: 'border.subtle', shadow: 'none' } },
+      filled: { root: { bg: 'bg.dim', shadow: 'none', borderWidth: '0' } },
+    },
+    size: {
+      sm: { root: { p: '4' }, header: { p: '0' }, body: { p: '0' }, footer: { p: '0' } },
+      md: { root: { p: '5' }, header: { p: '0' }, body: { p: '0' }, footer: { p: '0' } },
+      lg: { root: { p: '8' }, header: { p: '0' }, body: { p: '0' }, footer: { p: '0' } },
+    },
+  },
+  defaultVariants: { variant: 'elevated', size: 'md' },
+});
+
+// Avatars — same spec as src/components/ui/Avatar.tsx for Chakra's <Avatar.*>:
+// square (rounded md) by default for companies, circle for people, brand fill.
+const avatarSlotRecipe = defineSlotRecipe({
+  slots: ['root', 'image', 'fallback'],
+  base: {
+    root: { bg: 'brand.solid', color: 'fg.onBrand', flexShrink: 0 },
+    image: { objectFit: 'contain' },
+    fallback: { fontWeight: 700, lineHeight: 1 },
+  },
+  variants: {
+    variant: {
+      // Pin both of Chakra's fill variants to the brand fill.
+      solid: { root: { bg: 'brand.solid', color: 'fg.onBrand' } },
+      subtle: { root: { bg: 'brand.solid', color: 'fg.onBrand' } },
+    },
+    size: {
+      xs: { root: { boxSize: '20px' }, fallback: { fontSize: '9px', textStyle: 'none' } },
+      sm: { root: { boxSize: '28px' }, fallback: { fontSize: '11px', textStyle: 'none' } },
+      md: { root: { boxSize: '36px' }, fallback: { fontSize: '14px', textStyle: 'none' } },
+      lg: { root: { boxSize: '44px' }, fallback: { fontSize: '16px', textStyle: 'none' } },
+      xl: { root: { boxSize: '56px' }, fallback: { fontSize: '20px', textStyle: 'none' } },
+    },
+    shape: {
+      square: { root: { rounded: 'md' } },
+      circle: { root: { rounded: 'full' } },
+      // Chakra's own shape names map onto the same two looks.
+      rounded: { root: { rounded: 'md' } },
+      full: { root: { rounded: 'full' } },
+    },
+  },
+  defaultVariants: { size: 'md', shape: 'square', variant: 'subtle' },
+});
+
 // Tables — the third list level (see the guide's Lists & Tables section).
 // Header row in small caps, hairline row dividers, 14px cells; row hover is
 // the caller's choice (add _hover on interactive rows only).
@@ -389,6 +453,8 @@ const config = defineConfig({
       nativeSelect: nativeSelectRecipe,
     },
     slotRecipes: {
+      card: cardSlotRecipe,
+      avatar: avatarSlotRecipe,
       checkbox: checkboxRecipe,
       menu: menuRecipe,
       nativeSelect: nativeSelectSlotRecipe,

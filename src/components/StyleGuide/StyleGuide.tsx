@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Badge, Box, Button, Flex, Heading, Input, Link as ChakraLink, NativeSelect, SimpleGrid, Stack, Table, Text } from '@chakra-ui/react';
+import { Avatar as ChakraAvatar, Badge, Box, Button, Card as ChakraCard, Flex, Heading, Input, Link as ChakraLink, NativeSelect, SimpleGrid, Stack, Table, Text } from '@chakra-ui/react';
 import { ArrowLeft, BookOpen, ChevronRight, Coffee, FileCode, Lightbulb, ShoppingCart, Wallet } from 'lucide-react';
 import { Alert } from '../ui/Alert';
 import { Avatar } from '../ui/Avatar';
@@ -1417,6 +1417,32 @@ function CardsSection() {
         ]}
       />
 
+      <SubHead>Stock Chakra parity</SubHead>
+      <Text fontSize="13.5px" color="fg.subtle" mb="3" maxW="760px" lineHeight="1.6">
+        The card spec is also wired into Chakra's own components via the <Mono strong>card</Mono>{' '}
+        and <Mono strong>avatar</Mono> slot recipes — vanilla{' '}
+        <Mono strong>&lt;Card.Root&gt;</Mono> / <Mono strong>&lt;Avatar.Root&gt;</Mono> composition
+        renders on-system with no custom wrapper. This demo is written entirely in stock Chakra:
+      </Text>
+      <ChakraCard.Root maxW="480px" {...({ variant: 'outline' } as object)}>
+        <ChakraCard.Header>
+          <ChakraCard.Title>Stock Chakra card</ChakraCard.Title>
+          <ChakraCard.Description>
+            Same 8px radius, padding, title and description styles — from the recipe.
+          </ChakraCard.Description>
+        </ChakraCard.Header>
+        <ChakraCard.Body>
+          <Flex align="center" gap="3">
+            <ChakraAvatar.Root {...({ size: 'md', shape: 'circle' } as object)}>
+              <ChakraAvatar.Fallback>SC</ChakraAvatar.Fallback>
+            </ChakraAvatar.Root>
+            <Text fontSize="13px" color="fg.muted">
+              Stock Chakra Avatar, brand fill and sizing from the avatar recipe.
+            </Text>
+          </Flex>
+        </ChakraCard.Body>
+      </ChakraCard.Root>
+
       <Note>
         <B>Handoff rules.</B> Only the container is required — compose what the use case needs. Keep
         the header-action area to a single logical group, top-right aligned; buttons there default to
@@ -1426,8 +1452,9 @@ function CardsSection() {
         <Mono strong>raised</Mono> only when a card genuinely floats. Never nest an elevated card
         inside another elevated card (shadow soup) — a card inside a card is always{' '}
         <Mono strong>filled</Mono> (muted), e.g. the owner panels on Company Details. All card text
-        is left-aligned. The recipe lives in{' '}
-        <Mono strong>src/components/ui/Card.tsx</Mono>.
+        is left-aligned. The spec lives in the <Mono strong>card</Mono> slot recipe
+        (src/theme/system.ts); <Mono strong>src/components/ui/Card.tsx</Mono> is the matching
+        app-side composite.
       </Note>
     </Section>
   );
