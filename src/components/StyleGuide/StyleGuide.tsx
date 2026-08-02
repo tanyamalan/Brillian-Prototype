@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Badge, Box, Button, Flex, Heading, Input, Link as ChakraLink, NativeSelect, SimpleGrid, Stack, Text } from '@chakra-ui/react';
-import { ArrowLeft, BookOpen, Coffee, FileCode, Lightbulb, ShoppingCart, Wallet } from 'lucide-react';
+import { Badge, Box, Button, Flex, Heading, Input, Link as ChakraLink, NativeSelect, SimpleGrid, Stack, Table, Text } from '@chakra-ui/react';
+import { ArrowLeft, BookOpen, ChevronRight, Coffee, FileCode, Lightbulb, ShoppingCart, Wallet } from 'lucide-react';
 import { Alert } from '../ui/Alert';
 import { Avatar } from '../ui/Avatar';
 import { Card, CardDivider, CardHeader } from '../ui/Card';
@@ -56,6 +56,7 @@ const SECTIONS: SectionDef[] = [
   { id: 'inputs', title: 'Inputs & States', group: 'Components' },
   { id: 'buttons', title: 'Buttons', group: 'Components' },
   { id: 'cards', title: 'Cards', group: 'Components' },
+  { id: 'lists', title: 'Lists & Tables', group: 'Components' },
   { id: 'library', title: 'Component Library', group: 'Components' },
   { id: 'feedback', title: 'Feedback', group: 'Components' },
   { id: 'forms', title: 'Form Patterns', group: 'Components' },
@@ -1433,6 +1434,211 @@ function CardsSection() {
 }
 
 // ============================================================================
+// Lists & Tables — the three list levels
+// ============================================================================
+
+const DEMO_CLIENTS = [
+  { initials: 'A', color: 'forest.500', name: 'Acme Services LLC', industry: 'Professional Services', owner: 'John Richardson', status: { label: 'Active', intent: 'success' as const }, val: '$2.4M', actions: 3, activity: '2d ago' },
+  { initials: 'B', color: 'forest.400', name: 'Beta Corp', industry: 'Construction & Trades', owner: 'Maya Park', status: { label: 'Onboarding', intent: 'neutral' as const }, val: '$1.1M', actions: 7, activity: '4h ago' },
+  { initials: 'D', color: 'brick.500', name: 'Delta Co.', industry: 'Retail & E-commerce', owner: 'Priya Shah', status: { label: 'At risk', intent: 'danger' as const }, val: '$780K', actions: 9, activity: '11d ago' },
+];
+
+function ListsSection() {
+  const def = SECTIONS.find(s => s.id === 'lists')!;
+  return (
+    <Section def={def} lede="Three levels of list, chosen by what a row IS: rows inside one card (a dataset read together), rows as cards (independent entities you navigate into), and true tables (records scanned column by column). Pick the level first — never restyle one to imitate another.">
+      <SubHead>Choosing the pattern</SubHead>
+      <GTable
+        head={['Pattern', 'A row is…', 'Layout', 'Use for']}
+        rows={[
+          [<Mono strong>In-card rows</Mono>, <Text as="span" color="fg.subtle">one item of a dataset read together</Text>, <Mono>RowList inside a Card</Mono>, <Text as="span" color="fg.subtle">Transactions, opportunities, line items</Text>],
+          [<Mono strong>Row cards</Mono>, <Text as="span" color="fg.subtle">an independent entity you navigate into</Text>, <Mono>sm cards · Stack gap 2</Mono>, <Text as="span" color="fg.subtle">Clients, setup steps, mobile collapses</Text>],
+          [<Mono strong>Table</Mono>, <Text as="span" color="fg.subtle">a record scanned column by column</Text>, <Mono>Table.Root (themed)</Mono>, <Text as="span" color="fg.subtle">4+ data columns, sorting, dense admin views</Text>],
+        ]}
+      />
+
+      <SubHead>1 · In-card rows</SubHead>
+      <Text fontSize="13.5px" color="fg.subtle" mb="3" maxW="760px" lineHeight="1.6">
+        <Mono strong>RowList + ListRow</Mono> — hairline-divided rows inside one card: 40px icon
+        tile, title + subtitle, optional middle meta, right-aligned value or badge, optional{' '}
+        <Mono strong>RowActions</Mono> overflow menu. Hover fill (bg.dim, 8px radius) only when the
+        row is clickable; the fill sits flush with the card's content width.
+      </Text>
+      <Card maxW="640px" display="flex" flexDir="column" gap="4">
+        <CardHeader
+          title="Recent transactions"
+          description="Your latest account activity."
+          action={
+            <Button intent="secondary" size="sm" h="9">
+              View all
+            </Button>
+          }
+        />
+        <CardDivider />
+        <RowList>
+          {([
+            { Icon: Coffee, title: 'Blue Bottle Coffee', subtitle: 'Food & Drink', meta: 'Today, 10:24 AM', value: '-$6.50', success: false },
+            { Icon: ShoppingCart, title: 'Whole Foods Market', subtitle: 'Groceries', meta: 'Yesterday', value: '-$142.30', success: false },
+            { Icon: Wallet, title: 'Stripe Payout', subtitle: 'Income', meta: 'Oct 12', value: '+$4,200.00', success: true },
+          ] as const).map(r => (
+            <ListRow
+              key={r.title}
+              icon={<r.Icon size={18} />}
+              title={r.title}
+              subtitle={r.subtitle}
+              meta={r.meta}
+              right={
+                <Flex align="center" gap="2">
+                  <Text fontSize="14px" fontWeight={600} color={r.success ? 'fg.success' : 'fg'}>
+                    {r.value}
+                  </Text>
+                  <RowActions
+                    items={[
+                      { label: 'View details' },
+                      { label: 'Add note' },
+                      { label: 'Categorize' },
+                      'separator',
+                      { label: 'Dispute', danger: true },
+                    ]}
+                  />
+                </Flex>
+              }
+              onClick={() => {}}
+            />
+          ))}
+        </RowList>
+      </Card>
+
+      <SubHead>2 · Row cards</SubHead>
+      <Text fontSize="13.5px" color="fg.subtle" mb="3" maxW="760px" lineHeight="1.6">
+        Each row is its own <Mono strong>size="sm"</Mono> card in a Stack at gap 2 — for independent
+        entities the user navigates into. Anatomy, left to right: identity (Avatar or icon tile) →
+        title (14/600) with its status Badge, secondary line (12, fg.muted) → data cluster (key
+        figure in mono 600, counts) → trailing meta → chevron. The whole card is the tap target;
+        hover lifts to shadow.md.
+      </Text>
+      <Stack gap="2" maxW="760px">
+        {DEMO_CLIENTS.slice(0, 2).map(c => (
+          <Card key={c.name} size="sm" cursor="pointer" transition="box-shadow 0.15s ease" _hover={{ shadow: 'md' }}>
+            <Flex align="center" gap="3">
+              <Avatar size="md" color={c.color} label={c.initials} />
+              <Box flex="1" minW="0">
+                <Flex gap="2" align="center">
+                  <Text fontSize="14px" fontWeight={600} color="fg" truncate>
+                    {c.name}
+                  </Text>
+                  <Badge intent={c.status.intent} fontSize="10px">
+                    {c.status.label}
+                  </Badge>
+                </Flex>
+                <Text fontSize="12px" color="fg.muted" truncate>
+                  {c.industry} · {c.owner}
+                </Text>
+              </Box>
+              <Text fontSize="14px" fontWeight={600} fontFamily="mono" color="fg" flexShrink={0}>
+                {c.val}
+              </Text>
+              <Text fontSize="12px" color={c.actions > 5 ? 'fg.error' : 'fg.subtle'} flexShrink={0} display={{ base: 'none', md: 'block' }}>
+                {c.actions} actions
+              </Text>
+              <Box color="fg.subtle" flexShrink={0}>
+                <ChevronRight size={18} />
+              </Box>
+            </Flex>
+          </Card>
+        ))}
+      </Stack>
+
+      <SubHead>3 · Tables</SubHead>
+      <Text fontSize="13.5px" color="fg.subtle" mb="3" maxW="760px" lineHeight="1.6">
+        The themed <Mono strong>Table</Mono> recipe: small-caps header row, hairline row dividers
+        (never verticals, never zebra striping), 14px cells. The entity column comes first with its
+        avatar; numbers are right-aligned in mono; interactive rows add a bg.dim hover and a
+        trailing chevron. Wrap tables in an outline card with <Mono strong>p="0"</Mono>, scrolling
+        horizontally inside it when the viewport is narrow.
+      </Text>
+      <Card variant="outline" p="0" overflow="hidden" maxW="860px">
+        <Box overflowX="auto">
+          <Table.Root>
+            <Table.Header>
+              <Table.Row>
+                <Table.ColumnHeader>Client</Table.ColumnHeader>
+                <Table.ColumnHeader>Owner</Table.ColumnHeader>
+                <Table.ColumnHeader textAlign="end">Valuation</Table.ColumnHeader>
+                <Table.ColumnHeader textAlign="end">Action items</Table.ColumnHeader>
+                <Table.ColumnHeader textAlign="end">Last activity</Table.ColumnHeader>
+                <Table.ColumnHeader w="8" />
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {DEMO_CLIENTS.map(c => (
+                <Table.Row key={c.name} cursor="pointer" _hover={{ bg: 'bg.dim' }} transition="background-color 0.15s">
+                  <Table.Cell>
+                    <Flex align="center" gap="2.5">
+                      <Avatar size="sm" color={c.color} label={c.initials} />
+                      <Box>
+                        <Flex gap="2" align="center">
+                          <Text fontSize="14px" fontWeight={500} color="fg">
+                            {c.name}
+                          </Text>
+                          <Badge intent={c.status.intent} fontSize="10px">
+                            {c.status.label}
+                          </Badge>
+                        </Flex>
+                        <Text fontSize="12px" color="fg.subtle">
+                          {c.industry}
+                        </Text>
+                      </Box>
+                    </Flex>
+                  </Table.Cell>
+                  <Table.Cell>{c.owner}</Table.Cell>
+                  <Table.Cell textAlign="end" fontFamily="mono" fontWeight={600} color="fg">
+                    {c.val}
+                  </Table.Cell>
+                  <Table.Cell textAlign="end" color={c.actions > 5 ? 'fg.error' : 'fg.body'}>
+                    {c.actions}
+                  </Table.Cell>
+                  <Table.Cell textAlign="end" fontSize="13px" color="fg.subtle">
+                    {c.activity}
+                  </Table.Cell>
+                  <Table.Cell color="fg.subtle">
+                    <ChevronRight size={16} />
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table.Root>
+        </Box>
+      </Card>
+
+      <SubHead>Table spec</SubHead>
+      <GTable
+        head={['Element', 'Spec']}
+        rows={[
+          [<B>Header cell</B>, <Mono>11px · 600 · uppercase · fg.subtle · py 2.5</Mono>],
+          [<B>Body cell</B>, <Mono>14px · fg.body · px 3 py 3 (≈48px rows)</Mono>],
+          [<B>Dividers</B>, <Mono>1px border.subtle rows only — no verticals, no zebra</Mono>],
+          [<B>Numbers</B>, <Mono>right-aligned · mono · 600 for the key figure</Mono>],
+          [<B>Interactive row</B>, <Mono>_hover bg.dim + trailing chevron column</Mono>],
+          [<B>Container</B>, <Mono>outline card, p 0 · horizontal scroll inside on overflow</Mono>],
+        ]}
+      />
+
+      <Note>
+        <B>Rules.</B> The whole row is the tap target (44px minimum) — the chevron signals
+        navigation, it isn't the button. Text left, numbers right in mono; never center a column.
+        The status badge follows the title, in the entity cell — a separate status column only when
+        status is what the table is FOR. Row actions: at most one visible action, everything else
+        in a <Mono strong>RowActions</Mono> overflow with destructive items last after a separator.
+        On mobile, tables scroll horizontally inside their card — or collapse to row cards when the
+        columns don't matter. Empty states are a filled card with a 13.5px message and one optional
+        action.
+      </Note>
+    </Section>
+  );
+}
+
+// ============================================================================
 // 12 · Component Library — the living app components
 // ============================================================================
 
@@ -1487,61 +1693,6 @@ function LibrarySection() {
         <DisplayField label="Ownership %" value="10.0%" />
         <DisplayField label="Website (optional)" value="" />
       </SimpleGrid>
-
-      <SubHead>List rows (in-card)</SubHead>
-      <Text fontSize="13.5px" color="fg.subtle" mb="3" maxW="760px" lineHeight="1.6">
-        <Mono strong>RowList + ListRow</Mono> — rows inside one card, joined by hairline dividers:
-        icon tile, title + subtitle, optional middle meta, right-aligned value or badge. Use when
-        the rows are one dataset read together (transactions, opportunities, line items). When each
-        row is an independent clickable destination, use the other pattern — separate{' '}
-        <Mono strong>size="sm"</Mono> cards in a Stack at gap 2. Reach for a real{' '}
-        <Mono strong>Table</Mono> only when columns need headers, sorting, or scanning down a
-        column — entity-first rows like these stay a list.
-      </Text>
-      <Card maxW="640px" display="flex" flexDir="column" gap="4">
-        <CardHeader
-          title="Recent transactions"
-          description="Your latest account activity."
-          action={
-            <Button intent="secondary" size="sm" h="9">
-              View all
-            </Button>
-          }
-        />
-        <CardDivider />
-        <RowList>
-          {([
-            { Icon: Coffee, title: 'Blue Bottle Coffee', subtitle: 'Food & Drink', meta: 'Today, 10:24 AM', value: '-$6.50', success: false },
-            { Icon: ShoppingCart, title: 'Whole Foods Market', subtitle: 'Groceries', meta: 'Yesterday', value: '-$142.30', success: false },
-            { Icon: Wallet, title: 'Stripe Payout', subtitle: 'Income', meta: 'Oct 12', value: '+$4,200.00', success: true },
-          ] as const).map(r => (
-            <ListRow
-              key={r.title}
-              icon={<r.Icon size={18} />}
-              title={r.title}
-              subtitle={r.subtitle}
-              meta={r.meta}
-              right={
-                <Flex align="center" gap="2">
-                  <Text fontSize="14px" fontWeight={600} color={r.success ? 'fg.success' : 'fg'}>
-                    {r.value}
-                  </Text>
-                  <RowActions
-                    items={[
-                      { label: 'View details' },
-                      { label: 'Add note' },
-                      { label: 'Categorize' },
-                      'separator',
-                      { label: 'Dispute', danger: true },
-                    ]}
-                  />
-                </Flex>
-              }
-              onClick={() => {}}
-            />
-          ))}
-        </RowList>
-      </Card>
 
       <SubHead>Avatar</SubHead>
       <Text fontSize="13.5px" color="fg.subtle" mb="4" maxW="760px" lineHeight="1.6">
@@ -1917,6 +2068,7 @@ export default function StyleGuide() {
         <InputsSection />
         <ButtonsSection />
         <CardsSection />
+        <ListsSection />
         <LibrarySection />
         <FeedbackSection />
         <FormsSection />

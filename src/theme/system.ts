@@ -255,6 +255,39 @@ const menuRecipe = defineSlotRecipe({
   },
 });
 
+// Tables — the third list level (see the guide's Lists & Tables section).
+// Header row in small caps, hairline row dividers, 14px cells; row hover is
+// the caller's choice (add _hover on interactive rows only).
+const tableSlotRecipe = defineSlotRecipe({
+  slots: ['root', 'columnHeader', 'cell', 'row'],
+  base: {
+    root: {
+      w: 'full',
+    },
+    columnHeader: {
+      fontSize: '11px',
+      fontWeight: 600,
+      letterSpacing: '0.05em',
+      textTransform: 'uppercase',
+      color: 'fg.subtle',
+      textAlign: 'start',
+      px: '3',
+      py: '2.5',
+      borderBottomWidth: '1px',
+      borderColor: 'border.subtle',
+    },
+    cell: {
+      fontSize: '14px',
+      color: 'fg.body',
+      px: '3',
+      py: '3',
+      borderBottomWidth: '1px',
+      borderColor: 'border.subtle',
+      verticalAlign: 'middle',
+    },
+  },
+});
+
 // Checkbox control — default border (ink.200), control radius, brand when checked.
 const checkboxRecipe = defineSlotRecipe({
   slots: ['control'],
@@ -359,6 +392,7 @@ const config = defineConfig({
       checkbox: checkboxRecipe,
       menu: menuRecipe,
       nativeSelect: nativeSelectSlotRecipe,
+      table: tableSlotRecipe,
     },
     semanticTokens: {
       radii: {
