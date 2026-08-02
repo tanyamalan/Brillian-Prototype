@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Button, Flex, Heading, Link as ChakraLink, SimpleGrid, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react';
 import { BadgeCheck, Coins } from 'lucide-react';
 import { Avatar } from '../ui/Avatar';
 import { Card } from '../ui/Card';
@@ -78,14 +78,30 @@ function ReviewBanner() {
   );
 }
 
+/** Conversational entry point — a prepared prompt that opens a drill-in. */
+function PromptChip({ label, onClick }: { label: string; onClick: () => void }) {
+  return (
+    <Button
+      size="sm"
+      h="9"
+      px="4"
+      fontSize="13px"
+      fontWeight={500}
+      rounded="pill"
+      bg="bg"
+      color="fg.muted"
+      borderWidth="1px"
+      borderColor="border"
+      _hover={{ bg: 'bg.dim', color: 'fg', borderColor: 'border.strong' }}
+      onClick={onClick}
+    >
+      {label}
+    </Button>
+  );
+}
+
 export default function Dashboard({ onStartOnboarding }: DashboardProps) {
   const [drill, setDrill] = useState<MetricId | null>(null);
-
-  const digestLink = (label: string, metric: MetricId) => (
-    <ChakraLink variant="inline" fontSize="15px" onClick={() => setDrill(metric)}>
-      {label}
-    </ChakraLink>
-  );
 
   return (
     <Box flex="1" px={{ base: '4', md: '8' }} py="6" maxW="container.detail" w="full" mx="auto">
@@ -97,22 +113,47 @@ export default function Dashboard({ onStartOnboarding }: DashboardProps) {
         Here's how Acme Services LLC is tracking this quarter.
       </Text>
 
-      {/* Plain-English digest — inline links open the same drill-ins as the tiles */}
-      <Card mb="6">
-        <Text fontSize="15px" color="fg.body" lineHeight="1.7" maxW="720px">
-          Your business is worth about{' '}
-          <Text as="span" fontWeight={600} color="fg">$2.4M</Text>, up 6% this quarter —{' '}
-          {digestLink("see what's driving it", 'value')}. Owner earnings grew to{' '}
-          <Text as="span" fontWeight={600} color="fg">$610K</Text>, though{' '}
-          {digestLink('your margin still trails top-quartile peers', 'sde')}. One watch item: you're
-          collecting invoices slower than similar businesses, which{' '}
-          {digestLink('pulled your health score down 3 points', 'health')}.
+      {/* Hero — the headline stat carries the page; prompts drive the depth */}
+      <Card size="lg" mb="6">
+        <Text fontSize="12px" fontWeight={600} color="fg.subtle" textTransform="uppercase" letterSpacing="0.6px" mb="3">
+          Q3 2026 · Estimated value
         </Text>
+        <Heading as="h2" fontSize={{ base: '3xl', md: '4xl' }} fontWeight={500} color="fg" lineHeight="1.15" letterSpacing="-0.02em" mb="2">
+          Acme is worth about{' '}
+          <Text as="span" fontWeight={700} color="brand.fg" whiteSpace="nowrap">
+            $2.4M
+          </Text>
+        </Heading>
+        <Text fontSize="15px" color="fg.muted" lineHeight="1.6" maxW="560px" mb="5">
+          That's up{' '}
+          <Text as="span" fontWeight={600} color="fg.success">$140K (+6%)</Text>{' '}
+          since spring — your margin work is paying off.
+        </Text>
+
+        <Box maxW="480px" mb="6">
+          <Box position="relative" h="8px" rounded="pill" bg="forest.100" mb="2">
+            <Box position="absolute" left="18%" right="22%" top="0" bottom="0" rounded="pill" bg="forest.400" />
+            <Box position="absolute" left="46%" top="-3px" boxSize="14px" rounded="full" bg="forest.600" borderWidth="2px" borderColor="white" />
+          </Box>
+          <Flex justify="space-between" fontSize="12px" color="fg.subtle" fontFamily="mono">
+            <Text>Low $2.1M</Text>
+            <Text>High $2.8M</Text>
+          </Flex>
+        </Box>
+
+        <Text fontSize="14px" fontWeight={500} color="fg" mb="2.5">
+          Where do you want to start?
+        </Text>
+        <Flex gap="2" flexWrap="wrap">
+          <PromptChip label="What's driving the +$140K?" onClick={() => setDrill('value')} />
+          <PromptChip label="How do I compare to peers?" onClick={() => setDrill('sde')} />
+          <PromptChip label="Why did my health score dip?" onClick={() => setDrill('health')} />
+          <PromptChip label="Show me my easy wins" onClick={() => setDrill('value')} />
+        </Flex>
       </Card>
 
-      {/* Stat tiles: 2 → md:4, gap 4 — each opens its drill-in */}
-      <SimpleGrid columns={{ base: 2, md: 4 }} gap="4" mb="6">
-        <StatTile label="Estimated value" value="$2.4M" trend={{ value: '+6%', direction: 'up' }} sublabel="range $2.1M – $2.8M" onClick={() => setDrill('value')} />
+      {/* Supporting metrics — each opens its drill-in */}
+      <SimpleGrid columns={{ base: 1, md: 3 }} gap="4" mb="6">
         <StatTile label="Revenue (TTM)" value="$3.1M" trend={{ value: '+3%', direction: 'up' }} sublabel="+9% year over year" onClick={() => setDrill('revenue')} />
         <StatTile label="Owner earnings (SDE)" value="$610K" trend={{ value: '+2%', direction: 'up' }} sublabel="19.7% of revenue" onClick={() => setDrill('sde')} />
         <StatTile label="Business health" value="72" trend={{ value: '-3', direction: 'down' }} sublabel="of 100 · above peers" onClick={() => setDrill('health')} />
