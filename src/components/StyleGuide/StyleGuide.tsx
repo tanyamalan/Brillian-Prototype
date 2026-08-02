@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Avatar as ChakraAvatar, Badge, Box, Button, Card as ChakraCard, Flex, Heading, Input, Link as ChakraLink, NativeSelect, SimpleGrid, Stack, Table, Text } from '@chakra-ui/react';
-import { ArrowLeft, BookOpen, ChevronRight, Coffee, FileCode, Lightbulb, ShoppingCart, Wallet } from 'lucide-react';
+import { ArrowLeft, ChevronRight, Coffee, Lightbulb, ShoppingCart, Wallet } from 'lucide-react';
 import { Alert } from '../ui/Alert';
 import { Avatar } from '../ui/Avatar';
 import { Card, CardDivider, CardHeader } from '../ui/Card';
@@ -291,39 +291,6 @@ function Sidebar({ activeId }: { activeId: string }) {
       </Stack>
 
       <Box mt="6" pt="4" borderTopWidth="1px" borderColor="border.subtle">
-        <Stack gap="2">
-          <Text fontSize="11px" fontWeight={600} letterSpacing="0.06em" textTransform="uppercase" color="fg.subtle">
-            Reference docs
-          </Text>
-          <Box
-            as="a"
-            {...({ href: '/design-guidelines.html', target: '_blank' } as object)}
-            display="flex"
-            alignItems="center"
-            gap="2"
-            fontSize="13px"
-            fontWeight={500}
-            color="fg.muted"
-            _hover={{ color: 'fg' }}
-          >
-            <BookOpen size={14} />
-            Guidelines (static)
-          </Box>
-          <Box
-            as="a"
-            {...({ href: '/token-reference.html', target: '_blank' } as object)}
-            display="flex"
-            alignItems="center"
-            gap="2"
-            fontSize="13px"
-            fontWeight={500}
-            color="fg.muted"
-            _hover={{ color: 'fg' }}
-          >
-            <FileCode size={14} />
-            Token reference
-          </Box>
-        </Stack>
         <Box
           as="a"
           {...({ href: '/' } as object)}
@@ -334,10 +301,6 @@ function Sidebar({ activeId }: { activeId: string }) {
           fontWeight={500}
           color="fg.muted"
           _hover={{ color: 'fg' }}
-          mt="4"
-          pt="4"
-          borderTopWidth="1px"
-          borderColor="border.subtle"
         >
           <ArrowLeft size={14} />
           Back to prototype
