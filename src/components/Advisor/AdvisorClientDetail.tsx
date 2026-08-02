@@ -3,6 +3,7 @@ import Dashboard from '../Dashboard/Dashboard';
 import { Avatar } from '../ui/Avatar';
 import { Card } from '../ui/Card';
 import { CompanyProfile } from '../Company/CompanyProfile';
+import { ActionPlan } from '../Plan/ActionPlan';
 import { AdvisorDocuments } from './AdvisorDocuments';
 import { getClient, statusMeta } from './clientsData';
 
@@ -85,6 +86,8 @@ export function AdvisorClientDetail({ clientId, lens, onStartOnboarding }: Advis
         <AdvisorDocuments clientId={clientId} />
       ) : lens === 'profile' ? (
         <CompanyProfile companyName={client?.name} />
+      ) : lens === 'plan' ? (
+        <ActionPlan />
       ) : lensConfig ? (
         <PlaceholderLens title={lensConfig.title} body={lensConfig.body} />
       ) : (

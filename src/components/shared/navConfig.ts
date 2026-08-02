@@ -1,5 +1,6 @@
 import {
   Activity,
+  ListChecks,
   Briefcase,
   CircleCheck,
   ClipboardList,
@@ -36,6 +37,7 @@ export const HEADER_HEIGHT = 'shell.header';
 export const ownerOuterItems: NavItem[] = [
   { id: 'home', label: 'Home', Icon: Home },
   { id: 'profile', label: 'Company', Icon: ClipboardList },
+  { id: 'plan', label: 'Action plan', Icon: ListChecks },
   { id: 'documents', label: 'Documents', Icon: FileText },
   { id: 'reports', label: 'Reports', Icon: FileDown },
 ];
@@ -58,6 +60,7 @@ export function getOuterItems(mode: ViewMode): NavItem[] {
 export const companyLenses: NavItem[] = [
   { id: 'dashboard', label: 'Dashboard', Icon: Home },
   { id: 'profile', label: 'Company Details', Icon: ClipboardList },
+  { id: 'plan', label: 'Action plan', Icon: ListChecks },
   { id: 'documents', label: 'Documents', Icon: FileText },
   { id: 'reports', label: 'Reports', Icon: FileDown },
   { id: 'settings', label: 'Settings', Icon: Settings },
