@@ -1,5 +1,6 @@
 import { createSystem, defaultConfig, defineConfig, defineRecipe, defineSlotRecipe } from '@chakra-ui/react';
 import { colorRamps, fontSizes, fonts, layoutSizes, radii, shadows, white } from './tokens';
+import '../fonts.css'; // PP Telegraf @font-face (display tier)
 
 /**
  * Brillian theme — primitives + semantic tokens, mapped to Chakra v3.

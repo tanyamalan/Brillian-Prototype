@@ -167,6 +167,9 @@ export const fontSizes = {
 // ===== Fonts =====
 
 export const fonts = {
+  // Vanity display face — marketing headers at 5xl (48px) and up ONLY.
+  // Falls back to Manrope when the licensed files aren't present.
+  display: `'PP Telegraf','Manrope',-apple-system,sans-serif`,
   heading: `'Manrope',-apple-system,sans-serif`,
   body: `'Manrope',-apple-system,sans-serif`,
   mono: `'JetBrains Mono', ui-monospace, monospace`,

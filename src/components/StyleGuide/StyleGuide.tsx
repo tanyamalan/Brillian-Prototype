@@ -707,9 +707,9 @@ function RadiusSection() {
 
 function TypographySection() {
   const def = SECTIONS.find(s => s.id === 'typography')!;
-  const samples: Array<{ token: keyof typeof fontSizes; label: string; weight: number }> = [
-    { token: '6xl', label: 'Marketing hero', weight: 500 },
-    { token: '5xl', label: 'Marketing display', weight: 500 },
+  const samples: Array<{ token: keyof typeof fontSizes; label: string; weight: number; family?: 'display' }> = [
+    { token: '6xl', label: 'Marketing hero', weight: 400, family: 'display' },
+    { token: '5xl', label: 'Marketing display', weight: 400, family: 'display' },
     { token: '4xl', label: 'Display', weight: 500 },
     { token: '3xl', label: 'Heading 1', weight: 500 },
     { token: '2xl', label: 'Heading 2', weight: 500 },
@@ -737,6 +737,7 @@ function TypographySection() {
             <Text
               fontSize={fontSizes[s.token]}
               fontWeight={s.weight}
+              fontFamily={s.family}
               color="fg"
               lineHeight="1.2"
               letterSpacing={s.weight === 600 && s.token === 'xs' ? '0.6px' : undefined}
@@ -752,17 +753,26 @@ function TypographySection() {
         xl 20 match Chakra's defaults exactly; only the display steps are raised (2xl 26, 3xl 32,
         4xl 40 vs Chakra's 24/30/36). The marketing tier — <Mono strong>5xl</Mono> 48 through{' '}
         <Mono strong>9xl</Mono> 128 — matches Chakra's defaults exactly and is reserved for
-        marketing and hero surfaces, never product UI (product tops out at 4xl). Never re-map a Chakra step name to a different pixel value —
+        marketing and hero surfaces, never product UI (product tops out at 4xl). At 5xl and up,
+        headers switch to the vanity display face <B>PP Telegraf</B> (
+        <Mono strong>fontFamily="display"</Mono>, Regular 400 — the face carries the weight);
+        everything below stays Manrope. The licensed files aren't committed to the public repo, so
+        the stack falls back to Manrope where they're absent. Never re-map a Chakra step name to a different pixel value —
         Chakra components reference these names internally. Two component-level sizes are
         deliberately NOT steps: <B>13px</B> field & button labels and <B>11px</B> eyebrows — pin
         those explicitly in the recipe or component. <B>Page titles</B> (the h1 on every page) are{' '}
         <Mono strong>3xl</Mono> (32) on desktop stepping down to <Mono strong>2xl</Mono> (26) on
         mobile — always Medium 500, never an off-scale size like 24.
       </Note>
-      <SubHead>Mono</SubHead>
-      <Text fontFamily="mono" fontSize="xs" color="fg.muted">
-        {fonts.mono}
-      </Text>
+      <SubHead>Faces</SubHead>
+      <GTable
+        head={['Token', 'Stack', 'Use for']}
+        rows={[
+          [<Mono strong>display</Mono>, <Mono>{fonts.display}</Mono>, <Text as="span" color="fg.subtle">Marketing headers, 5xl (48px) and up only</Text>],
+          [<Mono strong>heading / body</Mono>, <Mono>{fonts.body}</Mono>, <Text as="span" color="fg.subtle">Everything in the product</Text>],
+          [<Mono strong>mono</Mono>, <Mono>{fonts.mono}</Mono>, <Text as="span" color="fg.subtle">Figures, token names, technical annotations</Text>],
+        ]}
+      />
     </Section>
   );
 }

@@ -1,0 +1,17 @@
+/* PP Telegraf — the vanity display face for marketing headers (48px+ / 5xl+).
+   Licensed: files live in public/fonts locally and are NOT committed; the
+   font stack falls back to Manrope wherever they're absent. */
+@font-face {
+  font-family: 'PP Telegraf';
+  src: url('/fonts/PPTelegraf-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PP Telegraf';
+  src: url('/fonts/PPTelegraf-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
