@@ -155,6 +155,13 @@ export const fontSizes = {
   '2xl': '26px', // Chakra: 24
   '3xl': '32px', // Chakra: 30
   '4xl': '40px', // display · Chakra: 36
+  // Marketing / hero tier — identical to Chakra's defaults, pinned so the
+  // guide documents the full scale. Not for product surfaces.
+  '5xl': '48px',
+  '6xl': '60px',
+  '7xl': '72px',
+  '8xl': '96px',
+  '9xl': '128px',
 } as const;
 
 // ===== Fonts =====

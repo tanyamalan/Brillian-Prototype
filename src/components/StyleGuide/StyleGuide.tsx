@@ -708,6 +708,8 @@ function RadiusSection() {
 function TypographySection() {
   const def = SECTIONS.find(s => s.id === 'typography')!;
   const samples: Array<{ token: keyof typeof fontSizes; label: string; weight: number }> = [
+    { token: '6xl', label: 'Marketing hero', weight: 500 },
+    { token: '5xl', label: 'Marketing display', weight: 500 },
     { token: '4xl', label: 'Display', weight: 500 },
     { token: '3xl', label: 'Heading 1', weight: 500 },
     { token: '2xl', label: 'Heading 2', weight: 500 },
@@ -748,7 +750,9 @@ function TypographySection() {
       <Note>
         <B>Naming follows Chakra.</B> Step names are identical to Chakra's own scale — xs 12 through
         xl 20 match Chakra's defaults exactly; only the display steps are raised (2xl 26, 3xl 32,
-        4xl 40 vs Chakra's 24/30/36). Never re-map a Chakra step name to a different pixel value —
+        4xl 40 vs Chakra's 24/30/36). The marketing tier — <Mono strong>5xl</Mono> 48 through{' '}
+        <Mono strong>9xl</Mono> 128 — matches Chakra's defaults exactly and is reserved for
+        marketing and hero surfaces, never product UI (product tops out at 4xl). Never re-map a Chakra step name to a different pixel value —
         Chakra components reference these names internally. Two component-level sizes are
         deliberately NOT steps: <B>13px</B> field & button labels and <B>11px</B> eyebrows — pin
         those explicitly in the recipe or component. <B>Page titles</B> (the h1 on every page) are{' '}
