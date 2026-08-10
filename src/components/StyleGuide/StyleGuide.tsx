@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { Avatar as ChakraAvatar, Badge, Box, Button, Card as ChakraCard, Flex, Heading, Input, Link as ChakraLink, NativeSelect, SimpleGrid, Stack, Table, Text } from '@chakra-ui/react';
+import { Avatar as ChakraAvatar, Badge, Box, Button, Card as ChakraCard, Flex, Heading, Image, Input, Link as ChakraLink, NativeSelect, SimpleGrid, Stack, Table, Text } from '@chakra-ui/react';
 import { ArrowLeft, ChevronRight, Coffee, Lightbulb, ShoppingCart, Wallet } from 'lucide-react';
 import { Alert } from '../ui/Alert';
 import { Avatar } from '../ui/Avatar';
 import { Card, CardDivider, CardHeader } from '../ui/Card';
+import { CoBrand } from '../ui/CoBrand';
 import { DisplayField } from '../ui/DisplayField';
 import { InlineRadio, yesNoOptions } from '../ui/InlineRadio';
 import { ListRow, RowActions, RowList } from '../ui/ListRow';
@@ -44,6 +45,7 @@ interface SectionDef {
 const GROUPS = ['Foundations', 'Components', 'Modes', 'Reference'] as const;
 
 const SECTIONS: SectionDef[] = [
+  { id: 'brand', title: 'Brand & Logos', group: 'Foundations' },
   { id: 'palette', title: 'Color Palette', group: 'Foundations' },
   { id: 'text', title: 'Text Colors', group: 'Foundations' },
   { id: 'borders', title: 'Borders', group: 'Foundations' },
@@ -340,7 +342,98 @@ function Overview() {
 }
 
 // ============================================================================
-// 01 · Color Palette
+// Brand & Logos
+// ============================================================================
+
+function LogoTile({ bg, logo, size = '36px', logoH = '18px', rounded = 'lg' }: { bg: string; logo: string; size?: string; logoH?: string; rounded?: string }) {
+  return (
+    <Flex boxSize={size} rounded={rounded} bg={bg} align="center" justify="center" flexShrink={0}>
+      <Image src={logo} alt="Brillian" h={logoH} w="auto" />
+    </Flex>
+  );
+}
+
+function BrandSection() {
+  const def = SECTIONS.find(s => s.id === 'brand')!;
+  return (
+    <Section def={def} lede="Two assets — the B mark and the full wordmark — in three colorways: forest (light surfaces), white (inside forest tiles), and lime (dark surfaces and accent moments). Every use is one of the combinations below; nothing else.">
+      <SubHead>Assets & colorways</SubHead>
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap="4" maxW="860px">
+        <Card variant="outline">
+          <Text fontSize="10.5px" fontWeight={600} letterSpacing="0.05em" textTransform="uppercase" color="fg.placeholder" mb="4">
+            On light surfaces
+          </Text>
+          <Stack gap="5">
+            <Image src="/brillian-wordmark.svg" alt="Brillian" h="28px" w="auto" alignSelf="flex-start" />
+            <Flex gap="3" align="center">
+              <Image src="/brillian-logo.svg" alt="Brillian mark" h="24px" w="auto" />
+              <LogoTile bg="brand.solid" logo="/brillian-logo-white.svg" />
+              <Text fontSize="12px" color="fg.subtle">
+                Forest wordmark · forest mark · white mark in a brand tile (nav)
+              </Text>
+            </Flex>
+          </Stack>
+        </Card>
+        <Box rounded="card" bg="forest.900" backgroundImage="linear-gradient(135deg, var(--chakra-colors-forest-800), var(--chakra-colors-forest-900))" p="5">
+          <Text fontSize="10.5px" fontWeight={600} letterSpacing="0.05em" textTransform="uppercase" color="navDark.muted" mb="4">
+            On dark surfaces
+          </Text>
+          <Stack gap="5">
+            <Image src="/brillian-wordmark-lime.svg" alt="Brillian" h="28px" w="auto" alignSelf="flex-start" />
+            <Flex gap="3" align="center">
+              <Image src="/brillian-logo-lime.svg" alt="Brillian mark" h="24px" w="auto" />
+              <LogoTile bg="accent.solid" logo="/brillian-logo.svg" />
+              <Text fontSize="12px" color="navDark.muted">
+                Lime wordmark · lime mark · forest mark in a lime tile (dark nav)
+              </Text>
+            </Flex>
+          </Stack>
+        </Box>
+      </SimpleGrid>
+
+      <SubHead>Placement recipes</SubHead>
+      <GTable
+        head={['Context', 'Treatment']}
+        rows={[
+          [<B>Light nav rail</B>, <Mono>36px brand.solid tile · white mark 18px · rounded lg</Mono>],
+          [<B>Dark nav rail</B>, <Mono>36px accent.solid tile · forest mark 18px · rounded lg</Mono>],
+          [<B>Login (dark)</B>, <Mono>lime wordmark 28px, top-left</Mono>],
+          [<B>BrandFloat, in-app</B>, <Mono>48px brand.solid circle · lime mark 20px</Mono>],
+          [<B>BrandFloat, dark / login</B>, <Mono>48px accent.solid circle · forest mark 20px</Mono>],
+          [<B>Documents / reports</B>, <Mono>forest wordmark on white, min 20px tall</Mono>],
+        ]}
+      />
+
+      <SubHead>Co-branding</SubHead>
+      <Text fontSize="13.5px" color="fg.subtle" mb="3" maxW="760px" lineHeight="1.6">
+        The advisory firm's mark appears only in the advisor view, via the{' '}
+        <Mono strong>CoBrand</Mono> component — never hand-placed. The partnership line anchors the
+        panel footer; on dark surfaces the firm wordmark inverts to white automatically, and firms
+        without a wordmark fall back to an initials avatar.
+      </Text>
+      <SimpleGrid columns={{ base: 1, md: 2 }} gap="4" maxW="860px">
+        <Card variant="outline">
+          <CoBrand variant="partnership" />
+        </Card>
+        <Flex rounded="card" bg="forest.900" p="5" align="center" justify="center">
+          <CoBrand variant="partnership" onDark />
+        </Flex>
+      </SimpleGrid>
+
+      <Note>
+        <B>Rules.</B> Only the pairings above — never recolor the mark outside the three colorways,
+        never put the forest mark on a dark surface or the lime mark on white. Minimum sizes: mark
+        16px, wordmark 20px tall; clear space around either is half the mark's height. Don't
+        stretch, add shadows or outlines, or set the wordmark over imagery. Use the mark alone when
+        space is tight (tiles, favicons); the wordmark leads on entry surfaces (login, documents).
+        Co-branding is advisor-view only and always through <Mono strong>CoBrand</Mono>.
+      </Note>
+    </Section>
+  );
+}
+
+// ============================================================================
+// 02 · Color Palette
 // ============================================================================
 
 function isDarkHex(hex: string): boolean {
@@ -2060,6 +2153,7 @@ export default function StyleGuide() {
       <Sidebar activeId={active} />
       <Box flex="1" minW="0" px={{ base: '5', md: '16' }} pt={{ base: '10', md: '14' }} pb="120px" maxW="1120px">
         <Overview />
+        <BrandSection />
         <PaletteSection />
         <TextSection />
         <BordersSection />
