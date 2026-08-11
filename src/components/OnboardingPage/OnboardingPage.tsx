@@ -87,7 +87,7 @@ export default function OnboardingPage({ onStartForm }: OnboardingPageProps) {
           </Text>
         </Box>
         <Card p="2" px="4" flexShrink={0}>
-          <Text fontSize="13px" fontWeight={600} color="fg.muted">
+          <Text textStyle="label" color="fg.muted">
             0 of {steps.length} complete
           </Text>
         </Card>

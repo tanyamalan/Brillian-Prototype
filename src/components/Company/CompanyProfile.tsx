@@ -35,7 +35,7 @@ const GOALS = ['Sell', 'Grow cash flow', 'Transfer to family', 'Not sure yet'];
 function SubGroup({ title, description, children }: { title: string; description?: string; children: React.ReactNode }) {
   return (
     <Box>
-      <Text fontSize="16px" fontWeight={500} color="fg" mb={description ? "1" : "3"}>
+      <Text textStyle="sectionHeader" color="fg" mb={description ? "1" : "3"}>
         {title}
       </Text>
       {description && (
@@ -140,7 +140,7 @@ function OwnershipTab() {
       subtitle="Your role and ownership shape how we calculate owner earnings."
       initialValues={ownershipValues}
     >
-      <Text fontSize="16px" fontWeight={500} color="fg" mb="3">
+      <Text textStyle="sectionHeader" color="fg" mb="3">
         Owners
       </Text>
       <Stack gap="4">
@@ -150,7 +150,7 @@ function OwnershipTab() {
       </Stack>
 
       <Box mt="8">
-        <Text fontSize="16px" fontWeight={500} color="fg" mb="4">
+        <Text textStyle="sectionHeader" color="fg" mb="4">
           Owner Motivation
         </Text>
         <MotivationFields />
@@ -403,7 +403,7 @@ export function CompanyProfile({
 
   return (
     <Box flex="1" px={{ base: '4', md: '8' }} py="6" maxW="container.detail" w="full" mx="auto">
-      <Heading as="h1" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={500} color="fg" mb="4">
+      <Heading as="h1" textStyle="pageTitle" color="fg" mb="4">
         {companyName}
       </Heading>
 

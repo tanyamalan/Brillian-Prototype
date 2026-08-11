@@ -34,7 +34,7 @@ export function RadioCardGrid({ name, options, columns = { base: 2, md: 4 } }: R
               }}
             >
               <RadioCard.ItemContent>
-                <RadioCard.ItemText fontSize="13px" fontWeight={600} color="fg" mb="0.5">
+                <RadioCard.ItemText textStyle="label" color="fg" mb="0.5">
                   {opt.title}
                 </RadioCard.ItemText>
                 <RadioCard.ItemDescription fontSize="11px" color="fg.subtle" lineHeight="1.4">

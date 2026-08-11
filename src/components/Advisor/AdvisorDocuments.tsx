@@ -79,7 +79,7 @@ function DocumentRow({
         </Box>
 
         <Box flex="2" minW="200px">
-          <Text fontSize="13px" fontWeight={600} color="fg" truncate>
+          <Text textStyle="label" color="fg" truncate>
             {doc.name}
           </Text>
           <Text fontSize="11px" color="fg.subtle">
@@ -147,7 +147,7 @@ function DocumentRow({
             <Icon size={18} />
           </Box>
           <Box flex="1" minW="0">
-            <Text fontSize="13px" fontWeight={600} color="fg" mb="0.5">
+            <Text textStyle="label" color="fg" mb="0.5">
               {doc.name}
             </Text>
             <Text fontSize="11px" color="fg.subtle" mb="2">
@@ -299,7 +299,7 @@ export function AdvisorDocuments({ typeFilter = 'all', clientId }: AdvisorDocume
           {!isClientScoped && (
             <Flex align="center" justify="space-between" mb="4" flexWrap="wrap" gap="3">
               <Box>
-                <Heading as="h1" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={500} color="fg" mb="1">
+                <Heading as="h1" textStyle="pageTitle" color="fg" mb="1">
                   Documents
                 </Heading>
                 <Text fontSize="14px" color="fg.muted">

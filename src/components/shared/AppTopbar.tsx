@@ -50,7 +50,7 @@ function UserMenu({ viewMode, onSignOut }: Pick<AppTopbarProps, 'viewMode' | 'on
         <Button variant="ghost" h="auto" minH="11" py="1" px="2" gap="2" rounded="md" _hover={{ bg: 'nav.hoverBg' }}>
           <Avatar size="md" {...avatarProps} />
           <Box display={{ base: 'none', md: 'block' }} textAlign="left">
-            <Text fontSize="13px" fontWeight={600} color="fg" lineHeight="1.15">
+            <Text textStyle="label" color="fg" lineHeight="1.15">
               {userName}
             </Text>
             {userCompany && (

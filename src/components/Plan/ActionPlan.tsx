@@ -52,7 +52,7 @@ export function ActionPlan() {
   return (
     <Box flex="1" px={{ base: '4', md: '8' }} py="6" maxW="container.detail" w="full" mx="auto">
       {/* Title block → first region: 24px */}
-      <Heading as="h1" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={500} color="fg" mb="1">
+      <Heading as="h1" textStyle="pageTitle" color="fg" mb="1">
         Action plan
       </Heading>
       <Text fontSize="14px" color="fg.muted" mb="6">
@@ -140,7 +140,7 @@ export function ActionPlan() {
 
       {/* Completed — new region */}
       <Box mt="8">
-        <Text fontSize="md" fontWeight={500} color="fg" mb="3">
+        <Text textStyle="sectionHeader" color="fg" mb="3">
           Completed
         </Text>
         <Card display="flex" flexDir="column" gap="4">

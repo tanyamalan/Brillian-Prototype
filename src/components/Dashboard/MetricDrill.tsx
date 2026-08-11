@@ -242,7 +242,7 @@ export function MetricDrill({ metricId, onClose }: MetricDrillProps) {
                 <Flex px="6" py="4" borderTopWidth="1px" borderColor="border.subtle" align="center" gap="3">
                   <Avatar size="md" label="SC" color="citron.300" textColor="fg" shape="circle" />
                   <Box flex="1" minW="0">
-                    <Text fontSize="13px" fontWeight={600} color="fg" lineHeight="1.3">
+                    <Text textStyle="label" color="fg" lineHeight="1.3">
                       Still curious?
                     </Text>
                     <Text fontSize="12px" color="fg.subtle" lineHeight="1.3">

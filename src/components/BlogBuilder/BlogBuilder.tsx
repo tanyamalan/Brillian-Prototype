@@ -87,7 +87,7 @@ function Sidebar({ activeId, onSelect }: { activeId: string; onSelect: (id: stri
         <Text fontFamily="mono" fontSize="xs" color="brand.solid" fontWeight={600} letterSpacing="0.6px" textTransform="uppercase">
           Brillian
         </Text>
-        <Heading as="h2" fontSize="md" fontWeight={500} color="fg" lineHeight="1.2">
+        <Heading as="h2" textStyle="sectionHeader" color="fg" lineHeight="1.2">
           Blog builder
         </Heading>
         <Text fontSize="12px" color="fg.muted" mt="1">

@@ -60,11 +60,11 @@ export function CardHeader({
   return (
     <Box display="flex" alignItems="flex-start" justifyContent="space-between" gap="4">
       <Box minW="0">
-        <Box as="h2" fontSize="lg" fontWeight={500} color="fg" lineHeight="1.3">
+        <Box as="h2" textStyle="cardTitle" color="fg">
           {title}
         </Box>
         {description && (
-          <Box fontSize="14px" fontWeight={500} color="fg.muted" mt="1" lineHeight="1.5">
+          <Box textStyle="bodyEmphasis" color="fg.muted" mt="1" lineHeight="1.5">
             {description}
           </Box>
         )}

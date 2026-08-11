@@ -9,7 +9,7 @@ export function GoalBanner({ onStartOnboarding }: GoalBannerProps) {
   return (
     <Card mb="6" size="sm">
       <Flex align="center" gap="4" flexWrap={{ base: 'wrap', md: 'nowrap' }}>
-        <Text fontSize="13px" fontWeight={600} color="fg.muted" whiteSpace="nowrap">
+        <Text textStyle="label" color="fg.muted" whiteSpace="nowrap">
           Your Goal
         </Text>
         <Text fontSize="15px" color="fg">

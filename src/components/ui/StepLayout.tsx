@@ -97,7 +97,7 @@ export function FormField({
       // Guide: focused field shifts its label to Forest along with the border.
       css={{ '&:focus-within label': { color: 'var(--chakra-colors-forest-700)' } }}
     >
-      <Field.Label fontSize="13px" fontWeight={600} color="fg.muted" mb="1.5">
+      <Field.Label textStyle="label" color="fg.muted" mb="1.5">
         {label}
         {hint && (
           <Text as="span" fontWeight={400} color="fg.subtle" fontSize="12px" ml="1.5">

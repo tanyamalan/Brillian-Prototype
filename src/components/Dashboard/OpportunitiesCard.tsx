@@ -99,7 +99,7 @@ export function OpportunitiesCard() {
         <Text fontSize="14px" fontWeight={600} color="fg">
           Top Opportunities to close the gap
         </Text>
-        <Button variant="plain" color="brand.solid" fontSize="13px" fontWeight={600} p="0" h="auto">
+        <Button variant="plain" color="brand.solid" textStyle="label" p="0" h="auto">
           See All
         </Button>
       </Flex>

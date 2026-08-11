@@ -42,7 +42,7 @@ function ClientHeader({ clientId }: { clientId: string }) {
         <Avatar size="xl" color={client.logoColor} label={client.initials} />
         <Box flex="1" minW="0">
           <HStack gap="2" mb="0.5" flexWrap="wrap">
-            <Heading as="h1" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={500} color="fg">
+            <Heading as="h1" textStyle="pageTitle" color="fg">
               {client.name}
             </Heading>
             <Badge intent={status.intent} fontSize="11px">

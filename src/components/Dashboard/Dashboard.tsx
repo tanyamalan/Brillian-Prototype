@@ -106,7 +106,7 @@ export default function Dashboard({ onStartOnboarding }: DashboardProps) {
   return (
     <Box flex="1" px={{ base: '4', md: '8' }} py="6" maxW="container.detail" w="full" mx="auto">
       {/* Title block → first region: 24px */}
-      <Heading as="h1" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={500} color="fg" mb="1">
+      <Heading as="h1" textStyle="pageTitle" color="fg" mb="1">
         Welcome back, John
       </Heading>
       <Text fontSize="14px" color="fg.muted" mb="6">
@@ -118,7 +118,7 @@ export default function Dashboard({ onStartOnboarding }: DashboardProps) {
         <Text fontSize="12px" fontWeight={600} color="fg.subtle" textTransform="uppercase" letterSpacing="0.6px" mb="3">
           Q3 2026 · Estimated value
         </Text>
-        <Heading as="h2" fontSize={{ base: '3xl', md: '4xl' }} fontWeight={500} color="fg" lineHeight="1.15" letterSpacing="-0.02em" mb="2">
+        <Heading as="h2" textStyle="display" fontSize={{ base: '3xl', md: '4xl' }} color="fg" mb="2">
           Acme is worth about{' '}
           <Text as="span" fontWeight={700} color="brand.fg" whiteSpace="nowrap">
             $2.4M
@@ -160,7 +160,7 @@ export default function Dashboard({ onStartOnboarding }: DashboardProps) {
       </SimpleGrid>
 
       {/* One next-best-action — everything else lives in the drill-ins */}
-      <Text fontSize="md" fontWeight={500} color="fg" mb="3">
+      <Text textStyle="sectionHeader" color="fg" mb="3">
         Do this next
       </Text>
       <Card>

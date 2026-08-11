@@ -16,7 +16,7 @@ export function DisplayField({ label, value }: DisplayFieldProps) {
   const isEmpty = value === undefined || value === null || value === '';
   return (
     <Box>
-      <Text fontSize="13px" fontWeight={600} color="fg.muted" mb="1.5">
+      <Text textStyle="label" color="fg.muted" mb="1.5">
         {label}
       </Text>
       <Box

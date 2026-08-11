@@ -268,8 +268,8 @@ const cardSlotRecipe = defineSlotRecipe({
     header: { p: '0', gap: '0' },
     body: { p: '0', gap: '0' },
     footer: { p: '0' },
-    title: { fontSize: 'lg', fontWeight: 500, color: 'fg', lineHeight: 1.3, textStyle: 'none' },
-    description: { fontSize: 'sm', fontWeight: 500, color: 'fg.muted', mt: '1', textStyle: 'none' },
+    title: { textStyle: 'cardTitle', color: 'fg' },
+    description: { textStyle: 'bodyEmphasis', color: 'fg.muted', mt: '1' },
   },
   variants: {
     variant: {

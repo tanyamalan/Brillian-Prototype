@@ -175,7 +175,7 @@ export function AdvisorClientsList({ onSelectClient }: AdvisorClientsListProps) 
         mb="6"
       >
         <Box>
-          <Heading as="h1" fontSize={{ base: '2xl', md: '3xl' }} fontWeight={500} color="fg" mb="1">
+          <Heading as="h1" textStyle="pageTitle" color="fg" mb="1">
             Clients
           </Heading>
           <Text fontSize="14px" color="fg.muted">

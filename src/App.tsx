@@ -36,7 +36,7 @@ function PlaceholderPage({ title, body }: { title: string; body: string }) {
   return (
     <Box flex="1" px={{ base: '4', md: '8' }} py="6">
       <Card p={{ base: '6', md: '10' }} textAlign="center">
-        <Heading as="h2" fontSize="20px" fontWeight={500} color="fg" mb="2">
+        <Heading as="h2" textStyle="heading3" color="fg" mb="2">
           {title}
         </Heading>
         <Text fontSize="14px" color="fg.muted" maxW="480px" mx="auto">
