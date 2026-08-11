@@ -587,6 +587,23 @@ function TextSection() {
         <PreviewPanel bg={sand[50]} title="Primary on Sand 50" />
       </SimpleGrid>
 
+      <SubHead>Colored text</SubHead>
+      <Text fontSize="13.5px" color="fg.subtle" maxW="760px" mb="4" lineHeight="1.6">
+        The narrow, deliberate exceptions to "text only from Ink" — each family gets exactly one
+        text-safe step on white. There is no separate accent text token on white:{' '}
+        <Mono strong>fg.success</Mono> (Lime 800) IS the accent family's only contrast-safe text
+        step — one color, one name. On tinted backgrounds, use the matching{' '}
+        <Mono strong>status.*.text</Mono> / <Mono strong>accent.text</Mono> pairing instead.
+      </Text>
+      <GTable
+        head={['Token', 'Hex', 'Use for', 'Contrast']}
+        rows={[
+          [<Mono strong>fg.brand</Mono>, <><Sw hex={forest[600]} /><Mono>Forest 600 · {forest[600]}</Mono></>, <Text as="span" color="fg.subtle">Links, hero figures, brand emphasis (= brand.fg)</Text>, <Badge intent="success" rounded="sm">10.6 · AAA</Badge>],
+          [<Mono strong>fg.success</Mono>, <><Sw hex={lime[800]} /><Mono>Lime 800 · {lime[800]}</Mono></>, <Text as="span" color="fg.subtle">Positive figures, success messages — the lime/accent text step</Text>, <Badge intent="success" rounded="sm">5.5 · AA</Badge>],
+          [<Mono strong>fg.error</Mono>, <><Sw hex={brick[700]} /><Mono>Brick 700 · {brick[700]}</Mono></>, <Text as="span" color="fg.subtle">Error messages, negative emphasis</Text>, <Badge intent="success" rounded="sm">8.7 · AAA</Badge>],
+        ]}
+      />
+
       <SubHead>Links</SubHead>
       <Text fontSize="13.5px" color="fg.subtle" maxW="760px" mb="4" lineHeight="1.6">
         The one deliberate exception to the one rule: color signals interactivity, so links carry

@@ -301,6 +301,9 @@ export const semanticColors = {
     subtle: { ramp: 'ink', step: 500, name: 'text.subtle' },
     placeholder: { ramp: 'ink', step: 400, name: 'text.placeholder' },
     disabled: { ramp: 'ink', step: 400, name: 'text.disabled' },
+    // Brand text — links, hero figures, eyebrows. The colored-text exception
+    // to the one rule, alongside error/success.
+    brand: { ramp: 'forest', step: 600, name: 'text.brand' },
     error: { ramp: 'brick', step: 700, name: 'text.error' },
     // Lime 800 (not lighter): success text must clear 4.5:1 on white.
     success: { ramp: 'lime', step: 800, name: 'text.success' },

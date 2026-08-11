@@ -488,6 +488,7 @@ const config = defineConfig({
           subtle: { value: '{colors.ink.500}' },
           placeholder: { value: '{colors.ink.400}' },
           disabled: { value: '{colors.ink.400}' },
+          brand: { value: '{colors.forest.600}' }, // links, hero figures, eyebrows
           error: { value: '{colors.brick.700}' },
           success: { value: '{colors.lime.800}' }, // 4.5:1 on white
           inverse: { value: '{colors.ink.50}' },
