@@ -1,5 +1,5 @@
 import { createSystem, defaultConfig, defineConfig, defineRecipe, defineSlotRecipe } from '@chakra-ui/react';
-import { colorRamps, fontSizes, fonts, layoutSizes, radii, shadows, white } from './tokens';
+import { colorRamps, fontSizes, fonts, layoutSizes, radii, shadows, textStyles, white } from './tokens';
 import '../fonts.css'; // PP Telegraf @font-face (display tier)
 
 /**
@@ -409,6 +409,7 @@ const config = defineConfig({
     } as Record<string, unknown>),
   },
   theme: {
+    textStyles,
     tokens: {
       fonts: wrap(fonts),
       fontSizes: wrap(fontSizes),

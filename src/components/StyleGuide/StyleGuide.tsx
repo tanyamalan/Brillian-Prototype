@@ -800,47 +800,54 @@ function RadiusSection() {
 
 function TypographySection() {
   const def = SECTIONS.find(s => s.id === 'typography')!;
-  const samples: Array<{ token: keyof typeof fontSizes; label: string; weight: number; family?: 'display' }> = [
-    { token: '6xl', label: 'Marketing hero', weight: 400, family: 'display' },
-    { token: '5xl', label: 'Marketing display', weight: 400, family: 'display' },
-    { token: '4xl', label: 'Display', weight: 500 },
-    { token: '3xl', label: 'Heading 1', weight: 500 },
-    { token: '2xl', label: 'Heading 2', weight: 500 },
-    { token: 'xl', label: 'Heading 3', weight: 500 },
-    { token: 'lg', label: 'Card title', weight: 500 },
-    { token: 'md', label: 'Section header', weight: 500 },
-    { token: 'sm', label: 'Body', weight: 400 },
-    { token: 'xs', label: 'Caption', weight: 500 },
-    { token: '2xs', label: 'Fine print', weight: 500 },
+  // Roles render via textStyle — the pairings live once, in theme/tokens.ts.
+  const roles: Array<{ style: string; label: string; meta: string }> = [
+    { style: 'marketingHero', label: 'Marketing hero', meta: '6xl · 400 · Telegraf' },
+    { style: 'marketingDisplay', label: 'Marketing display', meta: '5xl · 400 · Telegraf' },
+    { style: 'display', label: 'Display', meta: '4xl · 500' },
+    { style: 'pageTitle', label: 'Page title', meta: '2xl → 3xl · 500' },
+    { style: 'heading2', label: 'Heading 2', meta: '2xl · 500' },
+    { style: 'heading3', label: 'Heading 3', meta: 'xl · 500' },
+    { style: 'cardTitle', label: 'Card title', meta: 'lg · 500' },
+    { style: 'sectionHeader', label: 'Section header', meta: 'md · 500' },
+    { style: 'body', label: 'Body', meta: 'sm · 400' },
+    { style: 'bodyEmphasis', label: 'Body emphasis', meta: 'sm · 500' },
+    { style: 'label', label: 'Field label', meta: '13px · 600' },
+    { style: 'caption', label: 'Caption', meta: 'xs · 500' },
+    { style: 'eyebrow', label: 'Eyebrow', meta: '11px · 600 · caps' },
+    { style: 'finePrint', label: 'Fine print', meta: '2xs · 500' },
   ];
 
   return (
-    <Section def={def} lede="Manrope across all surfaces. Body text uses two weights — 500 medium for emphasis, 400 regular for copy — and headings stay in medium, never bold. 600 semibold is reserved for small functional text only: button labels, field labels, and eyebrows.">
+    <Section def={def} lede="Manrope across all surfaces; PP Telegraf at 5xl+. Sizes and weights are never paired at call sites — every pairing is a named textStyle (size + weight + line-height + family, defined once in the theme), written as textStyle=&quot;cardTitle&quot;. The size scale itself stays pure.">
+      <SubHead>Roles — textStyles</SubHead>
       <Stack gap="3" maxW="860px">
-        {samples.map(s => (
-          <Flex key={s.token} align="baseline" gap="6" pb="3" borderBottomWidth="1px" borderColor="border.subtle" _last={{ borderBottomWidth: 0 }}>
-            <Box w={{ base: '80px', md: '120px' }} flexShrink={0}>
-              <Text fontFamily="mono" fontSize="xs" color="fg.subtle">
-                {s.token}
+        {roles.map(r => (
+          <Flex key={r.style} align="baseline" gap="6" pb="3" borderBottomWidth="1px" borderColor="border.subtle" _last={{ borderBottomWidth: 0 }}>
+            <Box w={{ base: '110px', md: '150px' }} flexShrink={0}>
+              <Text fontFamily="mono" fontSize="xs" color="fg">
+                {r.style}
               </Text>
               <Text fontFamily="mono" fontSize="xs" color="fg.subtle">
-                {fontSizes[s.token]} · {s.weight}
+                {r.meta}
               </Text>
             </Box>
-            <Text
-              fontSize={fontSizes[s.token]}
-              fontWeight={s.weight}
-              fontFamily={s.family}
-              color="fg"
-              lineHeight="1.2"
-              letterSpacing={s.weight === 600 && s.token === 'xs' ? '0.6px' : undefined}
-              textTransform={s.weight === 600 && s.token === 'xs' ? 'uppercase' : undefined}
-            >
-              {s.label}
+            <Text {...({ textStyle: r.style } as object)} color="fg">
+              {r.label}
             </Text>
           </Flex>
         ))}
       </Stack>
+
+      <SubHead>Size scale (primitives)</SubHead>
+      <Flex gap="2" flexWrap="wrap" maxW="860px">
+        {(Object.entries(fontSizes) as Array<[string, string]>).map(([k, v]) => (
+          <Flex key={k} align="baseline" gap="1.5" px="2.5" py="1.5" rounded="control" borderWidth="1px" borderColor="border.subtle">
+            <Text fontFamily="mono" fontSize="xs" color="fg">{k}</Text>
+            <Text fontFamily="mono" fontSize="xs" color="fg.subtle">{v}</Text>
+          </Flex>
+        ))}
+      </Flex>
       <Note>
         <B>Naming follows Chakra.</B> Step names are identical to Chakra's own scale — xs 12 through
         xl 20 match Chakra's defaults exactly; only the display steps are raised (2xl 26, 3xl 32,
@@ -852,10 +859,11 @@ function TypographySection() {
         everything below stays Manrope. The licensed files aren't committed to the public repo, so
         the stack falls back to Manrope where they're absent. Never re-map a Chakra step name to a different pixel value —
         Chakra components reference these names internally. Two component-level sizes are
-        deliberately NOT steps: <B>13px</B> field & button labels and <B>11px</B> eyebrows — pin
-        those explicitly in the recipe or component. <B>Page titles</B> (the h1 on every page) are{' '}
-        <Mono strong>3xl</Mono> (32) on desktop stepping down to <Mono strong>2xl</Mono> (26) on
-        mobile — always Medium 500, never an off-scale size like 24.
+        deliberately NOT steps: <B>13px</B> field & button labels and <B>11px</B> eyebrows — they
+        exist only inside their textStyles and recipes. <B>Page titles</B> are{' '}
+        <Mono strong>textStyle="pageTitle"</Mono> (2xl mobile → 3xl desktop, Medium 500). In code,
+        reach for a textStyle first; raw <Mono strong>fontSize</Mono> +{' '}
+        <Mono strong>fontWeight</Mono> pairs are for genuine one-offs only.
       </Note>
       <SubHead>Faces</SubHead>
       <GTable

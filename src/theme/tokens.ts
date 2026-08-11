@@ -164,6 +164,71 @@ export const fontSizes = {
   '9xl': '128px',
 } as const;
 
+// ===== Text styles =====
+// The role layer on top of the size scale: each pairs size + weight +
+// line-height (+ family / tracking) so call sites write
+// `textStyle="cardTitle"` instead of re-typing fontSize/fontWeight by hand.
+// fontSizes stays pure (sizes only); pairings live here, once.
+
+export const textStyles = {
+  marketingHero: {
+    description: 'Marketing hero — PP Telegraf carries the weight',
+    value: { fontFamily: 'display', fontSize: '6xl', fontWeight: '400', lineHeight: '1.1', letterSpacing: '-0.02em' },
+  },
+  marketingDisplay: {
+    description: 'Marketing display',
+    value: { fontFamily: 'display', fontSize: '5xl', fontWeight: '400', lineHeight: '1.1', letterSpacing: '-0.02em' },
+  },
+  display: {
+    description: 'Product display — hero stats',
+    value: { fontSize: '4xl', fontWeight: '500', lineHeight: '1.15', letterSpacing: '-0.02em' },
+  },
+  pageTitle: {
+    description: 'The h1 on every page — 2xl mobile, 3xl desktop',
+    value: { fontSize: { base: '2xl', md: '3xl' }, fontWeight: '500', lineHeight: '1.2' },
+  },
+  heading2: {
+    description: 'Section-level heading',
+    value: { fontSize: '2xl', fontWeight: '500', lineHeight: '1.25' },
+  },
+  heading3: {
+    description: 'Sub-heading',
+    value: { fontSize: 'xl', fontWeight: '500', lineHeight: '1.3' },
+  },
+  cardTitle: {
+    description: 'Card header title',
+    value: { fontSize: 'lg', fontWeight: '500', lineHeight: '1.3' },
+  },
+  sectionHeader: {
+    description: 'In-page section header above content',
+    value: { fontSize: 'md', fontWeight: '500', lineHeight: '1.35' },
+  },
+  body: {
+    description: 'Default body copy',
+    value: { fontSize: 'sm', fontWeight: '400', lineHeight: '1.5' },
+  },
+  bodyEmphasis: {
+    description: 'Emphasized body — medium, never bold',
+    value: { fontSize: 'sm', fontWeight: '500', lineHeight: '1.5' },
+  },
+  label: {
+    description: 'Field & button labels (component-level 13px)',
+    value: { fontSize: '13px', fontWeight: '600', lineHeight: '1.35' },
+  },
+  caption: {
+    description: 'Captions, metadata, helper text',
+    value: { fontSize: 'xs', fontWeight: '500', lineHeight: '1.4' },
+  },
+  eyebrow: {
+    description: 'Small-caps eyebrow over titles',
+    value: { fontSize: '11px', fontWeight: '600', lineHeight: '1.3', letterSpacing: '0.5px', textTransform: 'uppercase' },
+  },
+  finePrint: {
+    description: 'Smallest legible text',
+    value: { fontSize: '2xs', fontWeight: '500', lineHeight: '1.4' },
+  },
+} as const;
+
 // ===== Fonts =====
 
 export const fonts = {
